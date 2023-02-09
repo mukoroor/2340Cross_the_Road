@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.team18_2340'
+    namespace 'com.example.team18'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.team18_2340"
+        applicationId "com.example.team18"
         minSdk 21
         targetSdk 32
         versionCode 1
