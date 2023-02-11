@@ -1,4 +1,4 @@
-package com.example.team18_2340;
+package com.example.team18;
 
 import org.junit.Test;
 
