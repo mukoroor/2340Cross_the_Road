@@ -20,11 +20,14 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     Spinner spinner;
     String[] dif = {"easy", "medium", "hard"};
 
+    String selectedDiff;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        int spriteInd = retrieveSpriteInd();
         spinner = findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(LoginActivity.this,
                 android.R.layout.simple_spinner_item,dif);
@@ -32,19 +35,29 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        edUsername = findViewById(R.id.editTextLoginUserName);
+
+
         pre = findViewById(R.id.pre);
+        pre.setOnClickListener(view -> {
+            finish();
+        });
+
+
         submit = findViewById(R.id.submit);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = edUsername.getText().toString();
-                if(username.length()==0) {
-                    System.out.println("here");
-                    Toast.makeText(getApplicationContext(), "Please fill the username ",
-                            Toast.LENGTH_SHORT).show();
-                }
-//                startActivity(new Intent(LoginActivity.this, NewActivity.class));
+        submit.setOnClickListener(view -> {
+            boolean isValid = true;
+            String username = edUsername.getText().toString();
+            if(username.length()==0 || username.length() > 10) {
+                Toast.makeText(getApplicationContext(), "The username should be 1-10 characters long",
+                        Toast.LENGTH_SHORT).show();
+                isValid = false;
             }
+                if (isValid) {
+                    toGame(username, spinner.getSelectedItemPosition(), spriteInd);
+                }
+
         });
 
     }
@@ -58,16 +71,33 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         switch (position) {
             case 0:
                 // Whatever you want to happen when the first item gets selected
+                selectedDiff = dif[0];
                 break;
             case 1:
                 // Whatever you want to happen when the second item gets selected
+                selectedDiff = dif[1];
                 break;
             case 2:
                 // Whatever you want to happen when the thrid item gets selected
+                selectedDiff = dif[2];
                 break;
         }
     }
     public void onNothingSelected(AdapterView<?> parent) {
         // TODO
     }
+
+    private void toGame(String name, int difficulty, int spriteInd) {
+        //TODO: link activity to game activity
+        Intent playIntent = new Intent(this, MainActivity.class);
+        playIntent.putExtra("level", difficulty);
+        // TODO: create a player and pass on to next screen
+        playIntent.putExtra("player", "");
+        startActivity(playIntent);
+    }
+
+    private int retrieveSpriteInd() {
+        return getIntent().getIntExtra("spriteInd", 0);
+    }
+
 }

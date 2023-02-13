@@ -6,69 +6,59 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+
     <Button
         android:id="@+id/pre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Previous"
+        android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/submit"
         app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.742" />
+        app:layout_constraintVertical_bias="0.8125" />
 
     <Button
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"
+        android:text="@string/play"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.742" />
+        app:layout_constraintVertical_bias="0.8125" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:textColor="#353434"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.193" />
+
 
     <EditText
         android:id="@+id/editTextLoginUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="username"
+        android:hint="@string/enter_name"
+        android:gravity = "center"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.136" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="choose the Difficulty"
+        android:text="@string/choose_difficulty"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55"/>
 
     <Spinner
         android:id="@+id/spinner"
@@ -80,8 +70,19 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.033"
+        app:layout_constraintVertical_bias="0.0625"
         android:entries="@array/difficulty"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/editTextLoginUserName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground"
+        android:contentDescription="Sprite chosen in last screen" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
