@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CF1020"
+    tools:context=".SpriteSelector">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TableRow
+            android:id="@+id/characterGallery"
+            android:layout_width="match_parent"
+            android:layout_height="549dp">
+
+            <Button
+                android:id="@+id/leftButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0"
+                android:background="@drawable/leftarrow"
+                android:foreground="@drawable/leftarrow"
+                android:translationX="3dp"
+                app:iconPadding="0dp" />
+
+            <ImageView
+                android:id="@+id/spriteView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/__bit_character_1" />
+
+            <Button
+                android:id="@+id/rightButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/rightarrow"
+                android:foreground="@drawable/rightarrow"
+                android:translationX="-3dp"
+                app:iconPadding="1dp" />
+
+        </TableRow>
+
+        <TextView
+            android:id="@+id/spriteDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="MAN" />
+
+        <TableRow
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="182dp">
+
+            <Button
+                android:id="@+id/returnButton"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
+                android:text="RETURN"
+                android:translationX="42.75dp" />
+
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0"
+                android:text="SUBMIT"
+                android:translationX="128.25dp" />
+
+        </TableRow>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
