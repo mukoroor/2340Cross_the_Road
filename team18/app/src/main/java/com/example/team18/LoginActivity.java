@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         submit = findViewById(R.id.submit);
         submit.setOnClickListener(view -> {
             boolean isValid = true;
-            String username = edUsername.getText().toString();
+            String username = edUsername.getText().toString().trim();
             if(username.length()==0 || username.length() > 10) {
                 Toast.makeText(getApplicationContext(), "The username should be 1-10 characters long",
                         Toast.LENGTH_SHORT).show();
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     }
 
     private int retrieveSpriteInd() {
-        return getIntent().getIntExtra("spriteInd", 0);
+        return getIntent().getIntExtra("index", 0);
     }
 
 }
