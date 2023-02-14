@@ -9,7 +9,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7065158-855b-46df-b6ec-a5f3fdbfece4" name="Changes" comment="" />
+    <list default="true" id="e7065158-855b-46df-b6ec-a5f3fdbfece4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/team18/app/src/main/java/com/example/team18/SpriteSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/team18/app/src/main/java/com/example/team18/SpriteSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/team18/app/src/main/java/com/example/team18/StartScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/team18/app/src/main/java/com/example/team18/StartScreenActivity.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,18 +44,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "C:/Users/ajyii/OneDrive - Georgia Institute of Technology/Desktop/1.9.2023-5.5.2023 Spring GT/CS 2340/Cross_the_Road/team18"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ajyii/OneDrive - Georgia Institute of Technology/Desktop/1.9.2023-5.5.2023 Spring GT/CS 2340/Cross_the_Road/team18&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "XML"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;XML&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="team18.app.main" />

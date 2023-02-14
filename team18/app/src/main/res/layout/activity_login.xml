@@ -83,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/__bit_character_1" />
+        app:srcCompat="@drawable/man1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
