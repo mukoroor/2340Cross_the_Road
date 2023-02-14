@@ -27,9 +27,8 @@
         </activity>
 
         <activity android:name=".LoginActivity" />
-        <activity
-            android:name=".SpriteSelector"
-            android:exported="false" />
+        <activity android:name=".SpriteSelector"/>
+        <activity android:name=".GameScreenActivity" />
     </application>
 
 </manifest>

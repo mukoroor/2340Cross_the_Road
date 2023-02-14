@@ -52,7 +52,7 @@ public class Sprite {
     * Method for converting Stringified object to sprite.
     * @param object Stringified Sprite object.
     */
-    public Sprite parseString(String object) {
+    public static Sprite parseString(String object) {
         String[] tokens = object.split("[|]");
         String name = tokens[0];
         int ind = Integer.parseInt(tokens[1]);

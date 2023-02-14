@@ -22,6 +22,7 @@ public class GameScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_screen);
 
         level = retrieveGameDifficulty();
+        player = Sprite.parseString(retrievePlayerInfo());
 
         playerIndex = player.getSpriteIndex();
 
