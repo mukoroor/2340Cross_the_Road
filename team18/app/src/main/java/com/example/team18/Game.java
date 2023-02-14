@@ -12,7 +12,7 @@ public class Game {
     public Game(Sprite player, String difficulty, int deviceWidth) {
         this.player = player;
         this.blockSize = deviceWidth / 9;
-        this.playerPosition = new int[] {4 * blockSize , blockSize};
+        this.playerPosition = new int[] {4 * blockSize, blockSize};
         this.score = 0;
         this.difficulty = difficulty;
     }

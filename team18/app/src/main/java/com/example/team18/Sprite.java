@@ -1,11 +1,11 @@
 package com.example.team18;
 
-import java.util.Arrays;
 
 public class Sprite {
     private String name;
 
-    protected static int[][] spriteOptions = new int[][] {{R.drawable.__bit_character_1}, {R.drawable.jordle}};
+    protected static int[][] spriteOptions
+        = new int[][] {{R.drawable.__bit_character_1}, {R.drawable.jordle}};
 
     protected static String[] spriteDescriptions = new String[] {"MAN", "LLLL"};
     private int[] selectedSprite;
