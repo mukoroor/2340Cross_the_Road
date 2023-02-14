@@ -1,6 +1,7 @@
 package com.example.team18;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,12 +11,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.net.SocketPermission;
 
 public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText edUsername;
+
+    ImageView selectedSprite;
+
+    ConstraintLayout screen;
     Button pre, submit;
     Spinner spinner;
     String[] dif = {"easy", "medium", "hard"};
@@ -28,13 +36,20 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         int spriteInd = retrieveSpriteInd();
+
+        screen = findViewById(R.id.full_screen);
+        int[] screenSize = new int[]{screen.getWidth(), screen.getHeight()};
+
         spinner = findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(LoginActivity.this,
                 android.R.layout.simple_spinner_item,dif);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        selectedSprite = findViewById(R.id.imageView);
+        selectedSprite.setImageResource(Sprite.spriteOptions[spriteInd][0]);
+
 
         edUsername = findViewById(R.id.editTextLoginUserName);
 
@@ -55,7 +70,8 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
                 isValid = false;
             }
                 if (isValid) {
-                    toGame(username, spinner.getSelectedItemPosition(), spriteInd);
+                    Sprite player = new Sprite(spriteInd, username);
+                    toGame(player, spinner.getSelectedItemPosition());
                 }
 
         });
@@ -87,12 +103,12 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         // TODO
     }
 
-    private void toGame(String name, int difficulty, int spriteInd) {
+    private void toGame(Sprite player, int difficulty) {
         //TODO: link activity to game activity
-        Intent playIntent = new Intent(this, MainActivity.class);
+        Intent playIntent = new Intent(this, SpriteSelector.class);
         playIntent.putExtra("level", difficulty);
         // TODO: create a player and pass on to next screen
-        playIntent.putExtra("player", "");
+        playIntent.putExtra("player", player.toString());
         startActivity(playIntent);
     }
 
