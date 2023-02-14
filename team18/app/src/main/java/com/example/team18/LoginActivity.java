@@ -70,7 +70,8 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
                 isValid = false;
             }
                 if (isValid) {
-                    toGame(username, spinner.getSelectedItemPosition(), spriteInd);
+                    Sprite player = new Sprite(spriteInd, username);
+                    toGame(player, spinner.getSelectedItemPosition());
                 }
 
         });
@@ -102,12 +103,12 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         // TODO
     }
 
-    private void toGame(String name, int difficulty, int spriteInd) {
+    private void toGame(Sprite player, int difficulty) {
         //TODO: link activity to game activity
         Intent playIntent = new Intent(this, SpriteSelector.class);
         playIntent.putExtra("level", difficulty);
         // TODO: create a player and pass on to next screen
-        playIntent.putExtra("player", "");
+        playIntent.putExtra("player", player.toString());
         startActivity(playIntent);
     }
 
