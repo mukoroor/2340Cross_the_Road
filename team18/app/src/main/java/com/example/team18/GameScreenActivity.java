@@ -12,26 +12,22 @@ public class GameScreenActivity extends AppCompatActivity {
 
     private Sprite player;
 
-    private ImageView playerImage;
+    private int playerIndex;
+
+    ImageView playerImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
-        FrameLayout mainFrame = findViewById(R.id.mainFrame);
-        Sprite sprite = new Sprite();
-
-        player = sprite.parseString(retrievePlayerInfo());
-
         level = retrieveGameDifficulty();
 
-        switch (player.)
+        playerIndex = player.getSpriteIndex();
 
+        playerImage = findViewById(R.id.player);
 
-        }
-
-        mainFrame.addView(player);
+        playerImage.setImageResource(player.spriteOptions[playerIndex][0]);
     }
 
     private int retrieveGameDifficulty() {

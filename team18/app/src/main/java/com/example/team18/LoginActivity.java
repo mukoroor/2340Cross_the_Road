@@ -1,9 +1,5 @@
 package com.example.team18;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,20 +11,24 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.net.SocketPermission;
+import androidx.appcompat.app.AppCompatActivity;
+
+
+/**
+ * An Activity for displaying the login screen
+ */
 
 public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    EditText edUsername;
+    private EditText edUsername;
 
-    ImageView selectedSprite;
+    private ImageView selectedSprite;
+    private Button pre;
+    private Button submit;
+    private Spinner spinner;
+    private String[] dif = {"easy", "medium", "hard"};
 
-    ConstraintLayout screen;
-    Button pre, submit;
-    Spinner spinner;
-    String[] dif = {"easy", "medium", "hard"};
-
-    String selectedDiff;
+    private String selectedDiff;
 
 
     @Override
@@ -37,12 +37,9 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_login);
         int spriteInd = retrieveSpriteInd();
 
-        screen = findViewById(R.id.full_screen);
-        int[] screenSize = new int[]{screen.getWidth(), screen.getHeight()};
-
         spinner = findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(LoginActivity.this,
-                android.R.layout.simple_spinner_item,dif);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(LoginActivity.this,
+                android.R.layout.simple_spinner_item, dif);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -55,63 +52,87 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
         pre = findViewById(R.id.pre);
-        pre.setOnClickListener(view -> {
-            finish();
-        });
+        pre.setOnClickListener(view -> finish());
 
 
         submit = findViewById(R.id.submit);
         submit.setOnClickListener(view -> {
             boolean isValid = true;
             String username = edUsername.getText().toString().trim();
-            if(username.length()==0 || username.length() > 10) {
-                Toast.makeText(getApplicationContext(), "The username should be 1-10 characters long",
+            if (username.length() == 0 || username.length() > 10) {
+                Toast.makeText(getApplicationContext(),
+                    "The username should be 1-10 characters long",
                         Toast.LENGTH_SHORT).show();
                 isValid = false;
             }
-                if (isValid) {
-                    Sprite player = new Sprite(spriteInd, username);
-                    toGame(player, spinner.getSelectedItemPosition());
-                }
+            if (isValid) {
+                Sprite player = new Sprite(spriteInd, username);
+                toGame(player, spinner.getSelectedItemPosition());
+            }
 
         });
 
     }
-    public void onItemSelected (AdapterView<?> parent, View view, int position, long id) {
+
+    /**
+     * A method for controlling logic when an item is selected
+     * @param parent The spinner object
+     * @param view the view
+     * @param position the index the user is selectng
+     * @param id the id of the spinner
+     */
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String content = parent.getItemAtPosition(position).toString();
         switch (parent.getId()) {
-            case R.id.spinner:
-                Toast.makeText(LoginActivity.this, "selected difficulties is " + content,
-                        Toast.LENGTH_SHORT).show();
+        case R.id.spinner:
+            Toast.makeText(LoginActivity.this, "selected difficulties is " + content,
+                Toast.LENGTH_SHORT).show();
+            break;
+        default:
+            break;
         }
         switch (position) {
-            case 0:
-                // Whatever you want to happen when the first item gets selected
-                selectedDiff = dif[0];
-                break;
-            case 1:
-                // Whatever you want to happen when the second item gets selected
-                selectedDiff = dif[1];
-                break;
-            case 2:
-                // Whatever you want to happen when the thrid item gets selected
-                selectedDiff = dif[2];
-                break;
+        case 0:
+            // Whatever you want to happen when the first item gets selected
+            selectedDiff = dif[0];
+            break;
+        case 1:
+            // Whatever you want to happen when the second item gets selected
+            selectedDiff = dif[1];
+            break;
+        case 2:
+            // Whatever you want to happen when the thrid item gets selected
+            selectedDiff = dif[2];
+            break;
+        default:
+            break;
         }
     }
+
+    /**
+     * Does nothing special when selected
+     * @param parent the view
+     */
     public void onNothingSelected(AdapterView<?> parent) {
         // TODO
     }
 
+    /**
+     * A method that creates a new intent and passes information to next activity
+     * @param player The player to be passed into the game activity
+     * @param difficulty the difficulty to be passed into game object of game activity
+     */
     private void toGame(Sprite player, int difficulty) {
-        //TODO: link activity to game activity
-        Intent playIntent = new Intent(this, SpriteSelector.class);
+        Intent playIntent = new Intent(this, GameScreenActivity.class);
         playIntent.putExtra("level", difficulty);
-        // TODO: create a player and pass on to next screen
         playIntent.putExtra("player", player.toString());
         startActivity(playIntent);
     }
 
+    /**
+     * Method for getting the image the player will use (as an index)
+     * @return the index from the array full of images
+     */
     private int retrieveSpriteInd() {
         return getIntent().getIntExtra("index", 0);
     }

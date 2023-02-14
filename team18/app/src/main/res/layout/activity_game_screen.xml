@@ -1037,6 +1037,15 @@
         </LinearLayout>
 
 
+        <ImageView
+            android:id="@+id/player"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:srcCompat="@drawable/charmeleon"
+            android:layout_gravity="bottom|center_horizontal"
+            android:paddingBottom="20dp"/>
+
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,142 @@
+<vector android:height="200dp" android:viewportHeight="208"
+    android:viewportWidth="156" android:width="150dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#ffffff"
+        android:pathData="m120,132v4,4h2,2v4,4h2,2v-6,-6h-2,-2v-2,-2h-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m116,128v2,2h2,2v-2,-2h-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m56,92h-2,-2v2,2h4v-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m60,88h-2,-2v2,2h2,2v-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m60,84v2,2h2,2v-2,-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m44,96v2,2h2,2v-2,-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m44,92h-2,-2v4h2,2v-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m44,88v2,2h2,2v-2,-2h-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m40,76v2,2 2,2 2,2h2,2v-2,-2h2,2v-2,-2h-2,-2v-2,-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m132,72v2,2h2,2v-4h-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m108,88v-2,-2h-4v2,2h2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m112,92v-2,-2h-2,-2v2,2h2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m116,92h-2,-2v2,2h4v-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m124,96h-4v2,2h2,2v-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m124,92v2,2h2,2v-4h-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m124,72v2,2h-2,-2v2,2h-2,-2v2,2h2,2v2,2h-2,-2v2,2h4,4v-2,-2h2,2v-2,-2 -2,-2 -2,-2 -2,-2h-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m32,72v4h2,2v-2,-2h-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m76,60v2,2h4,4v-2,-2h-4z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m96,44v6,6h4v-4,-4 -4z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m44,40v2,6h2,2v-4,-4h-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m56,32h-2,-2v4,4h2,2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m56,28v2,2h2,2v-4h-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m68,28h-2,-2v2,2h2,2v-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m68,24v2,2h2,2v-2,-2h-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m104,24v2,2h2,2v2,2h2,2v-4,-4h-4z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m100,20v2,2h2,2v-2,-2h-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m76,20v4h4v-2,-2h-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m120,32h-2,-2v4h2,2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m92,96v-2,-2h-2,-2v2,2h2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m96,96h-2,-2v2,2h2,2v-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m88,88h2,2v2,2h2,2v2,2h2,2v-4,-4h-2,-2v-2,-2h-4,-2 -2v2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m92,104v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h2,2v-2,-2h-4,-4v-2,-2h-2,-2v-2,-2h-4,-4v2,2h2,2v2,2 4h2,2v2,2 4h2,2v2,2h2,2v2,2h2,2v-4h2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m8,172h-2,-2v6,2h2,2v2,2 4h2,2v2,2h2,2v2,2h2,2v2,2h4,2 2v2,2h4,8v-2,-2h4v-2,-2h-4,-4v-2,-2h-2,-2v-2,-2h-2,-2 -2,-2v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h-4,-4v-2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#ffffff"
+        android:pathData="m48,180h-2,-2v-4,-4h-2,-2v-2,-2h-4,-4v-2,-2h-2,-2v-6,-6h-2,-2v4,4h-2,-2v8,4h2,2v2,2h2,2v2,2h2,2v2,2h4,4v2,2h4,4v-2,-2 -2z"
+        android:strokeColor="#00000000" android:strokeLineCap="butt"
+        android:strokeLineJoin="miter" android:strokeWidth="1"/>
+    <path android:fillColor="#e79777" android:pathData="m40,102v-2h-2,-2v-2,-2h-2,-2v-2,-2h2,2v-2,-2h-6,-6v-4,-4h2,2v2,2h2,2v-4,-4h2,2v2,2h2,2v2,2h-2,-2v2,2h2,2v4,4h2,2v2,2h2,2v-2,-2h4,4v-2,-2h2,2v-2,-2h2,2v-2,-2h2,2v4,4h-2,-2v2,2h-2,-2v2,2h-4,-4v2,2h-6,-6zM116,102v-2h-4,-4v-2,-2h-2,-2v-4,-4h-2,-2v-2,-2h-4,-4v-2,-2h4,4v2,2h2,2v2,2h2,2v2,2h2,2v2,2h4,4v2,2h2,2v-2,-2h2,2v-4,-4h2,2v-2,-2h-2,-2v-2,-2h2,2v-2,-2h2,2v4,4h2,2v-2,-2h2,2v4,4h-6,-6v2,2h2,2v2,2h-2,-2v2,2h-2,-2v2,2h-6,-6zM80,82v-2h-2,-2v-2,-2h4,4v2,2h2,2v2,2h-4,-4zM16,76v-4h2,2v4,4h-2,-2zM148,76v-4h2,2v4,4h-2,-2zM24,74v-2h2,2v-2,-2h2,2v-2,-2h4,4v2,2h-4,-4v2,2h-2,-2v2,2h-2,-2zM140,74v-2h-2,-2v-2,-2h-4,-4v-2,-2h4,4v2,2h2,2v2,2h2,2v2,2h-2,-2zM76,70v-2h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h6,6v-2,-2h2,2v-2,-2h-4,-4v2,2h-2,-2v-2,-2h-2,-2v-2,-2h2,2v-2,-2h4,4v-2,-2h2,2v-2,-2h4,4v-2,-2h2,2v4,4h4,4v2,2h2,2v2,2h-2,-2v-2,-2h-4,-4v2,2h-2,-2v2,2h2,2v4,4h4,4v4,4h-2,-2v2,2h-4,-4v2,2h-6,-6zM84,66v-2h2,2v-2,-2h2,2v-2,-2h-2,-2v2,2h-8,-8v2,2h2,2v2,2h4,4zM80,42v-2h-2,-2v2,2h2,2z"/>
+    <path android:fillColor="#c7275f" android:pathData="m24,202v-2h2,2v2,2h-2,-2zM16,198v-2h-2,-2v-2,-2h-2,-2v-2,-2h2,2v2,2h2,2v2,2h2,2v2,2h-2,-2zM44,198v-2h-4,-4v-2,-2h-2,-2v-2,-2h-2,-2v-4,-4h-2,-2v-2,-2h-2,-2v-2,-2h2,2v2,2h2,2v2,2h2,2v2,2h4,4v2,2h4,4v-2,-2h2,2v2,2h10,10v-2,-2h4,4v-2,-2h2,2v-2,-2h2,2v-2,-2h2,2v-2,-2h2,2v-2,-2h2,2v-4,-4h-2,-2v-2,-2h-8,-8v-2,-2h-2,-2v-2,-2h-2,-2v2,2h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v-6,-6h2,2v-4,-4h2,2v-2,-2h2,2v-2,-2h2,2v-2,-2h2,2v-2,-2h2,2v2,2h2,2v2,2h2,2v2,2h4,4v2,2h4,4v2,2h2,2v2,2h2,2v2,2h2,2v-2,-2h2,2v2,2h2,2v2,2h2,2v2,2h2,2v10,10h-2,-2v4,4h-2,-2v4,4h-2,-2v2,2h-2,-2v2,2h-4,-4v2,2h-2,-2v2,2h-4,-4v2,2h-6,-6v2,2h-8,-8v2,2h-12,-12zM128,142v-6h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v2,2h2,2v4,4h2,2v4,4h2,2zM72,142v-2h-2,-2v-2,-2h-2,-2v2,2h2,2v2,2h2,2zM112,130v-2h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v2,2h2,2v2,2h2,2v2,2h2,2zM80,106v-2h-2,-2v2,2h2,2zM4,182v-2h2,2v2,2h-2,-2zM88,98v-2h-2,-2v-2,-2h2,2v-2,-2h-4,-4v-2,-2h-2,-2v-2,-2h2,2v2,2h4,4v-2,-2h-2,-2v-2,-2h-4,-4v-2,-2h-2,-2v2,2h-2,-2v2,2h-4,-4v2,2h-2,-2v2,2h-4,-4v-2,-2h2,2v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h4,4v-2,-2h-4,-4v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v-4,-4h2,2v2,2h2,2v2,2h2,2v2,2h2,2v-4,-4h-2,-2v-2,-2h2,2v-4,-4h-2,-2v-4,-4h2,2v-4,-4h2,2v-4,-4h2,2v-2,-2h2,2v-2,-2h2,2v2,2h6,6v-2,-2h-2,-2v-2,-2h10,10v2,2h4,4v2,2h-4,-4v2,2h6,6v2,2h4,4v2,2h2,2v6,6h2,2v8,8h2,2v-2,-2h2,2v4,4h-2,-2v2,2h2,2v2,2h-2,-2v-2,-2h-2,-2v4,4h-4,-4v2,2h4,4v2,2h-2,-2v2,2h-2,-2v2,2h2,2v2,2h-2,-2v-2,-2h-2,-2v-2,-2h-4,-4v-2,-2h-4,-4v-2,-2h-2,-2v-2,-2h2,2v2,2h4,4v-4,-4h2,2v-2,-2h2,2v-2,-2h2,2v-8,-8h-2,-2v-4,-4h-2,-2v-2,-2h-2,-2v-2,-2h-4,-4v2,2h-2,-2v2,2h-2,-2v-2,-2h2,2v-2,-2h2,2v-4,-4h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v2,2h-2,-2v2,2h4,4v4,4h-2,-2v-2,-2h-2,-2v4,4h-2,-2v2,2h-2,-2v2,2h4,4v-2,-2h2,2v2,2h-2,-2v2,2h2,2v2,2h-2,-2v-2,-2h-4,-4v2,2h-2,-2v2,2h2,2v2,2h-2,-2v2,2h-2,-2v4,4h2,2v-2,-2h2,2v2,2h2,2v-2,-2h2,2v2,2h4,4v-2,-2h2,2v-2,-2h2,2v2,2h-2,-2v2,2h-2,-2v2,2h-4,-4v2,2h4,4v2,2h2,2v2,2h2,2v2,2h-2,-2v2,2h2,2v2,2h2,2v2,2h-2,-2v2,2h-2,-2zM92,94v-2h-2,-2v2,2h2,2zM64,74v-2h4,4v-2,-2h2,2v-2,-2h-2,-2v2,2h-2,-2v-2,-2h-2,-2v4,4h-4,-4v2,2h4,4zM108,74v-2h-4,-4v2,2h4,4zM52,62v-2h-2,-2v2,2h2,2zM116,62v-2h-2,-2v2,2h2,2zM60,54v-2h2,2v-2,-2h-2,-2v-2,-2h2,2v-2,-2h2,2v-2,-2h-2,-2v2,2h-2,-2v-6,-6h2,2v2,2h2,2v-2,-2h2,2v-2,-2h-2,-2v-2,-2h2,2v-2,-2h-2,-2v2,2h-2,-2v2,2h-2,-2v2,2h-2,-2v2,2h-2,-2v4,4h2,2v8,8h2,2zM64,26v-2h2,2v2,2h-2,-2zM120,54v-2h-2,-2v2,2h2,2zM112,28v-4h-4,-4v-2,-2h-2,-2v2,2h2,2v2,2h2,2v2,2h2,2zM60,18v-2h2,2v-2,-2h-2,-2v2,2h-2,-2v2,2h2,2zM92,10v-2h-2,-2v2,2h2,2zM72,94v-2h2,2v2,2h-2,-2zM24,90v-2h6,6v-2,-2h2,2v2,2h-2,-2v2,2h-6,-6zM132,90v-2h-2,-2v-2,-2h2,2v2,2h6,6v2,2h-6,-6zM68,86v-2h2,2v2,2h-2,-2zM20,78v-6h2,2v-2,-2h2,2v-2,-2h2,2v2,2h-2,-2v2,2h-2,-2v2,2h2,2v2,2h2,2v2,2h-2,-2v-2,-2h-2,-2v2,2h-2,-2zM136,82v-2h2,2v-2,-2h2,2v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h2,2v2,2h2,2v2,2h2,2v6,6h-2,-2v-2,-2h-2,-2v2,2h-2,-2zM36,78v-2h2,2v2,2h-2,-2zM128,78v-2h2,2v2,2h-2,-2zM36,70v-2h2,2v2,2h-2,-2zM128,70v-2h2,2v2,2h-2,-2zM76,50v-2h2,2v2,2h-2,-2zM100,48v-4h-4,-4v2,2h-2,-2v-2,-2h2,2v-2,-2h4,4v2,2h2,2v4,4h-2,-2zM92,34v-2h2,2v2,2h-2,-2z"/>
+    <path android:fillColor="#000000" android:pathData="m24,206v-2h-4,-4v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v-4,-4h-2,-2v-6,-6h2,2v-2,-2h2,2v2,2h4,4v-6,-6h2,2v-4,-4h2,2v-2,-2h2,2v2,2h2,2v6,6h4,4v2,2h2,2v2,2h2,2v4,4h2,2v2,2h10,10v-2,-2h4,4v-2,-2h2,2v-2,-2h2,2v-2,-2h2,2v-2,-2h2,2v-4,-4h-8,-8v-2,-2h-8,-8v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v-8,-8h2,2v-4,-4h2,2v-2,-2h2,2v-2,-2h2,2v-2,-2h2,2v-4,-4h-4,-4v2,2h-2,-2v2,2h-4,-4v2,2h-6,-6v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h-4,-4v-2,-2h-2,-2v-4,-4h-2,-2v-2,-2h-2,-2v-4,-4h2,2v-2,-2h4,4v-2,-2h2,2v-10,-10h4,4v2,2h2,2v-8,-8h2,2v-4,-4h2,2v-4,-4h2,2v-2,-2h2,2v-2,-2h2,2v-2,-2h6,6v-2,-2h10,10v2,2h4,4v2,2h4,4v2,2h2,2v2,2h2,2v4,4h2,2v4,4h2,2v6,6h2,2v2,2h2,2v6,6h4,4v2,2h2,2v2,2h4,4v2,2h2,2v4,4h-2,-2v2,2h-2,-2v4,4h-2,-2v2,2h-4,-4v2,2h-2,-2v2,2h-2,-2v2,2h-6,-6v-2,-2h-4,-4v-2,-2h-2,-2v-2,-2h-2,-2v2,2h-2,-2v2,2h-2,-2v2,2h2,2v2,2h4,4v2,2h4,4v2,2h4,4v2,2h2,2v2,2h2,2v2,2h2,2v2,2h2,2v10,10h-2,-2v4,4h-2,-2v4,4h-2,-2v2,2h-2,-2v2,2h-2,-2v2,2h-4,-4v2,2h-2,-2v2,2h-4,-4v2,2h-6,-6v2,2h-8,-8v2,2h-14,-14v2,2h-8,-8zM40,202v-2h14,14v-2,-2h8,8v-2,-2h6,6v-2,-2h4,4v-2,-2h2,2v-2,-2h4,4v-2,-2h2,2v-2,-2h2,2v-4,-4h2,2v-4,-4h2,2v-10,-10h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v2,2h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h-4,-4v-2,-2h-4,-4v-4,-4h2,2v-2,-2h2,2v-2,-2h2,2v-4,-4h2,2v4,4h2,2v2,2h4,4v2,2h6,6v-2,-2h2,2v-2,-2h2,2v-2,-2h4,4v-4,-4h2,2v-2,-2h2,2v-4,-4h-4,-4v-2,-2h-2,-2v-2,-2h-6,-6v-2,-2h-2,-2v-2,-2h2,2v-4,-4h-2,-2v2,2h-2,-2v-10,-10h-2,-2v-4,-4h-2,-2v-2,-2h-4,-4v-2,-2h-6,-6v-2,-2h4,4v-2,-2h-4,-4v-2,-2h-10,-10v2,2h2,2v2,2h-6,-6v-2,-2h-2,-2v2,2h-2,-2v2,2h-2,-2v4,4h-2,-2v4,4h-2,-2v10,10h2,2v4,4h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v4,4h2,2v2,2h2,2v2,2h-6,-6v2,2h-2,-2v2,2h-4,-4v4,4h2,2v2,2h2,2v4,4h4,4v2,2h2,2v2,2h2,2v2,2h6,6v-2,-2h4,4v-2,-2h2,2v-2,-2h2,2v-2,-2h2,2v4,4h2,2v4,4h-2,-2v2,2h-2,-2v2,2h-2,-2v2,2h-2,-2v4,4h-2,-2v6,6h2,2v2,2h2,2v2,2h2,2v2,2h2,2v-2,-2h2,2v2,2h2,2v2,2h8,8v2,2h2,2v4,4h-2,-2v2,2h-2,-2v2,2h-2,-2v2,2h-2,-2v2,2h-2,-2v2,2h-4,-4v2,2h-10,-10v-2,-2h-2,-2v-2,-2h-2,-2v-4,-4h-2,-2v-2,-2h-4,-4v-2,-2h-2,-2v-6,-6h-2,-2v4,4h-2,-2v8,8h2,2v2,2h2,2v4,4h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h-4,-4v-2,-2h-2,-2v6,6h2,2v4,4h2,2v2,2h2,2v2,2h4,4v2,2h8,8zM68,142v-2h-2,-2v-2,-2h2,2v2,2h2,2v2,2h-2,-2zM108,130v-2h-2,-2v-2,-2h-2,-2v-2,-2h2,2v2,2h2,2v2,2h2,2v2,2h-2,-2zM76,106v-2h2,2v2,2h-2,-2zM44,94v-2h-2,-2v-2,-2h2,2v-2,-2h2,2v-2,-2h-2,-2v-2,-2h-4,-4v-2,-2h-2,-2v4,4h-2,-2v-4,-4h2,2v-2,-2h2,2v2,2h2,2v-4,-4h2,2v2,2h4,4v2,2h-4,-4v2,2h2,2v2,2h2,2v2,2h-2,-2v2,2h4,4v-2,-2h2,2v-2,-2h4,4v-2,-2h2,2v-2,-2h-4,-4v2,2h-4,-4v-2,-2h4,4v-4,-4h-2,-2v-4,-4h-2,-2v-12,-12h2,2v4,4h2,2v-2,-2h2,2v-2,-2h2,2v-2,-2h2,2v-2,-2h4,4v-4,-4h-4,-4v-2,-2h2,2v-2,-2h2,2v2,2h2,2v-2,-2h2,2v2,2h-2,-2v2,2h2,2v4,4h4,4v2,2h2,2v2,2h2,2v4,4h2,2v8,8h-2,-2v2,2h-2,-2v2,2h-2,-2v4,4h4,4v2,2h-4,-4v2,2h4,4v2,2h2,2v-2,-2h2,2v-2,-2h2,2v-2,-2h-4,-4v-2,-2h4,4v-4,-4h2,2v2,2h2,2v4,4h2,2v-2,-2h2,2v2,2h2,2v4,4h-2,-2v-4,-4h-2,-2v2,2h-2,-2v-2,-2h-2,-2v2,2h-2,-2v2,2h-2,-2v2,2h2,2v2,2h-2,-2v2,2h4,4v-2,-2h2,2v2,2h-2,-2v2,2h-4,-4v-2,-2h-2,-2v-2,-2h-2,-2v-2,-2h-4,-4v2,2h-2,-2v-2,-2h2,2v-2,-2h-6,-6v-2,-2h-2,-2v-2,-2h4,4v-2,-2h2,2v-2,-2h2,2v-6,-6h2,2v-6,-6h-2,-2v-2,-2h-2,-2v-2,-2h-2,-2v-4,-4h-2,-2v2,2h-2,-2v2,2h-4,-4v2,2h-4,-4v2,2h-2,-2v2,2h-2,-2v2,2h2,2v2,2h4,4v-2,-2h2,2v4,4h-6,-6v4,4h2,2v2,2h2,2v2,2h2,2v4,4h-4,-4v2,2h-4,-4v2,2h-2,-2v2,2h-2,-2v2,2h-4,-4zM48,90v-2h-2,-2v2,2h2,2zM116,86v-2h-2,-2v2,2h2,2zM100,74v-2h-4,-4v2,2h4,4zM64,54v-2h-2,-2v2,2h2,2zM48,62v-2h2,2v2,2h-2,-2zM112,62v-2h2,2v2,2h-2,-2zM92,50v-6h2,2v6,6h-2,-2zM116,54v-2h2,2v2,2h-2,-2zM60,26v-2h2,2v-2,-2h2,2v-2,-2h2,2v2,2h-2,-2v2,2h-2,-2v2,2h-2,-2zM56,18v-2h2,2v-2,-2h2,2v2,2h-2,-2v2,2h-2,-2z"/>
+</vector>
