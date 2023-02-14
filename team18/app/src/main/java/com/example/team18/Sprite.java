@@ -9,9 +9,12 @@ public class Sprite {
     protected static int[][] spriteOptions = new int[][]
         {{R.drawable.man1}, {R.drawable.man2}, {R.drawable.mermaid}, {R.drawable.charmeleon}};
 
+
     protected static String[] spriteDescriptions = new String[]
         {"MAN1", "MAN2", "MERMAID", "CHARMELEON"};
     private int[] selectedSprite;
+
+    private int spriteIndex;
     private int lives = 5;
 
     /**
@@ -22,6 +25,7 @@ public class Sprite {
      */
     public Sprite(int spriteIndex, String playerName) {
         selectedSprite = spriteOptions[spriteIndex];
+        this.spriteIndex = spriteIndex;
         name = playerName;
     }
 
@@ -39,5 +43,25 @@ public class Sprite {
      */
     public int getLives() {
         return lives;
+    }
+
+    @Override
+    public String toString() {
+        return name + "|" + spriteIndex + "|" + lives;
+    }
+
+    /**
+    * Method for converting Stringified object to sprite.
+    * @param object Stringified Sprite object.
+    */
+    public Sprite parseString(String object) {
+        String[] tokens = object.split("[|]");
+        String name = tokens[0];
+        int ind = Integer.parseInt(tokens[1]);
+        int lives = Integer.parseInt(tokens[2]);
+        Sprite parsed = new Sprite(ind, name);
+        parsed.setLives(lives);
+
+        return parsed;
     }
 }
