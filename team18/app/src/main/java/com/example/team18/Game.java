@@ -1,5 +1,9 @@
 package com.example.team18;
 
+/**
+ * Structural Class.
+ * Stores Global variables for game.
+ */
 public class Game {
     private Sprite player;
 
@@ -9,6 +13,12 @@ public class Game {
     private int score;
     private String difficulty;
 
+    /**
+     * Constructor for new Game object.
+     * @param player The Sprite the player has chosen.
+     * @param difficulty The difficulty level of the game.
+     * @param deviceWidth The width of the device the game is being played on.
+     */
     public Game(Sprite player, String difficulty, int deviceWidth) {
         this.player = player;
         this.blockSize = deviceWidth / 9;
@@ -17,17 +27,40 @@ public class Game {
         this.difficulty = difficulty;
     }
 
+    /**
+     * Calculates movements of Sprite.
+     * Moves Sprite position by deltaX * block-size and deltaY * block-size
+     * in their respective dimensions.
+     * @param deltaX change in position in X-axis.
+     * @param deltaY change in position in Y-axis.
+     */
     public void changePosition(int deltaX, int deltaY) {
         playerPosition[0] += deltaX * blockSize;
         playerPosition[1] += deltaY * blockSize;
     }
 
+    /**
+     * Method for changing current game score.
+     * @param newScore the newScore the player has.
+     */
     public void setScore(int newScore) {
         score = newScore;
     }
 
+    /**
+     * Method for getting the current game score.
+     * @return the current score of the game.
+     */
     public int getScore() {
         return score;
+    }
+
+    /**
+     * Method for getting the Sprite object of the player.
+     * @return The sprite object corresponding to the current game.
+     */
+    public Sprite getPlayer() {
+        return player;
     }
 
 }
