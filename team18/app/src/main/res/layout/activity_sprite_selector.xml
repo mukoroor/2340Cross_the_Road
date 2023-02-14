@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/__bit_character_1" />
+                app:srcCompat="@drawable/man1" />
 
             <Button
                 android:id="@+id/rightButton"
