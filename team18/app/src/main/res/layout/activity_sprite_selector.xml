@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CF1020"
-    tools:context=".SpriteSelector">
+    tools:context=".SpriteSelector"
+    tools:visibility="visible">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/volcano">
 
         <TableRow
             android:id="@+id/characterGallery"
@@ -19,14 +21,13 @@
 
             <Button
                 android:id="@+id/leftButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0"
                 android:background="@drawable/leftarrow"
                 android:foreground="@drawable/leftarrow"
-                android:translationX="3dp"
-                app:iconPadding="0dp" />
+                android:translationX="25dp" />
 
             <ImageView
                 android:id="@+id/spriteView"
@@ -38,13 +39,13 @@
 
             <Button
                 android:id="@+id/rightButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/rightarrow"
+                android:backgroundTint="#0DBD49"
                 android:foreground="@drawable/rightarrow"
-                android:translationX="-3dp"
-                app:iconPadding="1dp" />
+                android:translationX="-25dp" />
 
         </TableRow>
 
@@ -53,7 +54,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="MAN" />
+            android:fontFamily="@font/gomarice_no_continue"
+            android:text="MAN"
+            android:textColor="#f4e0da"
+            android:textFontWeight="1000"
+            android:shadowColor="#000000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="20"
+            android:textSize="50sp" />
 
         <TableRow
             android:id="@+id/navigation"
@@ -65,7 +74,12 @@
                 android:layout_width="120dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_vertical"
+                android:fontFamily="@font/gomarice_no_continue"
                 android:text="RETURN"
+                android:textColor="#f4e0da"
+                android:backgroundTint="#945b4a"
+                android:textFontWeight="1000"
+                android:textSize="24sp"
                 android:translationX="42.75dp" />
 
             <Button
@@ -75,7 +89,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0"
                 android:text="SUBMIT"
-                android:translationX="128.25dp" />
+                android:textColor="#f4e0da"
+                android:backgroundTint="#945b4a"
+                android:textFontWeight="1000"
+                android:fontFamily="@font/gomarice_no_continue"
+                android:translationX="128.25dp"
+                android:textSize="24sp"/>
 
         </TableRow>
 
