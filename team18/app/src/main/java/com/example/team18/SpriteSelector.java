@@ -82,9 +82,7 @@ public class SpriteSelector extends AppCompatActivity {
         });
 
         returnButton.setOnClickListener(e -> {
-            Intent start = new Intent(this, MainActivity.class);
-            start.putExtra("index", pointer);
-            startActivity(start);
+            finish();
         });
     }
 }

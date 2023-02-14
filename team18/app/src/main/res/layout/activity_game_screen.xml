@@ -1,0 +1,1051 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameScreenActivity">
+
+    <FrameLayout
+        android:id="@+id/mainFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/backgroundGrid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/row14"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row13">
+
+                <ImageView
+                    android:id="@+id/imageViewA14"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB14"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC14"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD14"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE14"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF14"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG14"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH14"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row13"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row12">
+
+                <ImageView
+                    android:id="@+id/imageViewA13"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB13"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC13"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD13"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE13"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF13"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG13"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH13"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row12"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row11">
+
+                <ImageView
+                    android:id="@+id/imageViewA12"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB12"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC12"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD12"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE12"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF12"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG12"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/stump_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH12"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row11"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row10">
+
+                <ImageView
+                    android:id="@+id/imageViewA11"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB11"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC11"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD11"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/stump_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE11"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF11"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG11"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH11"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row10"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row9">
+
+                <ImageView
+                    android:id="@+id/imageViewA10"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB10"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC10"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD10"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE10"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF10"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG10"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH10"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row9"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row8">
+
+                <ImageView
+                    android:id="@+id/imageViewA9"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB9"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC9"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD9"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE9"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF9"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG9"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH9"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row8"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row7">
+
+                <ImageView
+                    android:id="@+id/imageViewA8"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB8"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/stump_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC8"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD8"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE8"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF8"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG8"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH8"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row7"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row6">
+
+                <ImageView
+                    android:id="@+id/imageViewA7"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB7"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC7"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD7"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE7"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF7"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/stump_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG7"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH7"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row6"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row5">
+
+                <ImageView
+                    android:id="@+id/imageViewA6"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB6"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC6"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD6"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE6"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF6"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG6"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH6"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row5"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row4">
+
+                <ImageView
+                    android:id="@+id/imageViewA5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row4"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row3">
+
+                <ImageView
+                    android:id="@+id/imageViewA4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row2">
+
+                <ImageView
+                    android:id="@+id/imageViewA3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/stump_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/stump_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row1">
+
+                <ImageView
+                    android:id="@+id/imageViewA2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/log_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/lava_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/row0">
+
+                <ImageView
+                    android:id="@+id/imageViewA1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/stump_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row0"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageViewA0"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewB0"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/stump_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewC0"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewD0"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewE0"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewF0"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewG0"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/stump_block" />
+
+                <ImageView
+                    android:id="@+id/imageViewH0"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rock_block" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/usernameTile"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:background="#ED2314"
+            android:orientation="vertical"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/playerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Player: K3LL3Y"
+                android:textSize="30dp"
+                android:textColor="#ff000000"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Player: K3LL3Y"
+                android:textSize="30sp"
+                android:textColor="#ff000000"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lives"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="right">
+
+            <ImageView
+                android:id="@+id/life1"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/heart" />
+
+            <ImageView
+                android:id="@+id/life2"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/heart" />
+
+            <ImageView
+                android:id="@+id/life3"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/heart" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/player"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:srcCompat="@drawable/charmeleon"
+            android:layout_gravity="bottom|center_horizontal"
+            android:paddingBottom="20dp"/>
+
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

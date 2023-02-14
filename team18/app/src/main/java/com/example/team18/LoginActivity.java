@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
      * @param difficulty the difficulty to be passed into game object of game activity
      */
     private void toGame(Sprite player, int difficulty) {
-        Intent playIntent = new Intent(this, SpriteSelector.class);
+        Intent playIntent = new Intent(this, GameScreenActivity.class);
         playIntent.putExtra("level", difficulty);
         playIntent.putExtra("player", player.toString());
         startActivity(playIntent);

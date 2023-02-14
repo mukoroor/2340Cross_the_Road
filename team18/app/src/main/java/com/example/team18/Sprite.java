@@ -12,7 +12,6 @@ public class Sprite {
 
     protected static String[] spriteDescriptions = new String[]
         {"MAN1", "MAN2", "MERMAID", "CHARMELEON"};
-    private int[] selectedSprite;
 
     private int spriteIndex;
     private int lives = 5;
@@ -24,7 +23,6 @@ public class Sprite {
      * @param playerName The name the player has given to the Sprite.
      */
     public Sprite(int spriteIndex, String playerName) {
-        selectedSprite = spriteOptions[spriteIndex];
         this.spriteIndex = spriteIndex;
         name = playerName;
     }
@@ -54,7 +52,7 @@ public class Sprite {
     * Method for converting Stringified object to sprite.
     * @param object Stringified Sprite object.
     */
-    public Sprite parseString(String object) {
+    public static Sprite parseString(String object) {
         String[] tokens = object.split("[|]");
         String name = tokens[0];
         int ind = Integer.parseInt(tokens[1]);
@@ -63,5 +61,13 @@ public class Sprite {
         parsed.setLives(lives);
 
         return parsed;
+    }
+
+    /**
+     * Getter for sprite index.
+     * @return sprite index
+     */
+    public int getSpriteIndex() {
+        return spriteIndex;
     }
 }
