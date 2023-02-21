@@ -2,17 +2,13 @@ package com.example.team18;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 public class GameScreenActivity extends AppCompatActivity {
-
-    private int level;
-
     private Sprite player;
-
-    private int playerIndex;
 
     ImageView playerImage;
 
@@ -21,21 +17,25 @@ public class GameScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
-        level = retrieveGameDifficulty();
-        player = Sprite.parseString(retrievePlayerInfo());
+        player = Sprite.parseString(getPlayerInfo());
 
-        playerIndex = player.getSpriteIndex();
+        int displayWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        int difficulty= getGameDifficulty();
+
+        Game currentGame = new Game(player, difficulty, displayWidth);
+
 
         playerImage = findViewById(R.id.player);
 
-        playerImage.setImageResource(player.spriteOptions[playerIndex][0]);
+        int spriteIndex = player.getSpriteIndex();
+        playerImage.setImageResource(Sprite.spriteOptions[spriteIndex][0]);
     }
 
-    private int retrieveGameDifficulty() {
+    private int getGameDifficulty() {
         return getIntent().getIntExtra("level", 0);
     }
 
-    private String retrievePlayerInfo() {
+    private String getPlayerInfo() {
         return getIntent().getStringExtra("player");
     }
 }

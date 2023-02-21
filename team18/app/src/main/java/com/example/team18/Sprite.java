@@ -5,16 +5,14 @@ package com.example.team18;
  */
 public class Sprite {
     private String name;
+    private int spriteIndex;
+    private int lives = 5;
 
     protected static int[][] spriteOptions = new int[][]
         {{R.drawable.man1}, {R.drawable.man2}, {R.drawable.mermaid}, {R.drawable.charmeleon}};
 
-
     protected static String[] spriteDescriptions = new String[]
         {"MAN1", "MAN2", "MERMAID", "CHARMELEON"};
-
-    private int spriteIndex;
-    private int lives = 5;
 
     /**
      * Constructor for creating a Sprite.

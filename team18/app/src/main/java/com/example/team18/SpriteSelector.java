@@ -17,7 +17,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class SpriteSelector extends AppCompatActivity {
-    private int pointer = 0;
+    private static int pointer = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +34,8 @@ public class SpriteSelector extends AppCompatActivity {
 
         final TextView spriteDescription = findViewById(R.id.spriteDescription);
 
-        final Button submitButton = findViewById(R.id.submitButton);
-        final Button returnButton = findViewById(R.id.returnButton);
+        final TextView submitButton = findViewById(R.id.submitButton);
+        final TextView returnButton = findViewById(R.id.returnButton);
         final TableRow navigation = findViewById(R.id.navigation);
 
         final int viewWidth = Resources.getSystem().getDisplayMetrics().widthPixels;

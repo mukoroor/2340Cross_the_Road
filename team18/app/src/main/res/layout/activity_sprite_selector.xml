@@ -24,7 +24,6 @@
                 android:layout_width="60dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0"
                 android:background="@drawable/leftarrow"
                 android:foreground="@drawable/leftarrow"
                 android:translationX="25dp" />
@@ -43,25 +42,16 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/rightarrow"
-                android:backgroundTint="#0DBD49"
                 android:foreground="@drawable/rightarrow"
                 android:translationX="-25dp" />
 
         </TableRow>
 
         <TextView
+            style="@style/text"
             android:id="@+id/spriteDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/gomarice_no_continue"
+            android:layout_width="match_parent"
             android:text="MAN"
-            android:textColor="#f4e0da"
-            android:textFontWeight="1000"
-            android:shadowColor="#000000"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="20"
             android:textSize="50sp" />
 
         <TableRow
@@ -69,32 +59,21 @@
             android:layout_width="match_parent"
             android:layout_height="182dp">
 
-            <Button
+            <TextView
+                style="@style/button2x1"
                 android:id="@+id/returnButton"
-                android:layout_width="120dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/gomarice_no_continue"
                 android:text="RETURN"
-                android:textColor="#f4e0da"
-                android:backgroundTint="#945b4a"
-                android:textFontWeight="1000"
                 android:textSize="24sp"
+                android:layout_gravity="center_vertical"
                 android:translationX="42.75dp" />
 
-            <Button
+            <TextView
+                style="@style/button2x1"
                 android:id="@+id/submitButton"
-                android:layout_width="120dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0"
                 android:text="SUBMIT"
-                android:textColor="#f4e0da"
-                android:backgroundTint="#945b4a"
-                android:textFontWeight="1000"
-                android:fontFamily="@font/gomarice_no_continue"
-                android:translationX="128.25dp"
-                android:textSize="24sp"/>
+                android:textSize="24sp"
+                android:layout_gravity="center_vertical"
+                android:translationX="128.25dp" />
 
         </TableRow>
 

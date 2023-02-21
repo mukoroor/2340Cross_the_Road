@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     private Button pre;
     private Button submit;
     private Spinner spinner;
-    private String[] dif = {"easy", "medium", "hard"};
+    private String[] dif = {"EASY", "MEDIUM", "HARD"};
 
     private String selectedDiff;
 
@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        int spriteInd = retrieveSpriteInd();
+        int spriteInd = getSpriteInd();
 
         spinner = findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(LoginActivity.this,
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
      * A method for controlling logic when an item is selected
      * @param parent The spinner object
      * @param view the view
-     * @param position the index the user is selectng
+     * @param position the index the user is selecting
      * @param id the id of the spinner
      */
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
      * Method for getting the image the player will use (as an index)
      * @return the index from the array full of images
      */
-    private int retrieveSpriteInd() {
+    private int getSpriteInd() {
         return getIntent().getIntExtra("index", 0);
     }
 

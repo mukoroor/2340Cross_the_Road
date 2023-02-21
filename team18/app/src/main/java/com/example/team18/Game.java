@@ -11,7 +11,7 @@ public class Game {
 
     private int blockSize;
     private int score;
-    private String difficulty;
+    private int difficulty;
 
     /**
      * Constructor for new Game object.
@@ -19,7 +19,7 @@ public class Game {
      * @param difficulty The difficulty level of the game.
      * @param deviceWidth The width of the device the game is being played on.
      */
-    public Game(Sprite player, String difficulty, int deviceWidth) {
+    public Game(Sprite player, int difficulty, int deviceWidth) {
         this.player = player;
         this.blockSize = deviceWidth / 9;
         this.playerPosition = new int[] {4 * blockSize, blockSize};
@@ -63,4 +63,9 @@ public class Game {
         return player;
     }
 
+    /**
+     * Method for getting the size of grid block.
+     * @return Uniform block size of grid.
+     */
+    public int getBlockSize() {return blockSize;}
 }
