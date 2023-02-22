@@ -25,6 +25,8 @@ import java.util.Random;
 
 public class BackgroundGenerator extends AppCompatActivity {
 
+    protected BlockTypes[][] gameBlockArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class BackgroundGenerator extends AppCompatActivity {
         TableLayout grid = findViewById(R.id.grid);
         Game c = new Game(new Sprite(1,"hablo"), 1, 1440);
 
-        GameBlock.gameBlockArray = new GameBlock[20][9];
+        gameBlockArray = new BlockTypes[20][9];
 
 
         createGrid(grid, c);
