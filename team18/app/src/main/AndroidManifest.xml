@@ -16,7 +16,7 @@
             android:name=".BackgroundGenerator"
             android:exported="false" />
         <activity
-            android:name=".StartScreenActivity"
+            android:name=".GameScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".SpriteSelector" />
-        <activity android:name=".GameScreenActivity" />
+        <activity android:name=".StartScreenActivity" />
     </application>
 
 </manifest>

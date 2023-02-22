@@ -22,7 +22,7 @@ public class Sprite {
      */
     public Sprite(int spriteIndex, String playerName) {
         this.spriteIndex = spriteIndex;
-        name = playerName;
+        this.name = playerName;
     }
 
     /**
@@ -67,5 +67,13 @@ public class Sprite {
      */
     public int getSpriteIndex() {
         return spriteIndex;
+    }
+
+    /**
+     * Getter for sprite name.
+     * @return sprite name
+     */
+    public String getName() {
+        return name;
     }
 }

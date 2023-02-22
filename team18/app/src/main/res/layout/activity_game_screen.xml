@@ -26,35 +26,35 @@
 
                 <ImageView
                     android:id="@+id/imageViewA14"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewB14"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewC14"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewD14"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewE14"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewF14"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewG14"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewH14"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
             </LinearLayout>
 
@@ -67,37 +67,35 @@
 
                 <ImageView
                     android:id="@+id/imageViewA13"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:srcCompat="@drawable/lava_block" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewB13"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewC13"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewD13"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewE13"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewF13"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewG13"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewH13"
-                    style="@style/lavaBlock" />
+                    style="@style/rockBlock" />
 
             </LinearLayout>
 
@@ -110,35 +108,35 @@
 
                 <ImageView
                     android:id="@+id/imageViewA12"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewB12"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewC12"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewD12"
-                    style="@style/rockBlock" />
+                    style="@style/logBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewE12"
-                    style="@style/rockBlock" />
+                    style="@style/logBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewF12"
-                    style="@style/rockBlock" />
+                    style="@style/logBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewG12"
-                    style="@style/stumpBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewH12"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
             </LinearLayout>
 
@@ -151,35 +149,35 @@
 
                 <ImageView
                     android:id="@+id/imageViewA11"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewB11"
-                    style="@style/rockBlock" />
+                    style="@style/logBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewC11"
-                    style="@style/rockBlock" />
+                    style="@style/logBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewD11"
-                    style="@style/stumpBlock" />
+                    style="@style/logBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewE11"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewF11"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewG11"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewH11"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
             </LinearLayout>
 
@@ -192,9 +190,7 @@
 
                 <ImageView
                     android:id="@+id/imageViewA10"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:srcCompat="@drawable/lava_block" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewB10"
@@ -202,27 +198,27 @@
 
                 <ImageView
                     android:id="@+id/imageViewC10"
-                    style="@style/lavaBlock" />
+                    style="@style/logBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewD10"
-                    style="@style/lavaBlock" />
+                    style="@style/logBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewE10"
-                    style="@style/lavaBlock" />
+                    style="@style/logBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewF10"
-                    style="@style/logBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewG10"
-                    style="@style/logBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewH10"
-                    style="@style/logBlock" />
+                    style="@style/lavaBlock" />
 
             </LinearLayout>
 
@@ -276,35 +272,35 @@
 
                 <ImageView
                     android:id="@+id/imageViewA8"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewB8"
-                    style="@style/stumpBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewC8"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewD8"
-                    style="@style/rockBlock" />
+                    style="@style/logBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewE8"
-                    style="@style/rockBlock" />
+                    style="@style/logBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewF8"
-                    style="@style/rockBlock" />
+                    style="@style/logBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewG8"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewH8"
-                    style="@style/rockBlock" />
+                    style="@style/lavaBlock" />
 
             </LinearLayout>
 
@@ -317,9 +313,7 @@
 
                 <ImageView
                     android:id="@+id/imageViewA7"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:srcCompat="@drawable/rock_block" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewB7"
@@ -339,7 +333,7 @@
 
                 <ImageView
                     android:id="@+id/imageViewF7"
-                    style="@style/stumpBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewG7"
@@ -360,37 +354,35 @@
 
                 <ImageView
                     android:id="@+id/imageViewA6"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:srcCompat="@drawable/lava_block" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewB6"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewC6"
-                    style="@style/logBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewD6"
-                    style="@style/logBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewE6"
-                    style="@style/logBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewF6"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewG6"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewH6"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
             </LinearLayout>
 
@@ -403,37 +395,35 @@
 
                 <ImageView
                     android:id="@+id/imageViewA5"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:srcCompat="@drawable/log_block" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewB5"
-                    style="@style/logBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewC5"
-                    style="@style/logBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewD5"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewE5"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewF5"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewG5"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewH5"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
             </LinearLayout>
 
@@ -446,37 +436,35 @@
 
                 <ImageView
                     android:id="@+id/imageViewA4"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:srcCompat="@drawable/lava_block" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewB4"
-                    style="@style/logBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewC4"
-                    style="@style/logBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewD4"
-                    style="@style/logBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewE4"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewF4"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewG4"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewH4"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
             </LinearLayout>
 
@@ -489,37 +477,35 @@
 
                 <ImageView
                     android:id="@+id/imageViewA3"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:srcCompat="@drawable/rock_block" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewB3"
-                    style="@style/stumpBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewC3"
-                    style="@style/rockBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewD3"
-                    style="@style/rockBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewE3"
-                    style="@style/rockBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewF3"
-                    style="@style/rockBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewG3"
-                    style="@style/stumpBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewH3"
-                    style="@style/rockBlock" />
+                    style="@style/roadBlock" />
 
             </LinearLayout>
 
@@ -532,37 +518,35 @@
 
                 <ImageView
                     android:id="@+id/imageViewA2"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:srcCompat="@drawable/lava_block" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewB2"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewC2"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewD2"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewE2"
-                    style="@style/logBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewF2"
-                    style="@style/logBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewG2"
-                    style="@style/logBlock" />
+                    style="@style/roadBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewH2"
-                    style="@style/lavaBlock" />
+                    style="@style/roadBlock" />
 
             </LinearLayout>
 
@@ -585,7 +569,7 @@
 
                 <ImageView
                     android:id="@+id/imageViewC1"
-                    style="@style/stumpBlock" />
+                    style="@style/rockBlock" />
 
                 <ImageView
                     android:id="@+id/imageViewD1"
@@ -655,18 +639,21 @@
 
         <LinearLayout
             android:id="@+id/usernameTile"
-            android:layout_width="120dp"
-            android:layout_height="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="#ED2314"
             android:orientation="vertical"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:id="@+id/playerText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Player: K3LL3Y"
-                android:textSize="30dp"
+                android:text="Player:"
+                android:textSize="25sp"
                 android:textColor="#ff000000"
                 android:textStyle="bold"/>
 
@@ -674,8 +661,30 @@
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Player: K3LL3Y"
-                android:textSize="30sp"
+                android:text="K3LL3Y"
+                android:textSize="25sp"
+                android:textColor="#ff000000"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pointsTile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ED2314"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="35sp"
                 android:textColor="#ff000000"
                 android:textStyle="bold"/>
 
@@ -683,29 +692,29 @@
 
         <LinearLayout
             android:id="@+id/lives"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="#ED2314"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
             android:layout_gravity="right">
 
-            <ImageView
-                android:id="@+id/life1"
+            <TextView
+                android:id="@+id/playerLives"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/heart" />
-
-            <ImageView
-                android:id="@+id/life2"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/heart" />
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textSize="30sp"
+                android:textColor="#ff000000"
+                android:textStyle="bold"/>
 
             <ImageView
                 android:id="@+id/life3"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/heart" />
 
@@ -719,6 +728,14 @@
             app:srcCompat="@drawable/charmeleon"
             android:layout_gravity="bottom|center_horizontal"
             android:paddingBottom="20dp"/>
+
+        <ImageView
+            android:id="@+id/fireball"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/fireball0"
+            android:translationX="250dp"
+            android:translationY="500dp"/>
 
 
     </FrameLayout>

@@ -21,4 +21,8 @@
     <style name="rockBlock" parent="gameBlock">
         <item name="android:background">@drawable/rock_block</item>
     </style>
+
+    <style name="roadBlock" parent="gameBlock">
+        <item name="android:background">@drawable/road0</item>
+    </style>
 </resources>
