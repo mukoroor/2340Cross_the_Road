@@ -158,4 +158,78 @@ public class GameScreenActivity extends AppCompatActivity {
         return "k3ll3y|3|1";
         //return getIntent().getStringExtra("player");
     }
+
+    public void createGrid(LinearLayout gridContainer) {
+        int blockSize = 160;
+        for (int row = 0; row < 16; row++) {
+            LinearLayout rowBlock = new LinearLayout(this);
+
+            LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(blockSize * 9, blockSize);
+            params1.weight = 1.0f;
+            rowBlock.setLayoutParams(params1);
+
+            for (int column = 0; column < 9; column++) {
+                ImageView gridBlock = new ImageView(this, null);
+                GameBlock g = new GameBlock(row, column, gridBlock);
+
+                LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(blockSize, blockSize);
+                params2.weight = 1.0f;
+                gridBlock.setLayoutParams(params2);
+
+                rowBlock.addView(gridBlock);
+            }
+            gridContainer.addView(rowBlock);
+        }
+    }
+
+    public int[] populateGrid() {
+        /*
+        Goal tile => 3
+        Safe tile => 2
+        River tile => 1
+        Road tile => 0
+         */
+        int[] rowTypes = new int[16];
+
+        Random r = new Random();
+
+        rowTypes[0] = 3;
+        rowTypes[15] = 2;
+        rowTypes[r.nextInt(3) + 7] = 2;
+
+        int type = r.nextInt(2);
+        for (int i = 1; i < 15; i++) {
+            if (rowTypes[i] == 0) {
+                rowTypes[i] = type;
+            } else {
+                if (type == 1) {
+                    type = 0;
+                } else {
+                    type = 1;
+                }
+            }
+        }
+
+
+        for (int i = 0; i < rowTypes.length; i++) {
+            GameBlock[] row = GameBlock.gameBlockArray[i];
+            for (GameBlock g:row
+            ) {
+                g.gridBlock.setImageResource(GameBlock.blockOptions[rowTypes[i]]);
+            }
+        }
+
+        for (int i = 0; i < rowTypes.length; i++) {
+            if (rowTypes[i] == 1) {
+                GameBlock[] riverRow = GameBlock.gameBlockArray[i];
+                int begin = r.nextInt(riverRow.length);
+                riverRow[begin].gridBlock.setImageResource(GameBlock.blockOptions[4]);
+                riverRow[(begin + 1) % riverRow.length].gridBlock.setImageResource(GameBlock.blockOptions[4]);
+                riverRow[(begin + 2) % riverRow.length].gridBlock.setImageResource(GameBlock.blockOptions[4]);
+            }
+        }
+
+        return rowTypes;
+
+    }
 }
