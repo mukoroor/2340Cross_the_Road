@@ -39,14 +39,92 @@ public class GameScreenActivity extends AppCompatActivity {
         Integer wrap = (Integer) player.getLives();
         playerLives.setText(wrap.toString());
 
+        //Creates background
+        createGrid(findViewById(R.id.backgroundGrid));
+        int[] rows = populateGrid();
+
         //Animates rows on screen
-        int[] rows = {2,2,1,1,1,1,1,2,0,0,0,0,0,2,2};
         animate(rows);
 
         //Big O Code
         //int displayWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         //int difficulty= getGameDifficulty();
         //Game currentGame = new Game(player, difficulty, displayWidth);
+    }
+
+    public void createGrid(LinearLayout gridContainer) {
+        gridContainer.removeAllViews();
+        int blockSize = 160;
+        for (int row = 0; row < 16; row++) {
+            LinearLayout rowBlock = new LinearLayout(this);
+
+            LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(blockSize * 9, blockSize);
+            params1.weight = 1.0f;
+            rowBlock.setLayoutParams(params1);
+
+            for (int column = 0; column < 9; column++) {
+                ImageView gridBlock = new ImageView(this, null);
+                GameBlock g = new GameBlock(row, column, gridBlock);
+
+                LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(blockSize, blockSize);
+                params2.weight = 1.0f;
+                gridBlock.setLayoutParams(params2);
+
+                rowBlock.addView(gridBlock);
+            }
+            gridContainer.addView(rowBlock);
+        }
+    }
+
+    public int[] populateGrid() {
+    /*
+    Goal tile => 3
+    Safe tile => 2
+    River tile => 1
+    Road tile => 0
+     */
+        int[] rowTypes = new int[16];
+
+        Random r = new Random();
+
+        rowTypes[0] = 3;
+        rowTypes[15] = 2;
+        rowTypes[r.nextInt(3) + 7] = 2;
+
+        int type = r.nextInt(2);
+        for (int i = 1; i < 15; i++) {
+            if (rowTypes[i] == 0) {
+                rowTypes[i] = type;
+            } else {
+                if (type == 1) {
+                    type = 0;
+                } else {
+                    type = 1;
+                }
+            }
+        }
+
+
+        for (int i = 0; i < rowTypes.length; i++) {
+            GameBlock[] row = GameBlock.gameBlockArray[i];
+            for (GameBlock g:row
+            ) {
+                g.gridBlock.setImageResource(GameBlock.blockOptions[rowTypes[i]]);
+            }
+        }
+
+        for (int i = 0; i < rowTypes.length; i++) {
+            if (rowTypes[i] == 1) {
+                GameBlock[] riverRow = GameBlock.gameBlockArray[i];
+                int begin = r.nextInt(riverRow.length);
+                riverRow[begin].gridBlock.setImageResource(GameBlock.blockOptions[4]);
+                riverRow[(begin + 1) % riverRow.length].gridBlock.setImageResource(GameBlock.blockOptions[4]);
+                riverRow[(begin + 2) % riverRow.length].gridBlock.setImageResource(GameBlock.blockOptions[4]);
+            }
+        }
+
+        return rowTypes;
+
     }
 
     public void animate(int[] rows) {
@@ -71,8 +149,10 @@ public class GameScreenActivity extends AppCompatActivity {
         }
 
         //Animates and moves fireballs on screen
+        FrameLayout mainFrame = findViewById(R.id.mainFrame);
         for (LinearLayout road : roads) {
             ImageView fireball = new ImageView(this);
+            mainFrame.addView(fireball,1);
             animateFireball(fireball);
             shootFireBall(fireball, road);
         }
@@ -93,38 +173,15 @@ public class GameScreenActivity extends AppCompatActivity {
     }
 
     public void animateFireball(ImageView fireball) {
+        FrameLayout.LayoutParams fireballDims = new FrameLayout.LayoutParams(160, 160);
+        fireball.setLayoutParams(fireballDims);
         final int[] image = {0};
+        final int[] fireBallFrames = { R.drawable.fireball0, R.drawable.fireball1, R.drawable.fireball2, R.drawable.fireball3,R.drawable.fireball4,R.drawable.fireball5,R.drawable.fireball6,R.drawable.fireball7};
         new CountDownTimer(800, 100){
             public void onTick(long millisUntilFinished) {
                 //Changes fireball images
-                switch (image[0]) {
-                    case 0:
-                        fireball.setImageResource(R.drawable.fireball0);
-                        break;
-                    case 1:
-                        fireball.setImageResource(R.drawable.fireball1);
-                        break;
-                    case 2:
-                        fireball.setImageResource(R.drawable.fireball2);
-                        break;
-                    case 3:
-                        fireball.setImageResource(R.drawable.fireball3);
-                        break;
-                    case 4:
-                        fireball.setImageResource(R.drawable.fireball4);
-                        break;
-                    case 5:
-                        fireball.setImageResource(R.drawable.fireball5);
-                        break;
-                    case 6:
-                        fireball.setImageResource(R.drawable.fireball6);
-                        break;
-                    case 7:
-                        fireball.setImageResource(R.drawable.fireball7);
-                        break;
-                }
+                fireball.setImageResource((fireBallFrames[image[0]]));
                 image[0]++;
-
             }
             public  void onFinish() {
                 animateFireball(fireball);
@@ -156,7 +213,7 @@ public class GameScreenActivity extends AppCompatActivity {
         fireball.setX(rowWidth);
 
         int translation = rowWidth / 100;
-        new CountDownTimer(10000, 100){
+        new CountDownTimer(15000, 100){
             public void onTick(long millisUntilFinished) {
                 //Moves fireball across screen
                 int currentX = (int) fireball.getX();
