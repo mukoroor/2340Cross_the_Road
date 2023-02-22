@@ -5,16 +5,14 @@ package com.example.team18;
  */
 public class Sprite {
     private String name;
+    private int spriteIndex;
+    private int lives = 5;
 
     protected static int[][] spriteOptions = new int[][]
         {{R.drawable.man1}, {R.drawable.man2}, {R.drawable.mermaid}, {R.drawable.charmeleon}};
 
-
     protected static String[] spriteDescriptions = new String[]
         {"MAN1", "MAN2", "MERMAID", "CHARMELEON"};
-
-    private int spriteIndex;
-    private int lives = 5;
 
     /**
      * Constructor for creating a Sprite.
@@ -24,7 +22,7 @@ public class Sprite {
      */
     public Sprite(int spriteIndex, String playerName) {
         this.spriteIndex = spriteIndex;
-        name = playerName;
+        this.name = playerName;
     }
 
     /**
@@ -69,5 +67,13 @@ public class Sprite {
      */
     public int getSpriteIndex() {
         return spriteIndex;
+    }
+
+    /**
+     * Getter for sprite name.
+     * @return sprite name
+     */
+    public String getName() {
+        return name;
     }
 }
