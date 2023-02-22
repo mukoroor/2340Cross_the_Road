@@ -1,5 +1,7 @@
 package com.example.team18;
 
+import android.widget.LinearLayout;
+
 /**
  * Structural Class.
  * Stores Global variables for game.
@@ -8,6 +10,8 @@ public class Game {
     private Sprite player;
 
     private int[] playerPosition;
+
+    private LinearLayout[] rivers;
 
     private int blockSize;
     private int score;
@@ -25,6 +29,10 @@ public class Game {
         this.playerPosition = new int[] {4 * blockSize, blockSize};
         this.score = 0;
         this.difficulty = difficulty;
+
+        for (LinearLayout river : rivers) {
+            moveRiver(river);
+        }
     }
 
     /**
@@ -37,6 +45,10 @@ public class Game {
     public void changePosition(int deltaX, int deltaY) {
         playerPosition[0] += deltaX * blockSize;
         playerPosition[1] += deltaY * blockSize;
+    }
+
+    public void moveRiver(LinearLayout row) {
+
     }
 
     /**

@@ -729,15 +729,6 @@
             android:layout_gravity="bottom|center_horizontal"
             android:paddingBottom="20dp"/>
 
-        <ImageView
-            android:id="@+id/fireball"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:srcCompat="@drawable/fireball0"
-            android:translationX="250dp"
-            android:translationY="500dp"/>
-
-
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameScreenActivity extends AppCompatActivity {
@@ -38,28 +39,46 @@ public class GameScreenActivity extends AppCompatActivity {
         Integer wrap = (Integer) player.getLives();
         playerLives.setText(wrap.toString());
 
-        //Moves rivers on screen
-        river(findViewById(R.id.row8));
-        river(findViewById(R.id.row9));
-        river(findViewById(R.id.row10));
-        river(findViewById(R.id.row11));
-        river(findViewById(R.id.row12));
-
-        //Switches sprite images of fireball
-        ImageView fireball = findViewById(R.id.fireball);
-        animateFireball(fireball);
-
-        //Moves fireball across row 3
-        LinearLayout row3 = findViewById(R.id.row3);
-        shootFireBall(fireball, row3);
+        //Animates rows on screen
+        int[] rows = {2,2,1,1,1,1,1,2,0,0,0,0,0,2,2};
+        animate(rows);
 
         //Big O Code
-        int displayWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-        int difficulty= getGameDifficulty();
-        Game currentGame = new Game(player, difficulty, displayWidth);
+        //int displayWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        //int difficulty= getGameDifficulty();
+        //Game currentGame = new Game(player, difficulty, displayWidth);
     }
 
-    public void river(LinearLayout row) {
+    public void animate(int[] rows) {
+        //Constructs a list of rivers and roads on screen
+        ArrayList<LinearLayout> rivers = new ArrayList<>();
+        ArrayList<LinearLayout> roads = new ArrayList<>();
+        for (int i = 0; i < rows.length; i++) {
+            LinearLayout grid = findViewById(R.id.backgroundGrid);
+            switch (rows[i]) {
+                case 1:
+                    rivers.add((LinearLayout) grid.getChildAt(i));
+                    break;
+                case 0:
+                    roads.add((LinearLayout) grid.getChildAt(i));
+                    break;
+            }
+        }
+
+        //Animates rivers on screen
+        for (LinearLayout river : rivers) {
+            moveRiver(river);
+        }
+
+        //Animates and moves fireballs on screen
+        for (LinearLayout road : roads) {
+            ImageView fireball = new ImageView(this);
+            animateFireball(fireball);
+            shootFireBall(fireball, road);
+        }
+    }
+
+    public void moveRiver(LinearLayout row) {
         new CountDownTimer(10000, 1000){
                 public void onTick(long millisUntilFinished) {
                     //Moves the blocks in the river
@@ -68,7 +87,7 @@ public class GameScreenActivity extends AppCompatActivity {
                     row.addView(oldBlock);
                 }
                 public  void onFinish() {
-                    river(row);
+                    moveRiver(row);
                 }
         }.start();
     }
@@ -115,19 +134,19 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public void shootFireBall(ImageView fireball, LinearLayout row) {
         Random rand = new Random();
-        int waitDistribution = 1 + rand.nextInt(10);
-        //int downInter
-        new CountDownTimer(2000, 1000){
+        int waitOffset = 1 + rand.nextInt(10);
+        int waitTime = waitOffset * 1000;
+        new CountDownTimer(waitTime, 1000) {
             public void onTick(long millisUntilFinished) {
 
             }
             public  void onFinish() {
-                moveFireball(fireball, row);
+                fireballMotion(fireball, row);
             }
         }.start();
     }
 
-    public void moveFireball(ImageView fireball, LinearLayout row) {
+    public void fireballMotion(ImageView fireball, LinearLayout row) {
         int rowWidth = row.getWidth();
         int rowY = (int) row.getY();
         System.out.println("Row Width: " + rowWidth);
@@ -145,7 +164,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
             }
             public  void onFinish() {
-                moveFireball(fireball, row);
+                fireballMotion(fireball, row);
             }
         }.start();
     }
