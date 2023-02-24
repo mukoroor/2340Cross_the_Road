@@ -17,12 +17,15 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
+
             <LinearLayout
                 android:id="@+id/row14"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/row13">
+
 
                 <ImageView
                     android:id="@+id/imageViewA14"
@@ -52,11 +55,14 @@
                     android:id="@+id/imageViewG14"
                     style="@style/rockBlock" />
 
+
                 <ImageView
                     android:id="@+id/imageViewH14"
                     style="@style/rockBlock" />
 
+
             </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/row13"
@@ -85,6 +91,8 @@
                     android:id="@+id/imageViewE13"
                     style="@style/rockBlock" />
 
+
+
                 <ImageView
                     android:id="@+id/imageViewF13"
                     style="@style/rockBlock" />
@@ -92,6 +100,8 @@
                 <ImageView
                     android:id="@+id/imageViewG13"
                     style="@style/rockBlock" />
+
+
 
                 <ImageView
                     android:id="@+id/imageViewH13"
@@ -550,6 +560,8 @@
 
             </LinearLayout>
 
+
+
             <LinearLayout
                 android:id="@+id/row1"
                 android:layout_width="match_parent"
@@ -729,6 +741,33 @@
             android:layout_gravity="bottom|center_horizontal"
             android:paddingBottom="20dp"/>
 
+        <Button
+            android:id="@+id/leftButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/upButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/rightButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/downButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
