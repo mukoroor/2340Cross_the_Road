@@ -47,12 +47,29 @@
 
         </TableRow>
 
-        <TextView
-            style="@style/text"
+        <RelativeLayout
             android:id="@+id/spriteDescription"
             android:layout_width="match_parent"
-            android:text="MAN"
-            android:textSize="40sp" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/spriteDescription0"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/p2p"
+                android:text="MAN"
+                android:textColor="#000000"
+                android:translationX="5sp"
+                android:translationY="5sp"
+                android:textSize="50sp" />
+            <TextView
+                android:id="@+id/spriteDescription1"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/p2p"
+                android:text="MAN"
+                android:textSize="50sp" />
+        </RelativeLayout>
 
         <TableRow
             android:id="@+id/navigation"
@@ -60,11 +77,12 @@
             android:layout_height="182dp">
 
             <TextView
-                style="@style/button2x1"
                 android:id="@+id/returnButton"
-                android:text="@string/back"
+                style="@style/button2x1"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="16sp"
+                android:text="@string/back"
+                android:textSize="20sp"
                 android:translationX="42.75dp" />
 
             <TextView
@@ -72,7 +90,7 @@
                 android:id="@+id/submitButton"
                 android:text="@string/next"
                 android:layout_gravity="center"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:translationX="128.25dp" />
 
         </TableRow>
