@@ -9,7 +9,7 @@ public class Game {
 
     private int[] playerPosition;
 
-    protected static GameBlock[][] gameBlockArray = new GameBlock[16][9];
+    public static GameBlock[][] gameBlockArray = new GameBlock[16][9];
     private int blockSize;
     private int score;
     private int difficulty;
@@ -71,18 +71,21 @@ public class Game {
     public int getBlockSize() {return blockSize;}
 
     public static void shiftGameRow(int row, int deltaX) {
-        int rowLength = gameBlockArray.length;
+        int colLength = gameBlockArray[0].length;
 
-        deltaX %= rowLength;
-        GameBlock[] temp = new GameBlock[rowLength];
-        int last = -1;
-        for (int i = 0; i < deltaX; i++) {
-            temp[i] = gameBlockArray[row][i - deltaX];
-            last++;
+        deltaX = (((deltaX % colLength) + colLength) % colLength);
+        GameBlock[] temp = new GameBlock[colLength];
+        int count = 0;
+
+        for (int i = deltaX; i < colLength; i++) {
+            temp[i] = gameBlockArray[row][count];
+            count++;
         }
 
+//        System.out.println(temp[0].gridBlock.getResources());
+
         for (int i = 0; i < deltaX; i++) {
-            temp[i] = gameBlockArray[row][i + last];
+            temp[i] = gameBlockArray[row][9 - deltaX + i];
         }
 
         gameBlockArray[row] = temp;

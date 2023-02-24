@@ -41,6 +41,7 @@ public class SpriteSelector extends AppCompatActivity {
         final int viewWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         final int viewHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
+        System.out.println(viewWidth);
         /*distributing heights of Layout
           characterGallery: 50%;
           spriteDescription: 20%;
@@ -53,7 +54,7 @@ public class SpriteSelector extends AppCompatActivity {
         navigation.requestLayout();
         characterGallery.setLayoutParams(new LinearLayout.LayoutParams(viewWidth,
                 viewHeight - 5 * percentHeight));
-        spriteDescription.setTextSize(TypedValue.COMPLEX_UNIT_PX, percentHeight);
+        spriteDescription.setLayoutParams(new LinearLayout.LayoutParams(viewWidth, percentHeight));
         navigation.setLayoutParams(new LinearLayout.LayoutParams(viewWidth, 3 * percentHeight));
 
 
@@ -81,8 +82,6 @@ public class SpriteSelector extends AppCompatActivity {
             startActivity(login);
         });
 
-        returnButton.setOnClickListener(e -> {
-            finish();
-        });
+        returnButton.setOnClickListener(e -> finish());
     }
 }
