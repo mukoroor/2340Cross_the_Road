@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="gameBlock" parent="android:Widget">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="lavaBlock" parent="gameBlock">
+        <item name="android:background">@drawable/lava_block</item>
+    </style>
+
+    <style name="logBlock" parent="gameBlock">
+        <item name="android:background">@drawable/log_block</item>
+    </style>
+
+    <style name="stumpBlock" parent="gameBlock">
+        <item name="android:background">@drawable/stump_block</item>
+    </style>
+
+    <style name="rockBlock" parent="gameBlock">
+        <item name="android:background">@drawable/rock_block</item>
+    </style>
+
+    <style name="roadBlock" parent="gameBlock">
+        <item name="android:background">@drawable/road0</item>
+    </style>
+</resources>
