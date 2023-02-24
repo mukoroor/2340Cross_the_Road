@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class GameScreenActivity extends AppCompatActivity {
@@ -35,8 +36,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
         //Sets player lives on screen
         TextView playerLives = findViewById(R.id.playerLives);
-        Integer wrap = (Integer) player.getLives();
-        playerLives.setText(wrap.toString());
+        playerLives.setText(String.valueOf(player.getLives()));
 
         //Creates background
         createGrid(findViewById(R.id.backgroundGrid));
@@ -104,21 +104,22 @@ public class GameScreenActivity extends AppCompatActivity {
         }
 
 
+        int[] blockOptions = GameBlock.blockOptions;
         for (int i = 0; i < rowTypes.length; i++) {
-            GameBlock[] row = GameBlock.gameBlockArray[i];
+            GameBlock[] row = Game.gameBlockArray[i];
             for (GameBlock g:row
             ) {
-                g.gridBlock.setImageResource(GameBlock.blockOptions[rowTypes[i]]);
+                g.gridBlock.setImageResource(blockOptions[rowTypes[i]]);
             }
         }
 
         for (int i = 0; i < rowTypes.length; i++) {
             if (rowTypes[i] == 1) {
-                GameBlock[] riverRow = GameBlock.gameBlockArray[i];
+                GameBlock[] riverRow = Game.gameBlockArray[i];
                 int begin = r.nextInt(riverRow.length);
-                riverRow[begin].gridBlock.setImageResource(GameBlock.blockOptions[4]);
-                riverRow[(begin + 1) % riverRow.length].gridBlock.setImageResource(GameBlock.blockOptions[4]);
-                riverRow[(begin + 2) % riverRow.length].gridBlock.setImageResource(GameBlock.blockOptions[4]);
+                riverRow[begin].gridBlock.setImageResource(blockOptions[4]);
+                riverRow[(begin + 1) % riverRow.length].gridBlock.setImageResource(blockOptions[4]);
+                riverRow[(begin + 2) % riverRow.length].gridBlock.setImageResource(blockOptions[4]);
             }
         }
 
@@ -128,13 +129,14 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public void animate(int[] rows) {
         //Constructs a list of rivers and roads on screen
-        ArrayList<LinearLayout> rivers = new ArrayList<>();
+//        ArrayList<LinearLayout> rivers = new ArrayList<>();
+        HashMap<Integer, LinearLayout> rivers = new HashMap<>();
         ArrayList<LinearLayout> roads = new ArrayList<>();
         for (int i = 0; i < rows.length; i++) {
             LinearLayout grid = findViewById(R.id.backgroundGrid);
             switch (rows[i]) {
                 case 1:
-                    rivers.add((LinearLayout) grid.getChildAt(i));
+                    rivers.put(i, (LinearLayout) grid.getChildAt(i));
                     break;
                 case 0:
                     roads.add((LinearLayout) grid.getChildAt(i));
@@ -143,9 +145,14 @@ public class GameScreenActivity extends AppCompatActivity {
         }
 
         //Animates rivers on screen
-        for (LinearLayout river : rivers) {
-            moveRiver(river);
+        for (Integer rowIndex: rivers.keySet()
+             ) {
+            moveRiver(rowIndex, rivers.get(rowIndex));
         }
+
+//        for (LinearLayout river : rivers) {
+//            moveRiver(river);
+//        }
 
         //Animates and moves fireballs on screen
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
@@ -157,16 +164,17 @@ public class GameScreenActivity extends AppCompatActivity {
         }
     }
 
-    public void moveRiver(LinearLayout row) {
+    public void moveRiver(int rowIndex, LinearLayout row) {
         new CountDownTimer(10000, 1000){
                 public void onTick(long millisUntilFinished) {
                     //Moves the blocks in the river
                     ImageView oldBlock = (ImageView) row.getChildAt(0);
                     row.removeViewAt(0);
                     row.addView(oldBlock);
+                    Game.shiftGameRow(rowIndex, -1);
                 }
                 public  void onFinish() {
-                    moveRiver(row);
+                    moveRiver(rowIndex, row);
                 }
         }.start();
     }
