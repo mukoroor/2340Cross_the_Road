@@ -12,7 +12,7 @@ public class Sprite {
         {{R.drawable.man1}, {R.drawable.man2}, {R.drawable.mermaid}, {R.drawable.charmeleon}};
 
     protected static String[] spriteDescriptions = new String[]
-        {"MAN1", "MAN2", "MERMAID", "CHARMELEON"};
+        {"MAN1", "MAN2", "MERMAID", "CHARME"};
 
     /**
      * Constructor for creating a Sprite.

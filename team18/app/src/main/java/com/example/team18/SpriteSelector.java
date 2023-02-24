@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -32,7 +33,9 @@ public class SpriteSelector extends AppCompatActivity {
         final ImageView spriteView = findViewById(R.id.spriteView);
         final TableRow characterGallery = findViewById(R.id.characterGallery);
 
-        final TextView spriteDescription = findViewById(R.id.spriteDescription);
+        final RelativeLayout spriteDescription = findViewById(R.id.spriteDescription);
+        final TextView spriteDescription0 = findViewById(R.id.spriteDescription0);
+        final TextView spriteDescription1 = findViewById(R.id.spriteDescription1);
 
         final TextView submitButton = findViewById(R.id.submitButton);
         final TextView returnButton = findViewById(R.id.returnButton);
@@ -62,7 +65,8 @@ public class SpriteSelector extends AppCompatActivity {
         leftButton.setOnClickListener(e -> {
             pointer = (pointer - 1 + spriteOptions.length) % spriteOptions.length;
             spriteView.setImageResource(spriteOptions[pointer][0]);
-            spriteDescription.setText(spriteDescriptions[pointer]);
+            spriteDescription0.setText(spriteDescriptions[pointer]);
+            spriteDescription1.setText(spriteDescriptions[pointer]);
             leftButton.setForeground(ContextCompat.getDrawable(this, R.drawable.leftarrowhover));
             rightButton.setForeground(ContextCompat.getDrawable(this, R.drawable.rightarrow));
         });
@@ -70,7 +74,8 @@ public class SpriteSelector extends AppCompatActivity {
         rightButton.setOnClickListener(e -> {
             pointer = (pointer + 1 + spriteOptions.length) % spriteOptions.length;
             spriteView.setImageResource(spriteOptions[pointer][0]);
-            spriteDescription.setText(spriteDescriptions[pointer]);
+            spriteDescription0.setText(spriteDescriptions[pointer]);
+            spriteDescription1.setText(spriteDescriptions[pointer]);
             rightButton.setForeground(ContextCompat.getDrawable(this, R.drawable.rightarrowhover));
             leftButton.setForeground(ContextCompat.getDrawable(this, R.drawable.leftarrow));
         });
