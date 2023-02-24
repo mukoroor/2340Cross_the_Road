@@ -68,4 +68,22 @@ public class Game {
      * @return Uniform block size of grid.
      */
     public int getBlockSize() {return blockSize;}
+
+    public static void shiftGameRow(int row, int deltaX) {
+        int rowLength = GameBlock.gameBlockArray.length;
+
+        deltaX %= rowLength;
+        GameBlock[] temp = new GameBlock[rowLength];
+        int last = -1;
+        for (int i = 0; i < deltaX; i++) {
+            temp[i] = GameBlock.gameBlockArray[row][i - deltaX];
+            last++;
+        }
+
+        for (int i = 0; i < deltaX; i++) {
+            temp[i] = GameBlock.gameBlockArray[row][i + last];
+        }
+
+        GameBlock.gameBlockArray[row] = temp;
+    }
 }
