@@ -52,7 +52,7 @@
             android:id="@+id/spriteDescription"
             android:layout_width="match_parent"
             android:text="MAN"
-            android:textSize="50sp" />
+            android:textSize="40sp" />
 
         <TableRow
             android:id="@+id/navigation"
@@ -62,17 +62,17 @@
             <TextView
                 style="@style/button2x1"
                 android:id="@+id/returnButton"
-                android:text="RETURN"
-                android:textSize="24sp"
-                android:layout_gravity="center_vertical"
+                android:text="@string/back"
+                android:layout_gravity="center"
+                android:textSize="16sp"
                 android:translationX="42.75dp" />
 
             <TextView
                 style="@style/button2x1"
                 android:id="@+id/submitButton"
-                android:text="SUBMIT"
-                android:textSize="24sp"
-                android:layout_gravity="center_vertical"
+                android:text="@string/next"
+                android:layout_gravity="center"
+                android:textSize="16sp"
                 android:translationX="128.25dp" />
 
         </TableRow>
