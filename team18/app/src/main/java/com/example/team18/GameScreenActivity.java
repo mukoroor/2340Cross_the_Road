@@ -226,8 +226,6 @@ public class GameScreenActivity extends AppCompatActivity {
 
         int[] blockOptions = GameBlock.blockOptions;
         for (int i = 0; i < rowTypes.length; i++) {
-            GameBlock[] row = GameBlock.gameBlockArray[i];
-            for (GameBlock g : row
             GameBlock[] row = Game.gameBlockArray[i];
             for (GameBlock g:row
             ) {
