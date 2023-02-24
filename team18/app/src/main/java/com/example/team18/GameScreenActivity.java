@@ -2,9 +2,10 @@ package com.example.team18;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +16,9 @@ import java.util.Random;
 
 public class GameScreenActivity extends AppCompatActivity {
     private int difficulty;
+    private int finalHeight, finalWidth;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,9 @@ public class GameScreenActivity extends AppCompatActivity {
         //Creates background
         createGrid(findViewById(R.id.backgroundGrid));
         int[] rows = populateGrid();
+        final FrameLayout iv = (FrameLayout) findViewById(R.id.mainFrame);
+        finalHeight = iv.getMeasuredHeight();
+        finalWidth = iv.getMeasuredWidth();
 
         //Animates rows on screen
         animate(rows);
@@ -49,7 +56,120 @@ public class GameScreenActivity extends AppCompatActivity {
         //int displayWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         //int difficulty= getGameDifficulty();
         //Game currentGame = new Game(player, difficulty, displayWidth);
+
+
+        //The action events for the leftButton and the placement of the left button
+        Button leftButton = (Button) findViewById(R.id.leftButton);
+        leftButton.setX(50);
+        leftButton.setY(50);
+        leftButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                moveLeft(playerImage);
+
+            }
+        });
+
+        //The action events for the rightButton and the placement of the right button
+        Button rightButton = (Button) findViewById(R.id.rightButton);
+        rightButton.setX(1050);
+        rightButton.setY(50);
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                moveRight(playerImage);
+            }
+        });
+
+
+        //The action events for the upbutton and the placement of the up button
+        Button upButton = (Button) findViewById(R.id.upButton);
+        upButton.setX(500);
+        upButton.setY(50);
+
+
+        upButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                moveUp(playerImage);
+            }
+        });
+
+        //The action events for the downbutton and the placement of the down button
+        Button downButton = (Button) findViewById(R.id.downButton);
+        downButton.setX(500);
+        downButton.setY(300);
+
+
+        downButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                moveDown(playerImage);
+            }
+        });
+
+
     }
+
+    /**
+     * A method for creating the functionality moving left with the left button
+     * @param playerImage the image of the player on the screen
+     */
+    public void moveLeft(ImageView playerImage) {
+        final FrameLayout iv = (FrameLayout) findViewById(R.id.mainFrame);
+        finalHeight = iv.getMeasuredHeight();
+        finalWidth = iv.getMeasuredWidth();
+
+        if (playerImage.getX() > 10) {
+            playerImage.setX(playerImage.getX() - 30);
+        }
+
+    }
+
+    /**
+     * A method for creating the functionality moving right with the right button
+     * @param playerImage the image of the player on the screen
+     */
+    public void moveRight(ImageView playerImage) {
+        final FrameLayout iv = (FrameLayout) findViewById(R.id.mainFrame);
+        finalHeight = iv.getMeasuredHeight();
+        finalWidth = iv.getMeasuredWidth();
+
+        if (playerImage.getX() < finalWidth - 300) {
+            playerImage.setX(playerImage.getX() + 30);
+        }
+
+    }
+
+
+    /**
+     * A method for creating the functionality moving up with the up button
+     * @param playerImage the image of the player on the screen
+     */
+    public void moveUp(ImageView playerImage) {
+        final FrameLayout iv = (FrameLayout) findViewById(R.id.mainFrame);
+        finalHeight = iv.getMeasuredHeight();
+        finalWidth = iv.getMeasuredWidth();
+
+        if (playerImage.getY() > finalHeight - 2200) {
+            playerImage.setY(playerImage.getY() - 30);
+            System.out.println("Player height :" + playerImage.getY());
+        }
+
+    }
+
+    /**
+     *  A method for creating the functionality moving down with the down button
+     * @param playerImage the image of the player on the screen
+     */
+    public void moveDown(ImageView playerImage) {
+
+
+        if (playerImage.getY() < 2172) {
+            playerImage.setY(playerImage.getY() + 30);
+            System.out.println("Player height :" + 2200);
+            System.out.println("Player height :" + playerImage.getY());
+        }
+
+    }
+
 
     public void createGrid(LinearLayout gridContainer) {
         gridContainer.removeAllViews();
@@ -106,7 +226,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
         for (int i = 0; i < rowTypes.length; i++) {
             GameBlock[] row = GameBlock.gameBlockArray[i];
-            for (GameBlock g:row
+            for (GameBlock g : row
             ) {
                 g.gridBlock.setImageResource(GameBlock.blockOptions[rowTypes[i]]);
             }
@@ -151,23 +271,24 @@ public class GameScreenActivity extends AppCompatActivity {
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
         for (LinearLayout road : roads) {
             ImageView fireball = new ImageView(this);
-            mainFrame.addView(fireball,1);
+            mainFrame.addView(fireball, 1);
             animateFireball(fireball);
             shootFireBall(fireball, road);
         }
     }
 
     public void moveRiver(LinearLayout row) {
-        new CountDownTimer(10000, 1000){
-                public void onTick(long millisUntilFinished) {
-                    //Moves the blocks in the river
-                    ImageView oldBlock = (ImageView) row.getChildAt(0);
-                    row.removeViewAt(0);
-                    row.addView(oldBlock);
-                }
-                public  void onFinish() {
-                    moveRiver(row);
-                }
+        new CountDownTimer(10000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                //Moves the blocks in the river
+                ImageView oldBlock = (ImageView) row.getChildAt(0);
+                row.removeViewAt(0);
+                row.addView(oldBlock);
+            }
+
+            public void onFinish() {
+                moveRiver(row);
+            }
         }.start();
     }
 
@@ -175,14 +296,15 @@ public class GameScreenActivity extends AppCompatActivity {
         FrameLayout.LayoutParams fireballDims = new FrameLayout.LayoutParams(160, 160);
         fireball.setLayoutParams(fireballDims);
         final int[] image = {0};
-        final int[] fireBallFrames = { R.drawable.fireball0, R.drawable.fireball1, R.drawable.fireball2, R.drawable.fireball3,R.drawable.fireball4,R.drawable.fireball5,R.drawable.fireball6,R.drawable.fireball7};
-        new CountDownTimer(800, 100){
+        final int[] fireBallFrames = {R.drawable.fireball0, R.drawable.fireball1, R.drawable.fireball2, R.drawable.fireball3, R.drawable.fireball4, R.drawable.fireball5, R.drawable.fireball6, R.drawable.fireball7};
+        new CountDownTimer(800, 100) {
             public void onTick(long millisUntilFinished) {
                 //Changes fireball images
                 fireball.setImageResource((fireBallFrames[image[0]]));
                 image[0]++;
             }
-            public  void onFinish() {
+
+            public void onFinish() {
                 animateFireball(fireball);
             }
         }.start();
@@ -196,7 +318,8 @@ public class GameScreenActivity extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
 
             }
-            public  void onFinish() {
+
+            public void onFinish() {
                 fireballMotion(fireball, row);
             }
         }.start();
@@ -205,21 +328,22 @@ public class GameScreenActivity extends AppCompatActivity {
     public void fireballMotion(ImageView fireball, LinearLayout row) {
         int rowWidth = row.getWidth();
         int rowY = (int) row.getY();
-        System.out.println("Row Width: " + rowWidth);
-        System.out.println("Row Y: " + rowY);
+//        System.out.println("Row Width: " + rowWidth);
+//        System.out.println("Row Y: " + rowY);
 
         fireball.setY(rowY);
         fireball.setX(rowWidth);
 
         int translation = rowWidth / 100;
-        new CountDownTimer(15000, 100){
+        new CountDownTimer(15000, 100) {
             public void onTick(long millisUntilFinished) {
                 //Moves fireball across screen
                 int currentX = (int) fireball.getX();
                 fireball.setX(currentX - translation);
 
             }
-            public  void onFinish() {
+
+            public void onFinish() {
                 fireballMotion(fireball, row);
             }
         }.start();
@@ -233,4 +357,6 @@ public class GameScreenActivity extends AppCompatActivity {
         return "k3ll3y|3|1";
         //return getIntent().getStringExtra("player");
     }
+
+
 }
