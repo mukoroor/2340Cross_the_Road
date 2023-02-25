@@ -17,36 +17,80 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <!--The image for laHava-->
-        <ImageView
-            android:id="@+id/imageView"
+
+        <TableRow
+            android:id="@+id/gameImage"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="1dp"
-            android:layout_weight="10"
-            android:background="@drawable/startscreen" />
-        <!--The start button-->
-        <Button
-            android:id="@+id/playbutton"
+            android:layout_height="510dp"
+            android:gravity="center_vertical">
+
+            <!--The image for laHava-->
+            <ImageView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_weight="10"
+                android:background="@drawable/startscreen"/>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/navigation"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:text="Play" />
-        <!--The exit button-->
-        <Button
-            android:id="@+id/exitbutton"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="50dp"
-            android:layout_weight="1"
-            android:linksClickable="false"
-            android:text="Exit" />
+            android:layout_height="300dp"
+            android:gravity="center_vertical">
+
+            <!--The start button-->
+            <RelativeLayout
+                android:id="@+id/quitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:translationX="42.75dp"
+                android:background="@drawable/button2x1"
+                android:gravity="center"
+                android:elevation="100dp">
+
+                <TextView
+                    style="@style/text"
+                    android:text="@string/quit"
+                    android:textColor="#000000"
+                    android:translationX="2.1sp"
+                    android:translationY="2.1sp"
+                    android:textSize="21sp" />
+                <TextView
+                    style="@style/text"
+                    android:layout_gravity="center"
+                    android:text="@string/quit"
+                    android:textSize="21sp"
+                    />
+            </RelativeLayout>
+
+            <!--The exit button-->
+            <RelativeLayout
+                android:id="@+id/playButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:translationX="128.25dp"
+                android:background="@drawable/button2x1"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/text"
+                    android:text="@string/play"
+                    android:textColor="#000000"
+                    android:translationX="2.1sp"
+                    android:translationY="2.1sp"
+                    android:textSize="21sp" />
+                <TextView
+                    style="@style/text"
+                    android:layout_gravity="center"
+                    android:text="@string/play"
+                    android:textSize="21sp"
+                    />
+            </RelativeLayout>
+
+        </TableRow>
 
     </LinearLayout>
 
