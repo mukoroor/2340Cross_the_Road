@@ -40,7 +40,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
         //Sets player lives on screen
         TextView playerLives = findViewById(R.id.playerLives);
-        playerLives.setText(String.valueOf(player.getLives()));
+        playerLives.setText(String.valueOf(getGameLives()));
 
         //Creates background
         createGrid(findViewById(R.id.backgroundGrid));
@@ -356,8 +356,8 @@ public class GameScreenActivity extends AppCompatActivity {
         }.start();
     }
 
-    private int getGameDifficulty() {
-        return getIntent().getIntExtra("level", 0);
+    private int getGameLives() {
+        return getIntent().getIntExtra("lives", 5);
     }
 
     private String getPlayerInfo() {

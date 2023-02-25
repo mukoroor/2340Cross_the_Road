@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     private Button submit;
     private Spinner spinner;
     private String[] dif = {"EASY", "MEDIUM", "HARD"};
-
+    private int[] lives = {5,3,1};
     private String selectedDiff;
 
 
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             }
             if (isValid) {
                 Sprite player = new Sprite(spriteInd, username);
-                toGame(player, spinner.getSelectedItemPosition());
+                toGame(player, lives[spinner.getSelectedItemPosition()]);
             }
 
         });
@@ -120,11 +120,11 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     /**
      * A method that creates a new intent and passes information to next activity
      * @param player The player to be passed into the game activity
-     * @param difficulty the difficulty to be passed into game object of game activity
+     * @param live the difficulty to be passed into game object of game activity
      */
-    private void toGame(Sprite player, int difficulty) {
+    private void toGame(Sprite player, int live) {
         Intent playIntent = new Intent(this, GameScreenActivity.class);
-        playIntent.putExtra("level", difficulty);
+        playIntent.putExtra("lives", live);
         playIntent.putExtra("player", player.toString());
         startActivity(playIntent);
     }
