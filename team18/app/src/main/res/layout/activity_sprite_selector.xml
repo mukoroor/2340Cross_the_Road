@@ -11,8 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/volcano">
+        android:orientation="vertical">
 
         <TableRow
             android:id="@+id/characterGallery"
@@ -25,6 +24,7 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/leftarrow"
+                android:elevation="100dp"
                 android:foreground="@drawable/leftarrow"
                 android:translationX="25dp" />
 
@@ -47,53 +47,92 @@
 
         </TableRow>
 
-        <RelativeLayout
-            android:id="@+id/spriteDescription"
+        <TableRow
+            android:id="@+id/spriteDescriptionWrapper"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/spriteDescription0"
-                style="@style/text"
+            <RelativeLayout
+
                 android:layout_width="match_parent"
-                android:fontFamily="@font/p2p"
-                android:text="MAN"
-                android:textColor="#000000"
-                android:translationX="5sp"
-                android:translationY="5sp"
-                android:textSize="50sp" />
-            <TextView
-                android:id="@+id/spriteDescription1"
-                style="@style/text"
-                android:layout_width="match_parent"
-                android:fontFamily="@font/p2p"
-                android:text="MAN"
-                android:textSize="50sp" />
-        </RelativeLayout>
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/spriteDescription0"
+                    style="@style/text"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/p2p"
+                    android:text="MAN"
+                    android:textColor="#000000"
+                    android:translationX="5sp"
+                    android:translationY="5sp"
+                    android:textSize="50sp" />
+                <TextView
+                    android:id="@+id/spriteDescription1"
+                    style="@style/text"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/p2p"
+                    android:text="MAN"
+                    android:textSize="50sp" />
+            </RelativeLayout>
+
+        </TableRow>
 
         <TableRow
             android:id="@+id/navigation"
             android:layout_width="match_parent"
-            android:layout_height="182dp">
+            android:layout_height="182dp"
+            android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/returnButton"
-                style="@style/button2x1"
+            <RelativeLayout
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/back"
-                android:textSize="20sp"
-                android:translationX="42.75dp" />
+                android:translationX="42.75dp"
+                android:background="@drawable/button2x1"
+                android:gravity="center"
+                android:elevation="100dp">
 
-            <TextView
-                style="@style/button2x1"
-                android:id="@+id/submitButton"
-                android:text="@string/next"
-                android:layout_gravity="center"
-                android:textSize="20sp"
-                android:translationX="128.25dp" />
+                <TextView
+                    style="@style/text"
+                    android:text="@string/back"
+                    android:textColor="#000000"
+                    android:translationX="2.1sp"
+                    android:translationY="2.1sp"
+                    android:textSize="21sp" />
+                <TextView
+                    style="@style/text"
+                    android:text="@string/back"
+                    android:textSize="21sp"
+                     />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/nextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:translationX="128.25dp"
+                android:background="@drawable/button2x1"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/text"
+                    android:text="@string/next"
+                    android:textColor="#000000"
+                    android:translationX="2.1sp"
+                    android:translationY="2.1sp"
+                    android:textSize="21sp" />
+                <TextView
+                    style="@style/text"
+                    android:text="@string/next"
+                    android:textSize="21sp"
+                    />
+            </RelativeLayout>
 
         </TableRow>
 
     </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

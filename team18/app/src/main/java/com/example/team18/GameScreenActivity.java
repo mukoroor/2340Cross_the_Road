@@ -48,6 +48,7 @@ public class GameScreenActivity extends AppCompatActivity {
         final FrameLayout iv = (FrameLayout) findViewById(R.id.mainFrame);
         finalHeight = iv.getMeasuredHeight();
         finalWidth = iv.getMeasuredWidth();
+        System.out.println(finalWidth);
 
         //Animates rows on screen
         animate(rows);
@@ -361,8 +362,8 @@ public class GameScreenActivity extends AppCompatActivity {
     }
 
     private String getPlayerInfo() {
-        return "k3ll3y|3|1";
-        //return getIntent().getStringExtra("player");
+//        return "k3ll3y|3|1";
+        return getIntent().getStringExtra("player");
     }
 
 
