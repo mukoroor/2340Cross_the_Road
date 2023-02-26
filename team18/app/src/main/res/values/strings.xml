@@ -8,6 +8,7 @@
     <string name="quit">QUIT</string>
     <string name="spriteImage">Sprite Options</string>
     <string name="baseCharacter">MAN</string>
+    <string name="title">LA\nHAVA</string>
     <string name="enter_name">Enter name</string>
     <string name="choose_difficulty">Choose Difficulty</string>
     <string-array name="difficulty">
