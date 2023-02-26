@@ -12,20 +12,14 @@ public class Game {
     public static GameBlock[][] gameBlockArray = new GameBlock[16][9];
     private int blockSize;
     private int score;
-    private int difficulty;
 
     /**
      * Constructor for new Game object.
      * @param player The Sprite the player has chosen.
-     * @param difficulty The difficulty level of the game.
-     * @param deviceWidth The width of the device the game is being played on.
      */
-    public Game(Sprite player, int difficulty, int deviceWidth) {
+    public Game(Sprite player) {
         this.player = player;
-        this.blockSize = deviceWidth / 9;
-        this.playerPosition = new int[] {4 * blockSize, blockSize};
         this.score = 0;
-        this.difficulty = difficulty;
     }
 
     /**
@@ -38,6 +32,11 @@ public class Game {
     public void changePosition(int deltaX, int deltaY) {
         playerPosition[0] += deltaX * blockSize;
         playerPosition[1] += deltaY * blockSize;
+    }
+
+
+    public int[] getPosition() {
+        return playerPosition;
     }
 
     /**
@@ -70,6 +69,15 @@ public class Game {
      */
     public int getBlockSize() {return blockSize;}
 
+    /**
+     * Method for setting block-size
+     * @param newBlockSize the new value for block-size
+     */
+    public void setBlockSize(int newBlockSize) {
+        blockSize = newBlockSize;
+        playerPosition = new int[] {4 * blockSize, 14 * blockSize};
+    }
+
     public static void shiftGameRow(int row, int deltaX) {
         int colLength = gameBlockArray[0].length;
 
@@ -81,8 +89,6 @@ public class Game {
             temp[i] = gameBlockArray[row][count];
             count++;
         }
-
-//        System.out.println(temp[0].gridBlock.getResources());
 
         for (int i = 0; i < deltaX; i++) {
             temp[i] = gameBlockArray[row][9 - deltaX + i];
