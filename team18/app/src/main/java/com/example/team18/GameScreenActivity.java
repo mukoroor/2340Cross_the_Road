@@ -53,10 +53,6 @@ public class GameScreenActivity extends AppCompatActivity {
         //Animates rows on screen
         animate(rows);
 
-        //Big O Code
-        //int displayWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-        //int difficulty= getGameDifficulty();
-        //Game currentGame = new Game(player, difficulty, displayWidth);
 
 
         //The action events for the leftButton and the placement of the left button
@@ -250,7 +246,6 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public void animate(int[] rows) {
         //Constructs a list of rivers and roads on screen
-//        ArrayList<LinearLayout> rivers = new ArrayList<>();
         HashMap<Integer, LinearLayout> rivers = new HashMap<>();
         ArrayList<LinearLayout> roads = new ArrayList<>();
         for (int i = 0; i < rows.length; i++) {
@@ -270,10 +265,6 @@ public class GameScreenActivity extends AppCompatActivity {
              ) {
             moveRiver(rowIndex, rivers.get(rowIndex));
         }
-
-//        for (LinearLayout river : rivers) {
-//            moveRiver(river);
-//        }
 
         //Animates and moves fireballs on screen
         FrameLayout mainFrame = findViewById(R.id.mainFrame);

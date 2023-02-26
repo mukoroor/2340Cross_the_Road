@@ -19,24 +19,7 @@ public class StartScreenActivity extends AppCompatActivity {
         //this make a button object that is linked to the exit button
         RelativeLayout quitButton = findViewById(R.id.quitButton);
         RelativeLayout playButton = findViewById(R.id.playButton);
-
-        TableRow gameTitle = findViewById(R.id.gameImage);
-        TableRow navigation = findViewById(R.id.navigation);
-
-        final int viewWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-        final int viewHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-
-        /*distributing heights of Layout
-          gameTitle: 60%;
-          navigation: 40%;
-        * */
-        int percentHeight = (viewHeight / 10);
-
-        gameTitle.requestLayout();
-        navigation.requestLayout();
-        gameTitle.setLayoutParams(new LinearLayout.LayoutParams(viewWidth,
-                viewHeight - 4 * percentHeight));
-        navigation.setLayoutParams(new LinearLayout.LayoutParams(viewWidth, 4 * percentHeight));
+        
 
         //I used an action event to set what happens when my button is clicked on.
 
