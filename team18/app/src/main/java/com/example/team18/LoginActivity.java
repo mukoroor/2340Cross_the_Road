@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,11 +23,11 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     private EditText edUsername;
 
     private ImageView selectedSprite;
-    private Button pre;
-    private Button submit;
+    private RelativeLayout pre;
+    private RelativeLayout submit;
     private Spinner spinner;
-    private String[] dif = {"EASY", "MEDIUM", "HARD"};
-
+    private final String[] dif = {"EASY", "MEDIUM", "HARD"};
+    private final int[] lives = {5, 3, 1};
     private String selectedDiff;
 
 
@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         int spriteInd = getSpriteInd();
 
         spinner = findViewById(R.id.spinner);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(LoginActivity.this,
                 android.R.layout.simple_spinner_item, dif);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -67,7 +68,8 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             }
             if (isValid) {
                 Sprite player = new Sprite(spriteInd, username);
-                toGame(player, spinner.getSelectedItemPosition());
+                player.setLives(lives[spinner.getSelectedItemPosition()]);
+                toGame(player);
             }
 
         });
@@ -101,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             selectedDiff = dif[1];
             break;
         case 2:
-            // Whatever you want to happen when the thrid item gets selected
+            // Whatever you want to happen when the third item gets selected
             selectedDiff = dif[2];
             break;
         default:
@@ -120,11 +122,9 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     /**
      * A method that creates a new intent and passes information to next activity
      * @param player The player to be passed into the game activity
-     * @param difficulty the difficulty to be passed into game object of game activity
      */
-    private void toGame(Sprite player, int difficulty) {
+    private void toGame(Sprite player) {
         Intent playIntent = new Intent(this, GameScreenActivity.class);
-        playIntent.putExtra("level", difficulty);
         playIntent.putExtra("player", player.toString());
         startActivity(playIntent);
     }
