@@ -44,18 +44,6 @@
             android:text="@string/title"
             android:textSize="75sp" />
     </RelativeLayout>
-    <!--The image for laHava-->
-<!--    <ImageView-->
-<!--        android:id="@+id/title"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="1dp"-->
-<!--        android:layout_weight="10"-->
-<!--        android:background="@drawable/startscreen"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/navigation"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <LinearLayout
         android:id="@+id/navigation"
@@ -72,7 +60,6 @@
             android:layout_width="0dp"
             android:layout_weight="1"/>
 
-        <!--The exit button-->
         <RelativeLayout
             android:id="@+id/quitButton"
             android:layout_width="wrap_content"
@@ -102,7 +89,6 @@
             android:layout_width="0dp"
             android:layout_weight="1"/>
 
-     <!--The start button-->
         <RelativeLayout
             android:id="@+id/playButton"
             android:layout_width="wrap_content"

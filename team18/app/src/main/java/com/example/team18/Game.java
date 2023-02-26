@@ -9,7 +9,7 @@ public class Game {
 
     private int[] playerPosition;
 
-    public static GameBlock[][] gameBlockArray = new GameBlock[16][9];
+    private static GameBlock[][] gameBlockArray = new GameBlock[16][9];
     private int blockSize;
     private int score;
 
@@ -67,7 +67,9 @@ public class Game {
      * Method for getting the size of grid block.
      * @return Uniform block size of grid.
      */
-    public int getBlockSize() {return blockSize;}
+    public int getBlockSize() {
+        return blockSize;
+    }
 
     /**
      * Method for setting block-size
@@ -78,6 +80,19 @@ public class Game {
         playerPosition = new int[] {4 * blockSize, 14 * blockSize};
     }
 
+    /**
+     * Method for getting gameBlock array for game.
+     * @return gameBlock array
+     */
+    public static GameBlock[][] getGameBlockArray() {
+        return gameBlockArray;
+    }
+
+    /**
+     * Method for shifting a row in gameBlockArray with wrap around
+     * @param row the row that is being shifted in gameBlockArray
+     * @param deltaX the amount the row is being shifted by (-) is to left (+) is right
+     */
     public static void shiftGameRow(int row, int deltaX) {
         int colLength = gameBlockArray[0].length;
 
