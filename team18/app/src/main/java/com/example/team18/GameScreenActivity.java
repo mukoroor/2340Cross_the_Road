@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -22,7 +20,8 @@ public class GameScreenActivity extends AppCompatActivity {
 
     private Game currGame;
 
-    private TextView playerLives, playerPoints;
+    private TextView playerLives;
+    private TextView playerPoints;
 
     private ImageView playerImage;
 
@@ -92,6 +91,9 @@ public class GameScreenActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * method for updating the player positioning, score and lives
+     */
     public void updatePlayerScreenData() {
         playerPoints.setText(String.valueOf(currGame.getScore()));
         playerLives.setText(String.valueOf(currGame.getPlayer().getLives()));
@@ -101,7 +103,6 @@ public class GameScreenActivity extends AppCompatActivity {
 
     /**
      * A method for creating the functionality moving left with the left button
-     *
      */
     public void moveLeft() {
         if (currGame.getPosition()[0] > 0) {
@@ -142,6 +143,11 @@ public class GameScreenActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Method for setting up the grid for the Game
+     * @param gridContainer The parent View which holds all the GameBlocks created
+     * @param blockSize the size of each square GameBlock
+     */
     public void createGrid(LinearLayout gridContainer, int blockSize) {
         for (int row = 0; row < 16; row++) {
             LinearLayout rowBlock = new LinearLayout(this);
@@ -164,6 +170,10 @@ public class GameScreenActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method for assigning row types to the created grid in the game
+     * @return int array mapping integers to row types
+     */
     public int[] populateGrid() {
         /*
         Goal tile => 3
@@ -196,7 +206,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
         int[] blockOptions = GameBlock.blockOptions;
         for (int i = 0; i < rowTypes.length; i++) {
-            GameBlock[] row = Game.gameBlockArray[i];
+            GameBlock[] row = Game.getGameBlockArray()[i];
             for (GameBlock g:row
             ) {
                 g.gridBlock.setImageResource(blockOptions[rowTypes[i]]);
@@ -205,7 +215,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
         for (int i = 0; i < rowTypes.length; i++) {
             if (rowTypes[i] == 1) {
-                GameBlock[] riverRow = Game.gameBlockArray[i];
+                GameBlock[] riverRow = Game.getGameBlockArray()[i];
                 int begin = r.nextInt(riverRow.length);
                 riverRow[begin].gridBlock.setImageResource(blockOptions[4]);
                 riverRow[(begin + 1) % riverRow.length].gridBlock.setImageResource(blockOptions[4]);
@@ -217,19 +227,20 @@ public class GameScreenActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method for starting/calling animations of the rivers and fireball (on roads)
+     * @param rows array representing the types of each row in grid;
+     */
     public void animate(int[] rows) {
         //Constructs a list of rivers and roads on screen
         HashMap<Integer, LinearLayout> rivers = new HashMap<>();
         ArrayList<LinearLayout> roads = new ArrayList<>();
         for (int i = 0; i < rows.length; i++) {
             LinearLayout grid = findViewById(R.id.backgroundGrid);
-            switch (rows[i]) {
-                case 1:
-                    rivers.put(i, (LinearLayout) grid.getChildAt(i));
-                    break;
-                case 0:
-                    roads.add((LinearLayout) grid.getChildAt(i));
-                    break;
+            if (rows[i] == 1) {
+                rivers.put(i, (LinearLayout) grid.getChildAt(i));
+            } else if (rows[i] == 0) {
+                roads.add((LinearLayout) grid.getChildAt(i));
             }
         }
 
@@ -250,8 +261,13 @@ public class GameScreenActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method for animating rivers
+     * @param rowIndex the position of row in the gameBlockArray
+     * @param row the corresponding linear layout holding all GameBlocks in that row
+     */
     public void moveRiver(int rowIndex, LinearLayout row) {
-        new CountDownTimer(10000, 1000){
+        new CountDownTimer(10000, 1000) {
                 public void onTick(long millisUntilFinished) {
                     //Moves the blocks in the river
                     ImageView oldBlock = (ImageView) row.getChildAt(0);
@@ -265,14 +281,18 @@ public class GameScreenActivity extends AppCompatActivity {
         }.start();
     }
 
+    /**
+     * Method for animating fireball
+     * @param fireball the image view which is being animated
+     */
     public void animateFireball(ImageView fireball) {
         FrameLayout.LayoutParams fireballDims = new FrameLayout.LayoutParams(
                 currGame.getBlockSize(), currGame.getBlockSize());
         fireball.setLayoutParams(fireballDims);
         final int[] image = {0};
         final int[] fireBallFrames = {R.drawable.fireball0, R.drawable.fireball1,
-                R.drawable.fireball2, R.drawable.fireball3, R.drawable.fireball4,
-                R.drawable.fireball5, R.drawable.fireball6, R.drawable.fireball7};
+            R.drawable.fireball2, R.drawable.fireball3, R.drawable.fireball4,
+            R.drawable.fireball5, R.drawable.fireball6, R.drawable.fireball7};
         new CountDownTimer(800, 100) {
             public void onTick(long millisUntilFinished) {
                 //Changes fireball images
@@ -286,6 +306,11 @@ public class GameScreenActivity extends AppCompatActivity {
         }.start();
     }
 
+    /**
+     * Method for randomly choosing the start time of fireball when game begins
+     * @param fireball fireball that is to be shot
+     * @param row road which the fireball will be moving across
+     */
     public void shootFireBall(ImageView fireball, LinearLayout row) {
         Random rand = new Random();
         int waitOffset = 1 + rand.nextInt(10);
@@ -301,6 +326,12 @@ public class GameScreenActivity extends AppCompatActivity {
         }.start();
     }
 
+
+    /**
+     * Method for moving fireball across the screen
+     * @param fireball fireball that is being moved
+     * @param row road which the fireball will be moving across
+     */
     public void fireballMotion(ImageView fireball, LinearLayout row) {
         int rowWidth = row.getWidth();
         int rowY = (int) row.getY();
@@ -324,6 +355,10 @@ public class GameScreenActivity extends AppCompatActivity {
         }.start();
     }
 
+    /**
+     * gets player string sent from login activity
+     * @return string representing user player
+     */
     private String getPlayerInfo() {
         return getIntent().getStringExtra("player");
     }

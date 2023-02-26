@@ -3,11 +3,8 @@ package com.example.team18;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TableRow;
 
 public class StartScreenActivity extends AppCompatActivity {
 

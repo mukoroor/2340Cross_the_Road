@@ -4,13 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 public class SpriteSelector extends AppCompatActivity {
@@ -33,9 +30,6 @@ public class SpriteSelector extends AppCompatActivity {
 
         final RelativeLayout nextButton = findViewById(R.id.nextButton);
         final RelativeLayout backButton = findViewById(R.id.backButton);
-
-
-
 
 
         leftButton.setOnClickListener(e -> {
