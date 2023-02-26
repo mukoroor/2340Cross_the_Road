@@ -356,7 +356,7 @@ public class GameScreenActivity extends AppCompatActivity {
         }.start();
     }
 
-    private int getGameLives() {
+    public int getGameLives() {
         return getIntent().getIntExtra("lives", 5);
     }
 

@@ -14,4 +14,15 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void difficulty_selection() {
+        String dif = LoginActivity.selectedDiff;
+        int position = LoginActivity.position;
+        if (position == 0) {
+            assertEquals("easy",dif);
+        }
+
+
+    }
 }

@@ -28,7 +28,8 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     private Spinner spinner;
     private String[] dif = {"EASY", "MEDIUM", "HARD"};
     private int[] lives = {5,3,1};
-    private String selectedDiff;
+    public static String selectedDiff;
+    public static int position;
 
 
     @Override
@@ -68,6 +69,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             if (isValid) {
                 Sprite player = new Sprite(spriteInd, username);
                 toGame(player, lives[spinner.getSelectedItemPosition()]);
+                position = spinner.getSelectedItemPosition();
             }
 
         });
@@ -93,15 +95,15 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         }
         switch (position) {
         case 0:
-            // Whatever you want to happen when the first item gets selected
+
             selectedDiff = dif[0];
             break;
         case 1:
-            // Whatever you want to happen when the second item gets selected
+
             selectedDiff = dif[1];
             break;
         case 2:
-            // Whatever you want to happen when the thrid item gets selected
+
             selectedDiff = dif[2];
             break;
         default:
