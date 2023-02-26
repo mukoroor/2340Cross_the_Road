@@ -8,47 +8,96 @@
     tools:context=".StartScreenActivity">
 
 
-    <!--Layouts for the start screen-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+
+    <!--The image for laHava-->
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="10"
+        android:background="@drawable/startscreen"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <!--The image for laHava-->
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="1dp"
-            android:layout_weight="10"
-            android:background="@drawable/startscreen" />
-        <!--The start button-->
-        <Button
-            android:id="@+id/playbutton"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:text="Play" />
-        <!--The exit button-->
-        <Button
-            android:id="@+id/exitbutton"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="50dp"
-            android:layout_weight="1"
-            android:linksClickable="false"
-            android:text="Exit" />
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8"
+        >
+
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"/>
+
+        <!--The exit button-->
+        <RelativeLayout
+            android:id="@+id/quitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button2x1"
+            android:gravity="center"
+            >
+
+            <TextView
+                style="@style/text"
+                android:text="@string/quit"
+                android:textColor="#000000"
+                android:textSize="21sp"
+                android:translationX="2.1sp"
+                android:translationY="2.1sp" />
+
+            <TextView
+                style="@style/text"
+                android:layout_gravity="center"
+                android:text="@string/quit"
+                android:textSize="21sp" />
+        </RelativeLayout>
+
+
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"/>
+
+     <!--The start button-->
+        <RelativeLayout
+            android:id="@+id/playButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button2x1"
+            android:gravity="center"
+            >
+
+            <TextView
+                style="@style/text"
+                android:text="@string/start"
+                android:textColor="#000000"
+                android:textSize="21sp"
+                android:translationX="2.1sp"
+                android:translationY="2.1sp" />
+
+            <TextView
+                style="@style/text"
+                android:layout_gravity="center"
+                android:text="@string/start"
+                android:textSize="21sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"/>
     </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

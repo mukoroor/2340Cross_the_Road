@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">team18</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="back">Back</string>
-    <string name="play">Play</string>
+    <string name="back">BACK</string>
+    <string name="next">NEXT</string>
+    <string name="play">PLAY</string>
+    <string name="start">START</string>
+    <string name="quit">QUIT</string>
+    <string name="spriteImage">Sprite Options</string>
+    <string name="baseCharacter">MAN</string>
     <string name="enter_name">Enter name</string>
     <string name="choose_difficulty">Choose Difficulty</string>
     <string-array name="difficulty">
