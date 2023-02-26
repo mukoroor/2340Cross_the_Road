@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,8 +23,8 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     private EditText edUsername;
 
     private ImageView selectedSprite;
-    private Button pre;
-    private Button submit;
+    private RelativeLayout pre;
+    private RelativeLayout submit;
     private Spinner spinner;
     private String[] dif = {"EASY", "MEDIUM", "HARD"};
     private int[] lives = {5,3,1};
@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         int spriteInd = getSpriteInd();
 
         spinner = findViewById(R.id.spinner);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(LoginActivity.this,
                 android.R.layout.simple_spinner_item, dif);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

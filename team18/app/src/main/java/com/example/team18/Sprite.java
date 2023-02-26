@@ -12,7 +12,7 @@ public class Sprite {
         {{R.drawable.man1}, {R.drawable.man2}, {R.drawable.mermaid}, {R.drawable.charmeleon}};
 
     protected static String[] spriteDescriptions = new String[]
-        {"MAN1", "MAN2", "MERMAID", "CHARME"};
+        {"MAN1", "MAN2", "MERMAID", "CHARM"};
 
     /**
      * Constructor for creating a Sprite.
@@ -47,8 +47,8 @@ public class Sprite {
     }
 
     /**
-    * Method for converting Stringified object to sprite.
-    * @param object Stringified Sprite object.
+    * Method for converting Stringifies object to sprite.
+    * @param object Stringifies Sprite object.
     */
     public static Sprite parseString(String object) {
         String[] tokens = object.split("[|]");

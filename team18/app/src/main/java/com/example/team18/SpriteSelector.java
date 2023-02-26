@@ -27,35 +27,14 @@ public class SpriteSelector extends AppCompatActivity {
         final Button leftButton = findViewById(R.id.leftButton);
         final Button rightButton = findViewById(R.id.rightButton);
         final ImageView spriteView = findViewById(R.id.spriteView);
-        final TableRow characterGallery = findViewById(R.id.characterGallery);
 
         final TextView spriteDescription0 = findViewById(R.id.spriteDescription0);
         final TextView spriteDescription1 = findViewById(R.id.spriteDescription1);
-        final TableRow spriteDescriptionWrapper = findViewById(R.id.spriteDescriptionWrapper);
 
         final RelativeLayout nextButton = findViewById(R.id.nextButton);
         final RelativeLayout backButton = findViewById(R.id.backButton);
-        final TableRow navigation = findViewById(R.id.navigation);
 
-        final int viewWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-        final int viewHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
-        /*distributing heights of Layout
-          characterGallery: 50%;
-          spriteDescriptionWrapper: 20%;
-          navigation: 30%;
-        * */
-        int percentHeight = (viewHeight / 10);
-
-        characterGallery.requestLayout();
-        spriteDescriptionWrapper.requestLayout();
-        navigation.requestLayout();
-        characterGallery.setLayoutParams(new LinearLayout.LayoutParams(viewWidth,
-                viewHeight - 5 * percentHeight));
-        spriteDescriptionWrapper.setLayoutParams(new LinearLayout.LayoutParams(viewWidth,
-                percentHeight));
-        navigation.setLayoutParams(new LinearLayout.LayoutParams(viewWidth,
-                4 * percentHeight));
 
 
 
