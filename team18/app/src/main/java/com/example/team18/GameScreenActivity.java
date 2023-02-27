@@ -348,7 +348,6 @@ public class GameScreenActivity extends AppCompatActivity {
                 //Moves fireball across screen
                 int currentX = (int) fireball.getX();
                 fireball.setX(currentX - translation);
-
             }
 
             public void onFinish() {
