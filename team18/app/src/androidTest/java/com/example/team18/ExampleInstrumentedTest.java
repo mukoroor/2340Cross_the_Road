@@ -77,7 +77,6 @@ public class ExampleInstrumentedTest {
             int variableValue = intent.getIntExtra("lives",5);
             assertEquals(5, variableValue);
         });
-        
     }
 
 }
