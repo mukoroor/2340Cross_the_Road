@@ -11,6 +11,7 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -55,36 +56,65 @@ public class KelleyJUnits {
     }
 
     @Test
-    public void leftBoundary() {
-        activityScenario =
-        activityScenario.onActivity(activity -> {
-            ViewInteraction leftButton = onView(withId(R.id.leftButton));
-            for (int i = 0; i < 10; i++) {
-                leftButton.perform(click());
-            }
+    public void testleftBoundary() {
 
-            ImageView player = (ImageView) withId(R.id.player);
-            int playerX = (int) player.getX();
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(), GameScreenActivity.class);
+        playIntent.putExtra("lives", 5);
+        Sprite player = new Sprite(0, "TEST");
+        playIntent.putExtra("player", player.toString());
 
-            assertTrue(playerX >= 0);
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+            curr.changePosition(-200, 0);
+
+            int[] currPos = new int[2];
+            currPos[0] = curr.getPosition()[0];
+            currPos[1] = curr.getPosition()[1];
+
+            Button upButton = activity.findViewById(R.id.upButton);
+            upButton.performClick();
+
+            int[] newPos = curr.getPosition();
+
+            assertEquals(newPos[0], currPos[0]);
+            assertEquals(newPos[1], currPos[1]);
         });
     }
 
+
     @Test
-    public void rightBoundary() {
-            activityScenario.onActivity(activity -> {
-            ViewInteraction rightButton = onView(withId(R.id.rightButton));
-            for (int i = 0; i < 10; i++) {
-                rightButton.perform(click());
-            }
+    public void testrightBoundary() {
 
-            ImageView player = (ImageView) withId(R.id.player);
-            int playerX = (int) player.getX();
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(), GameScreenActivity.class);
+        playIntent.putExtra("lives", 5);
+        Sprite player = new Sprite(0, "TEST");
+        playIntent.putExtra("player", player.toString());
 
-            FrameLayout mainFrame = (FrameLayout) withId(R.id.mainFrame);
-            int screenSize = (int) player.getWidth();
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
 
-            assertTrue(playerX <= screenSize);
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+            curr.changePosition(200, 0);
+
+            int[] currPos = new int[2];
+            currPos[0] = curr.getPosition()[0];
+            currPos[1] = curr.getPosition()[1];
+
+            Button upButton = activity.findViewById(R.id.upButton);
+            upButton.performClick();
+
+            int[] newPos = curr.getPosition();
+
+            assertEquals(newPos[0], currPos[0]);
+            assertEquals(newPos[1], currPos[1]);
         });
     }
 }
