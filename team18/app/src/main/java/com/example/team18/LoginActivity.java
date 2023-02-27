@@ -97,14 +97,17 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         case 0:
 
             selectedDiff = dif[0];
+            System.out.println("selected Difficulty is " + selectedDiff);
             break;
         case 1:
 
             selectedDiff = dif[1];
+            System.out.println("selected Difficulty is " + selectedDiff);
             break;
         case 2:
 
             selectedDiff = dif[2];
+            System.out.println("selected Difficulty is " + selectedDiff);
             break;
         default:
             break;

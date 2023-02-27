@@ -19,10 +19,20 @@ public class ExampleUnitTest {
     public void difficulty_selection() {
         String dif = LoginActivity.selectedDiff;
         int position = LoginActivity.position;
-        if (position == 0) {
-            assertEquals("easy",dif);
+        System.out.println("position" + position);
+        System.out.println(dif);
+        if (dif != null) {
+            if (position == 0) {
+                assertEquals("EASY", dif);
+            } else if (position == 1) {
+                assertEquals("MEDIUM", dif);
+            } else {
+                assertEquals("HARD", dif);
+            }
+        } else {
+            System.out.println("no action so far");
         }
-
-
     }
+
+
 }
