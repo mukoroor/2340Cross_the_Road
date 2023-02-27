@@ -35,17 +35,7 @@ import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public class KelleyJUnits {
-    private ActivityScenario<GameScreenActivity> activityScenario;
 
-    @Before
-    public void setUp() throws Exception {
-        activityScenario = ActivityScenario.launch(GameScreenActivity.class);
-    }
-
-    @After
-    public void tearDown() {
-        activityScenario.close();
-    }
 
 
     @Test
@@ -56,7 +46,7 @@ public class KelleyJUnits {
     }
 
     @Test
-    public void testleftBoundary() {
+    public void testLeftBoundary() {
 
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(), GameScreenActivity.class);
         playIntent.putExtra("lives", 5);
@@ -64,20 +54,22 @@ public class KelleyJUnits {
         playIntent.putExtra("player", player.toString());
 
         // Launch the activity with the intent
-        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+        ActivityScenario<GameScreenActivity> activityScenario = ActivityScenario.launch(playIntent);
 
         // Assert that the activity is in the resumed state
-        scenario.onActivity(activity -> {
+        activityScenario.onActivity(activity -> {
             GameScreenActivity g = (GameScreenActivity) activity;
             Game curr = g.getGame();
-            curr.changePosition(-200, 0);
+            curr.changePosition(-4, 0);
 
             int[] currPos = new int[2];
             currPos[0] = curr.getPosition()[0];
             currPos[1] = curr.getPosition()[1];
 
-            Button upButton = activity.findViewById(R.id.upButton);
-            upButton.performClick();
+            Button leftButton = activity.findViewById(R.id.leftButton);
+            for (int i = 0; i < 200; i++) {
+                leftButton.performClick();
+            }
 
             int[] newPos = curr.getPosition();
 
@@ -88,7 +80,7 @@ public class KelleyJUnits {
 
 
     @Test
-    public void testrightBoundary() {
+    public void testRightBoundary() {
 
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(), GameScreenActivity.class);
         playIntent.putExtra("lives", 5);
@@ -96,20 +88,22 @@ public class KelleyJUnits {
         playIntent.putExtra("player", player.toString());
 
         // Launch the activity with the intent
-        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+        ActivityScenario<GameScreenActivity> activityScenario = ActivityScenario.launch(playIntent);
 
         // Assert that the activity is in the resumed state
-        scenario.onActivity(activity -> {
+        activityScenario.onActivity(activity -> {
             GameScreenActivity g = (GameScreenActivity) activity;
             Game curr = g.getGame();
-            curr.changePosition(200, 0);
+            curr.changePosition(4, 0);
 
             int[] currPos = new int[2];
             currPos[0] = curr.getPosition()[0];
             currPos[1] = curr.getPosition()[1];
 
-            Button upButton = activity.findViewById(R.id.upButton);
-            upButton.performClick();
+            Button rightButton = activity.findViewById(R.id.rightButton);
+            for (int i = 0; i < 200; i++) {
+                rightButton.performClick();
+            }
 
             int[] newPos = curr.getPosition();
 

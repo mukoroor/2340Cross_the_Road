@@ -68,14 +68,17 @@ public class ScreenBoundariesTests {
         scenario.onActivity(activity -> {
             GameScreenActivity g = (GameScreenActivity) activity;
             Game curr = g.getGame();
-            curr.changePosition(0, -200);
+            curr.changePosition(0, -14);
 
             int[] currPos = new int[2];
             currPos[0] = curr.getPosition()[0];
             currPos[1] = curr.getPosition()[1];
 
             Button upButton = activity.findViewById(R.id.upButton);
-            upButton.performClick();
+            for (int i = 0; i < 200; i++) {
+                upButton.performClick();
+            }
+
 
             int[] newPos = curr.getPosition();
 
@@ -100,14 +103,16 @@ public class ScreenBoundariesTests {
         scenario.onActivity(activity -> {
             GameScreenActivity g = (GameScreenActivity) activity;
             Game curr = g.getGame();
-            curr.changePosition(0, 200);
 
             int[] currPos = new int[2];
             currPos[0] = curr.getPosition()[0];
             currPos[1] = curr.getPosition()[1];
 
-            Button upButton = activity.findViewById(R.id.upButton);
-            upButton.performClick();
+            Button downButton = activity.findViewById(R.id.downButton);
+            for (int i=0; i < 200; i++) {
+                downButton.performClick();
+            }
+
 
             int[] newPos = curr.getPosition();
 
