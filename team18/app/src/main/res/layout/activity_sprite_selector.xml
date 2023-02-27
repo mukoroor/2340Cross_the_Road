@@ -62,7 +62,6 @@
         <TextView
             android:id="@+id/spriteDescription0"
             style="@style/text"
-            android:fontFamily="@font/p2p"
             android:text="@string/baseCharacter"
             android:textColor="#000000"
             android:translationX="5.5sp"
@@ -71,7 +70,6 @@
         <TextView
             android:id="@+id/spriteDescription1"
             style="@style/text"
-            android:fontFamily="@font/p2p"
             android:text="@string/baseCharacter"
             android:textSize="55sp" />
     </RelativeLayout>

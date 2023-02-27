@@ -4,24 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#CF1020"
     tools:context=".StartScreenActivity">
 
 
 
-
-    <!--The image for laHava-->
-    <ImageView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="1dp"
-        android:layout_weight="10"
-        android:background="@drawable/startscreen"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navigation"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/text"
+            android:lineHeight="100dp"
+            android:text="@string/title"
+            android:textColor="#080809"
+            android:alpha="0.8"
+            android:translationX="-7.5sp"
+            android:translationY="-7.5sp"
+            android:textSize="75sp" />
+
+        <TextView
+            style="@style/text"
+            android:lineHeight="100dp"
+            android:text="@string/title"
+            android:textColor="#fe802b"
+            android:translationX="7.5sp"
+            android:translationY="7.5sp"
+            android:textSize="75sp" />
+
+        <TextView
+            style="@style/text"
+            android:lineHeight="100dp"
+            android:textColor="#f4e0da"
+            android:text="@string/title"
+            android:textSize="75sp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/navigation"
@@ -38,7 +60,6 @@
             android:layout_width="0dp"
             android:layout_weight="1"/>
 
-        <!--The exit button-->
         <RelativeLayout
             android:id="@+id/quitButton"
             android:layout_width="wrap_content"
@@ -68,7 +89,6 @@
             android:layout_width="0dp"
             android:layout_weight="1"/>
 
-     <!--The start button-->
         <RelativeLayout
             android:id="@+id/playButton"
             android:layout_width="wrap_content"

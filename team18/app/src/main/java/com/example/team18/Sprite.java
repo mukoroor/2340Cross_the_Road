@@ -47,8 +47,9 @@ public class Sprite {
     }
 
     /**
-    * Method for converting Stringifies object to sprite.
-    * @param object Stringifies Sprite object.
+    * Method for converting String object to sprite.
+    * @param object String representing a sprite.
+    * @return the created Sprite.
     */
     public static Sprite parseString(String object) {
         String[] tokens = object.split("[|]");

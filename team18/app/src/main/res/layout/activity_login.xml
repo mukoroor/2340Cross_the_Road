@@ -113,6 +113,7 @@
             android:textAllCaps="true"
             android:fontFamily="@font/p2p"
             android:gravity="center"
+            android:textSize="16sp"
             android:hint="@string/enter_name"
             android:inputType="textPersonName" />
 
