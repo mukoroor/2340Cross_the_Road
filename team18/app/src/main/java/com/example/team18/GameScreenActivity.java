@@ -18,12 +18,14 @@ import java.util.Random;
 
 public class GameScreenActivity extends AppCompatActivity {
 
+
     private Game currGame;
 
     private TextView playerLives;
     private TextView playerPoints;
 
     private ImageView playerImage;
+
 
 
 
@@ -355,10 +357,12 @@ public class GameScreenActivity extends AppCompatActivity {
         }.start();
     }
 
+
     /**
      * gets player string sent from login activity
      * @return string representing user player
      */
+
     private String getPlayerInfo() {
         return getIntent().getStringExtra("player");
     }

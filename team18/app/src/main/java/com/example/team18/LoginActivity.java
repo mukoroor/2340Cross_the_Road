@@ -26,9 +26,11 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     private RelativeLayout pre;
     private RelativeLayout submit;
     private Spinner spinner;
+
     private final String[] dif = {"EASY", "MEDIUM", "HARD"};
     private final int[] lives = {5, 3, 1};
     private String selectedDiff;
+
 
 
     @Override
@@ -68,8 +70,10 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             }
             if (isValid) {
                 Sprite player = new Sprite(spriteInd, username);
+
                 player.setLives(lives[spinner.getSelectedItemPosition()]);
                 toGame(player);
+
             }
 
         });
@@ -95,16 +99,20 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         }
         switch (position) {
         case 0:
-            // Whatever you want to happen when the first item gets selected
+
             selectedDiff = dif[0];
+            System.out.println("selected Difficulty is " + selectedDiff);
             break;
         case 1:
-            // Whatever you want to happen when the second item gets selected
+
             selectedDiff = dif[1];
+            System.out.println("selected Difficulty is " + selectedDiff);
             break;
         case 2:
-            // Whatever you want to happen when the third item gets selected
+
+
             selectedDiff = dif[2];
+            System.out.println("selected Difficulty is " + selectedDiff);
             break;
         default:
             break;
