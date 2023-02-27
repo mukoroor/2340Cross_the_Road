@@ -367,5 +367,12 @@ public class GameScreenActivity extends AppCompatActivity {
         return getIntent().getStringExtra("player");
     }
 
+    /**
+     * Returns game associated with class
+     * @return currGame
+     */
+    public Game getGame() {
+        return currGame;
+    }
 
 }
