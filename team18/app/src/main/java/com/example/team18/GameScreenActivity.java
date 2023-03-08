@@ -257,7 +257,7 @@ public class GameScreenActivity extends AppCompatActivity {
              ) {
             moveRiver(rowIndex, rivers.get(rowIndex));
         }
-
+        movePlayer();
         //Animates and moves fireballs on screen
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
         for (LinearLayout road : roads) {
@@ -286,6 +286,19 @@ public class GameScreenActivity extends AppCompatActivity {
                 public  void onFinish() {
                     moveRiver(rowIndex, row);
                 }
+        }.start();
+    }
+
+    public void movePlayer() {
+        new CountDownTimer(10000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG) {
+                    moveLeft();
+                }
+            }
+            public  void onFinish() {
+                movePlayer();
+            }
         }.start();
     }
 
@@ -356,8 +369,8 @@ public class GameScreenActivity extends AppCompatActivity {
         fireball.setX(rowWidth);
         fireball.setVisibility(View.VISIBLE);
 
-        int translation = rowWidth / 100;
-        new CountDownTimer(15000, 100) {
+        int translation = currGame.getBlockSize();
+        new CountDownTimer(9*1000, 1000) {
             public void onTick(long millisUntilFinished) {
                 //Moves fireball across screen
                 int currentX = (int) fireball.getX();
