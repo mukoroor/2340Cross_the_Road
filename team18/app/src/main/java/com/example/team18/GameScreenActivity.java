@@ -25,7 +25,7 @@ public class GameScreenActivity extends AppCompatActivity {
     private TextView playerPoints;
 
     private ImageView playerImage;
-
+    private int riverSpeed = 1000;
 
 
 
@@ -47,6 +47,7 @@ public class GameScreenActivity extends AppCompatActivity {
         //Sets player name on screen
         TextView playerName = findViewById(R.id.username);
         playerName.setText(player.getName().toUpperCase());
+
 
         //Sets player lives on screen
         playerLives = findViewById(R.id.playerLives);
@@ -131,6 +132,8 @@ public class GameScreenActivity extends AppCompatActivity {
         if (currGame.getPosition()[1] > 0) {
             currGame.changePosition(0, -1);
             currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain);
+            TextView playerName = findViewById(R.id.username);
+            playerName.setText(currGame.getCurrBlock().blockType.toString());
             updatePlayerScreenData();
         }
     }
@@ -275,12 +278,13 @@ public class GameScreenActivity extends AppCompatActivity {
      * @param row the corresponding linear layout holding all GameBlocks in that row
      */
     public void moveRiver(int rowIndex, LinearLayout row) {
-        new CountDownTimer(10000, 1000) {
+        new CountDownTimer(10000, riverSpeed) {
                 public void onTick(long millisUntilFinished) {
                     //Moves the blocks in the river
                     ImageView oldBlock = (ImageView) row.getChildAt(0);
                     row.removeViewAt(0);
                     row.addView(oldBlock);
+
                     Game.shiftGameRow(rowIndex, -1);
                 }
                 public  void onFinish() {

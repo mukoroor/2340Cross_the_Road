@@ -102,6 +102,7 @@ public class Game {
      * @return the block which maps to the players position
      */
     public GameBlock getCurrBlock() {
+        System.out.println("here");
         return gameBlockArray[playerPosition[1] / blockSize][playerPosition[0] / blockSize];
     }
     /**
