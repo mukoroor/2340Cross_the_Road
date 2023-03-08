@@ -56,10 +56,10 @@ public class GameScreenActivity extends AppCompatActivity {
         playerPoints.setText(String.valueOf(currGame.getScore()));
 
         //navigation buttons
-        Button leftButton = (Button) findViewById(R.id.leftButton);
-        Button rightButton = (Button) findViewById(R.id.rightButton);
-        Button upButton = (Button) findViewById(R.id.upButton);
-        Button downButton = (Button) findViewById(R.id.downButton);
+        Button leftButton = findViewById(R.id.leftButton);
+        Button rightButton = findViewById(R.id.rightButton);
+        Button upButton = findViewById(R.id.upButton);
+        Button downButton = findViewById(R.id.downButton);
 
         //moving sprite based on navigation button input
         leftButton.setOnClickListener(e -> moveLeft());
@@ -75,6 +75,7 @@ public class GameScreenActivity extends AppCompatActivity {
                     public void onGlobalLayout() {
                         int blockSize = rootView.getWidth() / 9;
                         currGame.setBlockSize(blockSize);
+                        currGame.setMaxHeight(blockSize * 14);
                         FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(
                                 blockSize, blockSize);
                         playerImage.setLayoutParams(p);
@@ -128,8 +129,8 @@ public class GameScreenActivity extends AppCompatActivity {
      */
     public void moveUp() {
         if (currGame.getPosition()[1] > 0) {
-            currGame.setScore(currGame.getScore() + 1);
             currGame.changePosition(0, -1);
+            currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain);
             updatePlayerScreenData();
         }
     }
@@ -206,12 +207,14 @@ public class GameScreenActivity extends AppCompatActivity {
             }
         }
 
-        int[] blockOptions = GameBlock.blockOptions;
+        int[] imageOptions = GameBlock.imageOptions;
+        GameBlockTypes[] gbt = GameBlockTypes.values();
         for (int i = 0; i < rowTypes.length; i++) {
             GameBlock[] row = Game.getGameBlockArray()[i];
             for (GameBlock g:row
             ) {
-                g.gridBlock.setImageResource(blockOptions[rowTypes[i]]);
+                g.blockType = gbt[rowTypes[i]];
+                g.gridBlock.setImageResource(imageOptions[rowTypes[i]]);
             }
         }
 
@@ -219,9 +222,12 @@ public class GameScreenActivity extends AppCompatActivity {
             if (rowTypes[i] == 1) {
                 GameBlock[] riverRow = Game.getGameBlockArray()[i];
                 int begin = r.nextInt(riverRow.length);
-                riverRow[begin].gridBlock.setImageResource(blockOptions[4]);
-                riverRow[(begin + 1) % riverRow.length].gridBlock.setImageResource(blockOptions[4]);
-                riverRow[(begin + 2) % riverRow.length].gridBlock.setImageResource(blockOptions[4]);
+                riverRow[begin].blockType = gbt[4];
+                riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
+                riverRow[(begin + 1) % riverRow.length].blockType = gbt[4];
+                riverRow[(begin + 1) % riverRow.length].gridBlock.setImageResource(imageOptions[4]);
+                riverRow[(begin + 2) % riverRow.length].blockType = gbt[4];
+                riverRow[(begin + 2) % riverRow.length].gridBlock.setImageResource(imageOptions[4]);
             }
         }
 
@@ -251,7 +257,7 @@ public class GameScreenActivity extends AppCompatActivity {
              ) {
             moveRiver(rowIndex, rivers.get(rowIndex));
         }
-
+        movePlayer();
         //Animates and moves fireballs on screen
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
         for (LinearLayout road : roads) {
@@ -283,6 +289,19 @@ public class GameScreenActivity extends AppCompatActivity {
         }.start();
     }
 
+    public void movePlayer() {
+        new CountDownTimer(10000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG) {
+                    moveLeft();
+                }
+            }
+            public  void onFinish() {
+                movePlayer();
+            }
+        }.start();
+    }
+
     /**
      * Method for animating fireball
      * @param fireball the image view which is being animated
@@ -291,15 +310,23 @@ public class GameScreenActivity extends AppCompatActivity {
         FrameLayout.LayoutParams fireballDims = new FrameLayout.LayoutParams(
                 currGame.getBlockSize(), currGame.getBlockSize());
         fireball.setLayoutParams(fireballDims);
-        final int[] image = {0};
-        final int[] fireBallFrames = {R.drawable.fireball0, R.drawable.fireball1,
-            R.drawable.fireball2, R.drawable.fireball3, R.drawable.fireball4,
-            R.drawable.fireball5, R.drawable.fireball6, R.drawable.fireball7};
-        new CountDownTimer(800, 100) {
+        Random r = new Random();
+        final int[] fireBallFrames = {
+                R.drawable.fball_0,
+                R.drawable.fball_1,
+                R.drawable.fball_2,
+                R.drawable.fball_3,
+                R.drawable.fball_4,
+                R.drawable.fball_5,
+                R.drawable.fball_6,
+                R.drawable.fball_7
+        };
+        final int[] image = {r.nextInt(fireBallFrames.length)};
+        new CountDownTimer(fireBallFrames.length*120, 120) {
             public void onTick(long millisUntilFinished) {
                 //Changes fireball images
                 fireball.setImageResource((fireBallFrames[image[0]]));
-                image[0]++;
+                 image[0] = (image[0] + 1) % fireBallFrames.length;
             }
 
             public void onFinish() {
@@ -342,13 +369,12 @@ public class GameScreenActivity extends AppCompatActivity {
         fireball.setX(rowWidth);
         fireball.setVisibility(View.VISIBLE);
 
-        int translation = rowWidth / 100;
-        new CountDownTimer(15000, 100) {
+        int translation = currGame.getBlockSize();
+        new CountDownTimer(9*1000, 1000) {
             public void onTick(long millisUntilFinished) {
                 //Moves fireball across screen
                 int currentX = (int) fireball.getX();
                 fireball.setX(currentX - translation);
-
             }
 
             public void onFinish() {
@@ -367,5 +393,12 @@ public class GameScreenActivity extends AppCompatActivity {
         return getIntent().getStringExtra("player");
     }
 
+    /**
+     * Returns game associated with class
+     * @return currGame
+     */
+    public Game getGame() {
+        return currGame;
+    }
 
 }
