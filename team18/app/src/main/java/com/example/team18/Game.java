@@ -5,12 +5,13 @@ package com.example.team18;
  * Stores Global variables for game.
  */
 public class Game {
-    private Sprite player;
+    private final Sprite player;
 
     private int[] playerPosition;
 
-    private static GameBlock[][] gameBlockArray = new GameBlock[16][9];
+    private static final GameBlock[][] gameBlockArray = new GameBlock[16][9];
     private int blockSize;
+    private int maxHeight;
     private int score;
 
     /**
@@ -19,6 +20,7 @@ public class Game {
      */
     public Game(Sprite player) {
         this.player = player;
+        this.maxHeight = 0;
         this.score = 0;
     }
 
@@ -44,7 +46,10 @@ public class Game {
      * @param newScore the newScore the player has.
      */
     public void setScore(int newScore) {
-        score = newScore;
+        if (playerPosition[1] < maxHeight) {
+            score = newScore;
+            maxHeight = playerPosition[1];
+        }
     }
 
     /**
@@ -80,6 +85,10 @@ public class Game {
         playerPosition = new int[] {4 * blockSize, 14 * blockSize};
     }
 
+    public void setMaxHeight(int newMaxHeight) {
+        this.maxHeight = newMaxHeight;
+    }
+
     /**
      * Method for getting gameBlock array for game.
      * @return gameBlock array
@@ -88,6 +97,13 @@ public class Game {
         return gameBlockArray;
     }
 
+    /**
+     * gets block player is currently on
+     * @return the block which maps to the players position
+     */
+    public GameBlock getCurrBlock() {
+        return gameBlockArray[playerPosition[1] / blockSize][playerPosition[0] / blockSize];
+    }
     /**
      * Method for shifting a row in gameBlockArray with wrap around
      * @param row the row that is being shifted in gameBlockArray
