@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class LutingJUnits {
     private Spinner spinner;
     private ActivityScenario<LoginActivity> scenario;
 
@@ -74,9 +74,9 @@ public class ExampleInstrumentedTest {
         // verify that the variable sent to the next activity is correct
         scenario.onActivity(activity -> {
             Intent intent = activity.getIntent();
-            int variableValue = intent.getIntExtra("lives",5);
+            int variableValue = intent.getIntExtra("lives", 5);
             assertEquals(5, variableValue);
         });
-    }
 
+    }
 }
