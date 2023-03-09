@@ -5,27 +5,23 @@ package com.example.team18;
  * Stores Global variables for game.
  */
 public class Game {
-    private Sprite player;
+    private final Sprite player;
 
     private int[] playerPosition;
 
-    public static GameBlock[][] gameBlockArray = new GameBlock[16][9];
+    private static final GameBlock[][] gameBlockArray = new GameBlock[16][9];
     private int blockSize;
+    private int maxHeight;
     private int score;
-    private int difficulty;
 
     /**
      * Constructor for new Game object.
      * @param player The Sprite the player has chosen.
-     * @param difficulty The difficulty level of the game.
-     * @param deviceWidth The width of the device the game is being played on.
      */
-    public Game(Sprite player, int difficulty, int deviceWidth) {
+    public Game(Sprite player) {
         this.player = player;
-        this.blockSize = deviceWidth / 9;
-        this.playerPosition = new int[] {4 * blockSize, blockSize};
+        this.maxHeight = 0;
         this.score = 0;
-        this.difficulty = difficulty;
     }
 
     /**
@@ -40,12 +36,20 @@ public class Game {
         playerPosition[1] += deltaY * blockSize;
     }
 
+
+    public int[] getPosition() {
+        return playerPosition;
+    }
+
     /**
      * Method for changing current game score.
      * @param newScore the newScore the player has.
      */
     public void setScore(int newScore) {
-        score = newScore;
+        if (playerPosition[1] < maxHeight) {
+            score = newScore;
+            maxHeight = playerPosition[1];
+        }
     }
 
     /**
@@ -68,8 +72,43 @@ public class Game {
      * Method for getting the size of grid block.
      * @return Uniform block size of grid.
      */
-    public int getBlockSize() {return blockSize;}
+    public int getBlockSize() {
+        return blockSize;
+    }
 
+    /**
+     * Method for setting block-size
+     * @param newBlockSize the new value for block-size
+     */
+    public void setBlockSize(int newBlockSize) {
+        blockSize = newBlockSize;
+        playerPosition = new int[] {4 * blockSize, 14 * blockSize};
+    }
+
+    public void setMaxHeight(int newMaxHeight) {
+        this.maxHeight = newMaxHeight;
+    }
+
+    /**
+     * Method for getting gameBlock array for game.
+     * @return gameBlock array
+     */
+    public static GameBlock[][] getGameBlockArray() {
+        return gameBlockArray;
+    }
+
+    /**
+     * gets block player is currently on
+     * @return the block which maps to the players position
+     */
+    public GameBlock getCurrBlock() {
+        return gameBlockArray[playerPosition[1] / blockSize][playerPosition[0] / blockSize];
+    }
+    /**
+     * Method for shifting a row in gameBlockArray with wrap around
+     * @param row the row that is being shifted in gameBlockArray
+     * @param deltaX the amount the row is being shifted by (-) is to left (+) is right
+     */
     public static void shiftGameRow(int row, int deltaX) {
         int colLength = gameBlockArray[0].length;
 
@@ -81,8 +120,6 @@ public class Game {
             temp[i] = gameBlockArray[row][count];
             count++;
         }
-
-//        System.out.println(temp[0].gridBlock.getResources());
 
         for (int i = 0; i < deltaX; i++) {
             temp[i] = gameBlockArray[row][9 - deltaX + i];
