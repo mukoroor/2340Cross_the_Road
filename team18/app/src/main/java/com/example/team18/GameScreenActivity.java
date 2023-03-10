@@ -258,14 +258,20 @@ public class GameScreenActivity extends AppCompatActivity {
             moveRiver(rowIndex, rivers.get(rowIndex));
         }
         movePlayer();
+        int i = 1;
         //Animates and moves fireballs on screen
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
         for (LinearLayout road : roads) {
-            ImageView fireball = new ImageView(this);
-            fireball.setVisibility(View.INVISIBLE);
-            mainFrame.addView(fireball, 0);
-            animateFireball(fireball);
-            shootFireBall(fireball, road);
+            ImageView vehicle = new ImageView(this);
+            ImageView tracks = new ImageView(this);
+            mainFrame.addView(vehicle, 0);
+            mainFrame.addView(tracks, 0);
+            Vehicle fireballObject = new Vehicle(road, vehicle, tracks, i);
+            if (i == 3) {
+                i = 1;
+            } else {
+                i++;
+            }
         }
     }
 
@@ -298,39 +304,6 @@ public class GameScreenActivity extends AppCompatActivity {
             }
             public  void onFinish() {
                 movePlayer();
-            }
-        }.start();
-    }
-
-    /**
-     * Method for animating fireball
-     * @param fireball the image view which is being animated
-     */
-    public void animateFireball(ImageView fireball) {
-        FrameLayout.LayoutParams fireballDims = new FrameLayout.LayoutParams(
-                currGame.getBlockSize(), currGame.getBlockSize());
-        fireball.setLayoutParams(fireballDims);
-        Random r = new Random();
-        final int[] fireBallFrames = {
-                R.drawable.fball_0,
-                R.drawable.fball_1,
-                R.drawable.fball_2,
-                R.drawable.fball_3,
-                R.drawable.fball_4,
-                R.drawable.fball_5,
-                R.drawable.fball_6,
-                R.drawable.fball_7
-        };
-        final int[] image = {r.nextInt(fireBallFrames.length)};
-        new CountDownTimer(fireBallFrames.length*120, 120) {
-            public void onTick(long millisUntilFinished) {
-                //Changes fireball images
-                fireball.setImageResource((fireBallFrames[image[0]]));
-                 image[0] = (image[0] + 1) % fireBallFrames.length;
-            }
-
-            public void onFinish() {
-                animateFireball(fireball);
             }
         }.start();
     }
@@ -390,6 +363,7 @@ public class GameScreenActivity extends AppCompatActivity {
      */
 
     private String getPlayerInfo() {
+        //return "Kelley|0|5";
         return getIntent().getStringExtra("player");
     }
 
