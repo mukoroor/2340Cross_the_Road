@@ -309,55 +309,6 @@ public class GameScreenActivity extends AppCompatActivity {
     }
 
     /**
-     * Method for randomly choosing the start time of fireball when game begins
-     * @param fireball fireball that is to be shot
-     * @param row road which the fireball will be moving across
-     */
-    public void shootFireBall(ImageView fireball, LinearLayout row) {
-        Random rand = new Random();
-        int waitOffset = 1 + rand.nextInt(10);
-        int waitTime = waitOffset * 1000;
-        new CountDownTimer(waitTime, 1000) {
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            public void onFinish() {
-                fireballMotion(fireball, row);
-            }
-        }.start();
-    }
-
-
-    /**
-     * Method for moving fireball across the screen
-     * @param fireball fireball that is being moved
-     * @param row road which the fireball will be moving across
-     */
-    public void fireballMotion(ImageView fireball, LinearLayout row) {
-        int rowWidth = row.getWidth();
-        int rowY = (int) row.getY();
-
-        fireball.setY(rowY);
-        fireball.setX(rowWidth);
-        fireball.setVisibility(View.VISIBLE);
-
-        int translation = currGame.getBlockSize();
-        new CountDownTimer(9*1000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                //Moves fireball across screen
-                int currentX = (int) fireball.getX();
-                fireball.setX(currentX - translation);
-            }
-
-            public void onFinish() {
-                fireballMotion(fireball, row);
-            }
-        }.start();
-    }
-
-
-    /**
      * gets player string sent from login activity
      * @return string representing user player
      */
