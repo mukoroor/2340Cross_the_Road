@@ -110,8 +110,22 @@ public class GameScreenActivity extends AppCompatActivity {
      */
     public void moveLeft() {
         if (currGame.getPosition()[0] > 0) {
-            currGame.changePosition(-1, 0);
-            updatePlayerScreenData();
+            int[] pos = currGame.getPosition();
+            int blksize = currGame.getBlockSize();
+            boolean move = true;
+            if (pos[0] / blksize < 8) {
+                GameBlock blockToLeft = currGame.getGameBlockArray()[pos[1]/blksize][(pos[0] / blksize) - 1];
+                TextView playerName = findViewById(R.id.username);
+                playerName.setText("left"+blockToLeft.blockType.toString());
+//                if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG || blockToLeft.blockType == GameBlockTypes.RIVER) {
+//                    move = false;
+//
+//                }
+            }
+            if (move) {
+                currGame.changePosition(-1, 0);
+                updatePlayerScreenData();
+            }
         }
     }
 
@@ -296,8 +310,15 @@ public class GameScreenActivity extends AppCompatActivity {
     public void movePlayer() {
         new CountDownTimer(10000, 1000) {
             public void onTick(long millisUntilFinished) {
-                if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG) {
-                    moveLeft();
+                if (currGame.playerOnLog) {
+                    if (playerImage.getX() != 0) {
+                        currGame.changePosition(-1, 0);
+                        updatePlayerScreenData();
+                    } else {
+                        playerImage.setX(-currGame.getBlockSize());
+                        playerPoints.setText("YOU DIED EL FINISHO OWARI DA");
+                    }
+
                 }
             }
             public  void onFinish() {
