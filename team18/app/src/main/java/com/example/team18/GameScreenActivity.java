@@ -76,6 +76,8 @@ public class GameScreenActivity extends AppCompatActivity {
                     public void onGlobalLayout() {
                         int blockSize = rootView.getWidth() / 9;
                         currGame.setBlockSize(blockSize);
+//                        playerName.setText(String.valueOf(currGame.getPosition()[1]));
+
                         currGame.setMaxHeight(blockSize * 14);
                         FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(
                                 blockSize, blockSize);
@@ -113,19 +115,21 @@ public class GameScreenActivity extends AppCompatActivity {
             int[] pos = currGame.getPosition();
             int blksize = currGame.getBlockSize();
             boolean move = true;
-            if (pos[0] / blksize < 8) {
-                GameBlock blockToLeft = currGame.getGameBlockArray()[pos[1]/blksize][(pos[0] / blksize) - 1];
-                TextView playerName = findViewById(R.id.username);
-                playerName.setText("left"+blockToLeft.blockType.toString());
+//            if (pos[0] / blksize < 8) {
+//                GameBlock blockToLeft = currGame.getGameBlockArray()[pos[1]/blksize][(pos[0] / blksize) - 1];
+//                TextView playerName = findViewById(R.id.username);
+//                playerName.setText("left"+blockToLeft.blockType.toString());
 //                if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG || blockToLeft.blockType == GameBlockTypes.RIVER) {
 //                    move = false;
 //
 //                }
-            }
-            if (move) {
+//            }
+//            if (move) {
                 currGame.changePosition(-1, 0);
+                TextView playerName = findViewById(R.id.username);
+                playerName.setText("0" + currGame.getPosition()[0] + "1" + currGame.getPosition()[1]);
                 updatePlayerScreenData();
-            }
+//            }
         }
     }
 
@@ -146,8 +150,8 @@ public class GameScreenActivity extends AppCompatActivity {
         if (currGame.getPosition()[1] > 0) {
             currGame.changePosition(0, -1);
             currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain);
-            TextView playerName = findViewById(R.id.username);
-            playerName.setText(currGame.getCurrBlock().blockType.toString());
+//            TextView playerName = findViewById(R.id.username);
+//            playerName.setText(currGame.getCurrBlock().blockType.toString());
             updatePlayerScreenData();
         }
     }
