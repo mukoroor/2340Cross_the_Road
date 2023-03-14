@@ -10,6 +10,10 @@ import androidx.test.core.app.ApplicationProvider;
 import org.junit.Test;
 
 public class Sprint2JUnits {
+
+    /**
+     * Checks that at least one fireball is on game screen.
+     */
     @Test
     public void AtLeastOneFireball() {
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
@@ -28,6 +32,9 @@ public class Sprint2JUnits {
         });
     }
 
+    /**
+     * Checks that at least one dragon is on game screen.
+     */
     @Test
     public void AtLeastOneDragon() {
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
@@ -46,6 +53,9 @@ public class Sprint2JUnits {
         });
     }
 
+    /**
+     * Checks that at least one minecart is on game screen.
+     */
     @Test
     public void AtLeastOneMineCart() {
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
