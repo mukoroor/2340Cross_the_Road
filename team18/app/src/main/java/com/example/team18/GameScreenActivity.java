@@ -20,7 +20,6 @@ public class GameScreenActivity extends AppCompatActivity {
 
 
     private Game currGame;
-
     private TextView playerLives;
     private TextView playerPoints;
 
