@@ -27,6 +27,8 @@ public class GameScreenActivity extends AppCompatActivity {
     private ImageView playerImage;
     private int riverSpeed = 1000;
 
+    private String[] rowTypes = new String[16];
+
 
 
     @Override
@@ -148,8 +150,10 @@ public class GameScreenActivity extends AppCompatActivity {
      */
     public void moveUp() {
         if (currGame.getPosition()[1] > 0) {
+            int yCoord = currGame.getPosition()[1]/currGame.getBlockSize();
             currGame.changePosition(0, -1);
             currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain);
+
 //            TextView playerName = findViewById(R.id.username);
 //            playerName.setText(currGame.getCurrBlock().blockType.toString());
             updatePlayerScreenData();
@@ -264,14 +268,29 @@ public class GameScreenActivity extends AppCompatActivity {
         //Constructs a list of rivers and roads on screen
         HashMap<Integer, LinearLayout> rivers = new HashMap<>();
         ArrayList<LinearLayout> roads = new ArrayList<>();
+        int roadStart = 0;
         for (int i = 0; i < rows.length; i++) {
             LinearLayout grid = findViewById(R.id.backgroundGrid);
             if (rows[i] == 1) {
                 rivers.put(i, (LinearLayout) grid.getChildAt(i));
+                roadStart = i;
             } else if (rows[i] == 0) {
                 roads.add((LinearLayout) grid.getChildAt(i));
             }
         }
+
+        for (int i = 0; i < roads.size(); i++) {
+            switch (i % 2) {
+                case 0: rowTypes[roadStart + i] = "fireball";
+                break;
+                case 1: rowTypes[roadStart + i] = "dragon";
+                break;
+                case 2: rowTypes[roadStart + i] = "minecart";
+                break;
+            }
+        }
+
+        System.out.println(rowTypes);
 
         //Animates rivers on screen
         for (Integer rowIndex: rivers.keySet()
