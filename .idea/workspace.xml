@@ -11,15 +11,14 @@
   <component name="ChangeListManager">
     <list default="true" id="e7065158-855b-46df-b6ec-a5f3fdbfece4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/team18/app/src/main/java/com/example/team18/SpriteSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/team18/app/src/main/java/com/example/team18/SpriteSelector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/team18/app/src/main/java/com/example/team18/StartScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/team18/app/src/main/java/com/example/team18/StartScreenActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/team18/app/src/androidTest/java/com/example/team18/OsenJUnits.java" beforeDir="false" afterPath="$PROJECT_DIR$/team18/app/src/androidTest/java/com/example/team18/OsenJUnits.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\ajyii\.android\avd\Pixel_XL_API_30.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/omoikhosenunuigboje/.android/avd/Pixel_XL_API_33.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -58,7 +57,6 @@
 }</component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
-      <module name="team18.app.main" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />

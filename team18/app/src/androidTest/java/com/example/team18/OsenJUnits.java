@@ -74,6 +74,40 @@ public class OsenJUnits {
             assertEquals(newPos[1], currPos[1]);
         });
     }
+
+    @Test
+    public void testNoDecrementBack() {
+        Random r = new Random();
+
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameScreenActivity.class);
+        playIntent.putExtra("lives",5);
+        Sprite player = new Sprite(r.nextInt(4), "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+
+            for (int i = 0; i < r.nextInt(14); i++) {
+                curr.changePosition(0, -1);
+                g.updatePlayerScreenData();
+            }
+
+            int highScore = curr.getScore();
+
+            for (int i = 0; i < r.nextInt(14); i++) {
+                curr.changePosition(0, 1);
+                g.updatePlayerScreenData();
+            }
+
+            assertEquals(highScore, curr.getScore());
+        });
+    }
 }
 
 
