@@ -7,6 +7,10 @@ package com.example.team18;
 public class Game {
     private final Sprite player;
 
+    protected boolean playerOnLog = false;
+
+    private Object[] currBlock;
+
     private int[] playerPosition;
 
     private static final GameBlock[][] gameBlockArray = new GameBlock[16][9];
@@ -34,6 +38,10 @@ public class Game {
     public void changePosition(int deltaX, int deltaY) {
         playerPosition[0] += deltaX * blockSize;
         playerPosition[1] += deltaY * blockSize;
+        currBlock[1] = (Integer) currBlock[1] + deltaX;
+        currBlock[2] = (Integer) currBlock[2] + deltaY;
+        currBlock[0] = gameBlockArray[(Integer) currBlock[2]][(Integer) currBlock[1]];
+        playerOnLog = ((GameBlock) currBlock[0]).blockType == GameBlockTypes.LOG;
     }
 
 
@@ -83,6 +91,7 @@ public class Game {
     public void setBlockSize(int newBlockSize) {
         blockSize = newBlockSize;
         playerPosition = new int[] {4 * blockSize, 14 * blockSize};
+        currBlock = new Object[] {gameBlockArray[14][4], 4, 14};
     }
 
     public void setMaxHeight(int newMaxHeight) {
@@ -102,6 +111,7 @@ public class Game {
      * @return the block which maps to the players position
      */
     public GameBlock getCurrBlock() {
+//        System.out.println("here");
         return gameBlockArray[playerPosition[1] / blockSize][playerPosition[0] / blockSize];
     }
     /**
