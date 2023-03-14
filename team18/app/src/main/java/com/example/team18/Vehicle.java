@@ -27,11 +27,12 @@ public class Vehicle {
         this.image = image;
         this.tracks = tracks;
 
-        image.setVisibility(View.INVISIBLE);
-        tracks.setVisibility(View.INVISIBLE);
+        this.image.setVisibility(View.INVISIBLE);
+        this.tracks.setVisibility(View.INVISIBLE);
         //type = 1 -> fireball
         //type = 2 -> dragon
         //type = 3 -> minecarts
+        image.setId(type);
         switch(type) {
             case 1:
                 animateFireball();
