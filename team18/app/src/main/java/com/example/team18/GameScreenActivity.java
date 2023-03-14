@@ -25,7 +25,7 @@ public class GameScreenActivity extends AppCompatActivity {
     private TextView playerPoints;
 
     private ImageView playerImage;
-
+    private int riverSpeed = 1000;
 
 
 
@@ -47,6 +47,7 @@ public class GameScreenActivity extends AppCompatActivity {
         //Sets player name on screen
         TextView playerName = findViewById(R.id.username);
         playerName.setText(player.getName().toUpperCase());
+
 
         //Sets player lives on screen
         playerLives = findViewById(R.id.playerLives);
@@ -75,6 +76,8 @@ public class GameScreenActivity extends AppCompatActivity {
                     public void onGlobalLayout() {
                         int blockSize = rootView.getWidth() / 9;
                         currGame.setBlockSize(blockSize);
+//                        playerName.setText(String.valueOf(currGame.getPosition()[1]));
+
                         currGame.setMaxHeight(blockSize * 14);
                         FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(
                                 blockSize, blockSize);
@@ -109,8 +112,24 @@ public class GameScreenActivity extends AppCompatActivity {
      */
     public void moveLeft() {
         if (currGame.getPosition()[0] > 0) {
-            currGame.changePosition(-1, 0);
-            updatePlayerScreenData();
+            int[] pos = currGame.getPosition();
+            int blksize = currGame.getBlockSize();
+            boolean move = true;
+//            if (pos[0] / blksize < 8) {
+//                GameBlock blockToLeft = currGame.getGameBlockArray()[pos[1]/blksize][(pos[0] / blksize) - 1];
+//                TextView playerName = findViewById(R.id.username);
+//                playerName.setText("left"+blockToLeft.blockType.toString());
+//                if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG || blockToLeft.blockType == GameBlockTypes.RIVER) {
+//                    move = false;
+//
+//                }
+//            }
+//            if (move) {
+                currGame.changePosition(-1, 0);
+                TextView playerName = findViewById(R.id.username);
+                playerName.setText("0" + currGame.getPosition()[0] + "1" + currGame.getPosition()[1]);
+                updatePlayerScreenData();
+//            }
         }
     }
 
@@ -131,6 +150,8 @@ public class GameScreenActivity extends AppCompatActivity {
         if (currGame.getPosition()[1] > 0) {
             currGame.changePosition(0, -1);
             currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain);
+//            TextView playerName = findViewById(R.id.username);
+//            playerName.setText(currGame.getCurrBlock().blockType.toString());
             updatePlayerScreenData();
         }
     }
@@ -281,12 +302,13 @@ public class GameScreenActivity extends AppCompatActivity {
      * @param row the corresponding linear layout holding all GameBlocks in that row
      */
     public void moveRiver(int rowIndex, LinearLayout row) {
-        new CountDownTimer(10000, 1000) {
+        new CountDownTimer(10000, riverSpeed) {
                 public void onTick(long millisUntilFinished) {
                     //Moves the blocks in the river
                     ImageView oldBlock = (ImageView) row.getChildAt(0);
                     row.removeViewAt(0);
                     row.addView(oldBlock);
+
                     Game.shiftGameRow(rowIndex, -1);
                 }
                 public  void onFinish() {
@@ -298,8 +320,15 @@ public class GameScreenActivity extends AppCompatActivity {
     public void movePlayer() {
         new CountDownTimer(10000, 1000) {
             public void onTick(long millisUntilFinished) {
-                if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG) {
-                    moveLeft();
+                if (currGame.playerOnLog) {
+                    if (playerImage.getX() != 0) {
+                        currGame.changePosition(-1, 0);
+                        updatePlayerScreenData();
+                    } else {
+                        playerImage.setX(-currGame.getBlockSize());
+                        playerPoints.setText("YOU DIED EL FINISHO OWARI DA");
+                    }
+
                 }
             }
             public  void onFinish() {
@@ -309,62 +338,13 @@ public class GameScreenActivity extends AppCompatActivity {
     }
 
     /**
-     * Method for randomly choosing the start time of fireball when game begins
-     * @param fireball fireball that is to be shot
-     * @param row road which the fireball will be moving across
-     */
-    public void shootFireBall(ImageView fireball, LinearLayout row) {
-        Random rand = new Random();
-        int waitOffset = 1 + rand.nextInt(10);
-        int waitTime = waitOffset * 1000;
-        new CountDownTimer(waitTime, 1000) {
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            public void onFinish() {
-                fireballMotion(fireball, row);
-            }
-        }.start();
-    }
-
-
-    /**
-     * Method for moving fireball across the screen
-     * @param fireball fireball that is being moved
-     * @param row road which the fireball will be moving across
-     */
-    public void fireballMotion(ImageView fireball, LinearLayout row) {
-        int rowWidth = row.getWidth();
-        int rowY = (int) row.getY();
-
-        fireball.setY(rowY);
-        fireball.setX(rowWidth);
-        fireball.setVisibility(View.VISIBLE);
-
-        int translation = currGame.getBlockSize();
-        new CountDownTimer(9*1000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                //Moves fireball across screen
-                int currentX = (int) fireball.getX();
-                fireball.setX(currentX - translation);
-            }
-
-            public void onFinish() {
-                fireballMotion(fireball, row);
-            }
-        }.start();
-    }
-
-
-    /**
      * gets player string sent from login activity
      * @return string representing user player
      */
 
     private String getPlayerInfo() {
-        //return "Kelley|0|5";
-        return getIntent().getStringExtra("player");
+        return "Kelley|0|5";
+        //return getIntent().getStringExtra("player");
     }
 
     /**

@@ -1,14 +1,10 @@
 package com.example.team18;
 
-import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
 
 import java.util.Random;
 
@@ -19,16 +15,24 @@ public class Vehicle {
 
     ImageView tracks;
 
+    /**
+     * Constructor for Vehicle Class.
+     * @param row road that vehicle will cross
+     * @param image vehicle display
+     * @param tracks track that minecart would ride on
+     * @param type type of vehicle
+     */
     public Vehicle(LinearLayout row, ImageView image, ImageView tracks, int type) {
         this.row = row;
         this.image = image;
         this.tracks = tracks;
 
-        image.setVisibility(View.INVISIBLE);
-        tracks.setVisibility(View.INVISIBLE);
+        this.image.setVisibility(View.INVISIBLE);
+        this.tracks.setVisibility(View.INVISIBLE);
         //type = 1 -> fireball
         //type = 2 -> dragon
         //type = 3 -> minecarts
+        image.setId(type);
         switch(type) {
             case 1:
                 animateFireball();
@@ -42,6 +46,9 @@ public class Vehicle {
         }
     }
 
+    /**
+     * Animates Fireball.
+     */
     public void animateFireball() {
         Random rand = new Random();
         int delay = rand.nextInt(9) + 1;
@@ -53,8 +60,11 @@ public class Vehicle {
 
             public void onFinish() {
                 image.setY(row.getY());
-                image.setX(row.getWidth());
                 image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getHeight() * 1.5), row.getHeight()));
+
+                image.setX(- image.getWidth());
+                image.setRotation(180);
+
                 image.setVisibility(View.VISIBLE);
                 fireballFrames(); //switches frames of fireball
                 fireballMotion(); //moves fireball
@@ -63,6 +73,9 @@ public class Vehicle {
 
     }
 
+    /**
+     * Flips through fireball animation.
+     */
     public void fireballFrames() {
         final int[] i = {0};
         final int[] fireBallFrames = {
@@ -89,21 +102,28 @@ public class Vehicle {
         }.start();
     }
 
+    /**
+     * Translates fireball across road.
+     */
     public void fireballMotion() {
         int sections = row.getWidth() / 20;
         int screenTime = 2000;
         new CountDownTimer(screenTime + 1000, screenTime / 20) {
             public void onTick(long millisUntilFinished) {
-                image.setX(image.getX() - sections);
+                image.setX(image.getX() + sections);
+
             }
 
             public void onFinish() {
-                image.setX(row.getWidth());
+                image.setX(- image.getWidth());
                 fireballMotion();
             }
         }.start();
     }
 
+    /**
+     * Animates Dragon.
+     */
     public void animateDragon() {
         Random rand = new Random();
         int delay = rand.nextInt(9) + 1;
@@ -124,6 +144,9 @@ public class Vehicle {
         }.start();
     }
 
+    /**
+     * Flips through dragon animation.
+     */
     public void dragonFrames() {
         final int[] i = {0};
         final int[] fireBallFrames = {
@@ -154,6 +177,9 @@ public class Vehicle {
         }.start();
     }
 
+    /**
+     * Translates dragon across road.
+     */
     public void dragonMotion() {
         int sections = row.getWidth() / 20;
         int screenTime = 8000;
@@ -169,6 +195,9 @@ public class Vehicle {
         }.start();
     }
 
+    /**
+     * Animates Minecarts.
+     */
     public void animateMineCarts() {
         Random rand = new Random();
         int delay = rand.nextInt(9) + 1;
@@ -194,6 +223,9 @@ public class Vehicle {
         }.start();
     }
 
+    /**
+     * Translates minecarts across road.
+     */
     public void mineCartMotion() {
         int sections = (int) (row.getWidth() * 2) / 20;
         int screenTime = 5000;
