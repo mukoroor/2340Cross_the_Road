@@ -159,7 +159,7 @@ public class LutingJUnits {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            boolean needBreak = false;
+//            boolean needBreak = false;
             int iniScore = curr.getScore();
             for(int q  = 14; q >= 0 ; q--) {
 
