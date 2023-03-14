@@ -76,4 +76,7 @@ public class JustinJUnits {
             assertEquals(newPos[1], currPos[1] + curr.getBlockSize());
         });
     }
+
+    public void tearDown() throws Exception {
+    }
 }
