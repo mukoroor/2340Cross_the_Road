@@ -1,6 +1,6 @@
 package com.example.team18;
 
-import static org.junit.Assert.assertEquals;
+
 
 import android.content.Intent;
 import android.widget.Button;
