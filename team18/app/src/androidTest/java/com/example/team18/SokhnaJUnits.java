@@ -32,7 +32,7 @@ import com.example.team18.LoginActivity;
 
 @RunWith(AndroidJUnit4.class)
 
-public class NameTests {
+public class SokhnaJUnits {
     private EditText username;
     private Button submit;
 
