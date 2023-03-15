@@ -26,7 +26,7 @@ public class GameScreenActivity extends AppCompatActivity {
     private ImageView playerImage;
     private int riverSpeed = 1000;
 
-    private String[] rowTypes = new String[16];
+    protected String[] rowTypes = new String[16];
 
 
 

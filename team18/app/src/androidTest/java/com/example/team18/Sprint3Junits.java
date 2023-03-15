@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-public class Sprint3JUnits {
+public class Sprint3Junits {
     Random r = new Random();
 
     @Test
@@ -286,14 +286,23 @@ public class Sprint3JUnits {
 
             int pointsBeforeLeavingSafe = 0;
             while(finalPos-- > 0) {
-                if (finalPos == 1) {
-                    pointsBeforeLeavingSafe = curr.getScore();
-                }
-                curr.changePosition(0, -1);
-                g.updatePlayerScreenData();
+                pointsBeforeLeavingSafe = curr.getScore();
+                g.moveUp();
             }
 
             int changeInPoints = curr.getScore() - pointsBeforeLeavingSafe;
+
+            int rowBonus = 0;
+
+            if ("fireball".equals(g.rowTypes[row - 1])) {
+                rowBonus += 2;
+            } else if ("dragon".equals(g.rowTypes[row - 1])) {
+                rowBonus += 1;
+            } else if ("minecart".equals(g.rowTypes[row - 1])){
+                rowBonus += 3;
+            }
+
+            changeInPoints -= rowBonus;
 
             assertEquals(safe.travelGain, changeInPoints);
         });
@@ -323,14 +332,23 @@ public class Sprint3JUnits {
 
             int pointsBeforeLeavingSafe = 0;
             while(finalPos-- > 0) {
-                if (finalPos == 1) {
-                    pointsBeforeLeavingSafe = curr.getScore();
-                }
-                curr.changePosition(0, -1);
-                g.updatePlayerScreenData();
+                pointsBeforeLeavingSafe = curr.getScore();
+                g.moveUp();
             }
 
             int changeInPoints = curr.getScore() - pointsBeforeLeavingSafe;
+
+            int rowBonus = 0;
+
+            if ("fireball".equals(g.rowTypes[row - 1])) {
+                rowBonus += 2;
+            } else if ("dragon".equals(g.rowTypes[row - 1])) {
+                rowBonus += 1;
+            } else if ("minecart".equals(g.rowTypes[row - 1])){
+                rowBonus += 3;
+            }
+
+            changeInPoints -= rowBonus;
 
             assertEquals(road.travelGain, changeInPoints);
         });
@@ -361,16 +379,63 @@ public class Sprint3JUnits {
 
             int pointsBeforeLeavingSafe = 0;
             while(finalPos-- > 0) {
-                if (finalPos == 1) {
-                    pointsBeforeLeavingSafe = curr.getScore();
-                }
-                curr.changePosition(0, -1);
-                g.updatePlayerScreenData();
+                pointsBeforeLeavingSafe = curr.getScore();
+                g.moveUp();
             }
 
+            System.out.println(pointsBeforeLeavingSafe);
             int changeInPoints = curr.getScore() - pointsBeforeLeavingSafe;
 
             assertEquals(goal.travelGain, changeInPoints);
         });
+    }
+
+    @Test
+    public void testScore(){
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(), GameScreenActivity.class);
+        playIntent.putExtra("lives", 5);
+        Sprite player = new Sprite(r.nextInt(4), "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+            assertEquals(curr.getScore(), 0);
+
+        });
+
+    }
+
+    @Test
+    public void testNoScoreGoingBackwards(){
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(), GameScreenActivity.class);
+        playIntent.putExtra("lives", 5);
+        Sprite player = new Sprite(r.nextInt(4), "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+
+            for (int i = 0; i < r.nextInt(14); i++) {
+                g.moveUp();
+            }
+
+            int highScore = curr.getScore();
+
+
+            for (int i = 0; i < r.nextInt(14); i++) {
+                g.moveDown();
+            }
+            assertEquals(highScore, curr.getScore());
+
+        });
+
     }
 }
