@@ -26,7 +26,9 @@ public class GameScreenActivity extends AppCompatActivity {
     private ImageView playerImage;
     private int riverSpeed = 1000;
 
-    private String[] rowTypes = new String[16];
+    private String[] otherRowTypes;
+
+    private int otherRowTypesPointer = 14;
 
 
 
@@ -151,7 +153,26 @@ public class GameScreenActivity extends AppCompatActivity {
         if (currGame.getPosition()[1] > 0) {
             int yCoord = currGame.getPosition()[1]/currGame.getBlockSize();
             currGame.changePosition(0, -1);
-            currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain);
+
+            //handles adding extra points for vehicle tiles
+            otherRowTypesPointer--;
+            if (otherRowTypes[otherRowTypesPointer] == null) {
+                currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain);
+            } else {
+                switch (otherRowTypes[otherRowTypesPointer]) {
+                    case "fireball":
+                        currGame.setScore(currGame.getScore() + 1);
+                        break;
+
+                    case "dragon":
+                        currGame.setScore(currGame.getScore() + 2);
+                        break;
+
+                    case "minecart":
+                        currGame.setScore(currGame.getScore() + 3);
+                        break;
+                }
+            }
 
 //            TextView playerName = findViewById(R.id.username);
 //            playerName.setText(currGame.getCurrBlock().blockType.toString());
@@ -166,6 +187,7 @@ public class GameScreenActivity extends AppCompatActivity {
         if (currGame.getPosition()[1] < 14 * currGame.getBlockSize()) {
             currGame.changePosition(0, 1);
             updatePlayerScreenData();
+            otherRowTypesPointer++;
         }
     }
 
@@ -268,28 +290,38 @@ public class GameScreenActivity extends AppCompatActivity {
         HashMap<Integer, LinearLayout> rivers = new HashMap<>();
         ArrayList<LinearLayout> roads = new ArrayList<>();
         int roadStart = 0;
+        boolean switched = true;
         for (int i = 0; i < rows.length; i++) {
             LinearLayout grid = findViewById(R.id.backgroundGrid);
             if (rows[i] == 1) {
                 rivers.put(i, (LinearLayout) grid.getChildAt(i));
-                roadStart = i;
             } else if (rows[i] == 0) {
                 roads.add((LinearLayout) grid.getChildAt(i));
+
+                if (switched) {
+                    roadStart = i;
+                    switched = false;
+                }
             }
         }
+
+        otherRowTypes = new String[rows.length];
 
         for (int i = 0; i < roads.size(); i++) {
-            switch (i % 2) {
-                case 0: rowTypes[roadStart + i] = "fireball";
+            switch (i % 3) {
+                case 0: otherRowTypes[roadStart + i] = "fireball";
                 break;
-                case 1: rowTypes[roadStart + i] = "dragon";
+                case 1: otherRowTypes[roadStart + i] = "dragon";
                 break;
-                case 2: rowTypes[roadStart + i] = "minecart";
+                case 2: otherRowTypes[roadStart + i] = "minecart";
                 break;
             }
         }
 
-        System.out.println(rowTypes);
+        for (String item : otherRowTypes) {
+            //System.out.println(item);
+        }
+
 
         //Animates rivers on screen
         for (Integer rowIndex: rivers.keySet()
