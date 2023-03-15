@@ -236,15 +236,13 @@ public class Sprint3Junits {
             Game curr = g.getGame();
 
             for (int i = 0; i < r.nextInt(14); i++) {
-                curr.changePosition(0, -1);
-                g.updatePlayerScreenData();
+                g.moveUp();
             }
 
             int highScore = curr.getScore();
 
             for (int i = 0; i < r.nextInt(14); i++) {
-                curr.changePosition(0, 1);
-                g.updatePlayerScreenData();
+                g.moveDown();
             }
 
             assertEquals(highScore, curr.getScore());
