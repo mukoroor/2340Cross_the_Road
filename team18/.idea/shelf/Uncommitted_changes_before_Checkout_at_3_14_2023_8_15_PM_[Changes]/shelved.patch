@@ -1,0 +1,25 @@
+Index: local.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>## This file must *NOT* be checked into Version Control Systems,\r\n# as it contains information specific to your local configuration.\r\n#\r\n# Location of the SDK. This is only used by Gradle.\r\n# For customization when using a Version Control System, please read the\r\n# header note.\r\n<<<<<<< Updated upstream\r\n#Tue Mar 07 19:23:04 EST 2023\r\n=======\r\n#Sun Feb 26 19:55:47 EST 2023\r\n>>>>>>> Stashed changes\r\nsdk.dir=C\\:\\\\Users\\\\wanh1\\\\AppData\\\\Local\\\\Android\\\\Sdk\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/local.properties b/local.properties
+--- a/local.properties	(revision d2ec0166ed9ed22456ca738b6073e0d4951ccc4c)
++++ b/local.properties	(date 1678839223142)
+@@ -4,9 +4,8 @@
+ # Location of the SDK. This is only used by Gradle.
+ # For customization when using a Version Control System, please read the
+ # header note.
+-<<<<<<< Updated upstream
+-#Tue Mar 07 19:23:04 EST 2023
+-=======
+-#Sun Feb 26 19:55:47 EST 2023
+->>>>>>> Stashed changes
+-sdk.dir=C\:\\Users\\wanh1\\AppData\\Local\\Android\\Sdk
++#Tue Mar 14 20:13:43 EDT 2023
++=\=\=\=\=\=\=
++sdk.dir=C\:\\Users\\synov\\AppData\\Local\\Android\\Sdk
++>>>>>>>=Stashed changes
++<<<<<<<=Updated upstream

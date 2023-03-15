@@ -76,6 +76,11 @@ public class GameScreenActivity extends AppCompatActivity {
                     @Override
                     public void onGlobalLayout() {
                         int blockSize = rootView.getWidth() / 9;
+
+                        //Creates background
+                        createGrid(findViewById(R.id.backgroundGrid), blockSize);
+                        int[] rows = populateGrid();
+
                         currGame.setBlockSize(blockSize);
 //                        playerName.setText(String.valueOf(currGame.getPosition()[1]));
 
@@ -84,10 +89,6 @@ public class GameScreenActivity extends AppCompatActivity {
                                 blockSize, blockSize);
                         playerImage.setLayoutParams(p);
                         updatePlayerScreenData();
-
-                        //Creates background
-                        createGrid(findViewById(R.id.backgroundGrid), blockSize);
-                        int[] rows = populateGrid();
 
                         //Animates rows on screen
                         animate(rows);
@@ -113,24 +114,8 @@ public class GameScreenActivity extends AppCompatActivity {
      */
     public void moveLeft() {
         if (currGame.getPosition()[0] > 0) {
-            int[] pos = currGame.getPosition();
-            int blksize = currGame.getBlockSize();
-            boolean move = true;
-//            if (pos[0] / blksize < 8) {
-//                GameBlock blockToLeft = currGame.getGameBlockArray()[pos[1]/blksize][(pos[0] / blksize) - 1];
-//                TextView playerName = findViewById(R.id.username);
-//                playerName.setText("left"+blockToLeft.blockType.toString());
-//                if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG || blockToLeft.blockType == GameBlockTypes.RIVER) {
-//                    move = false;
-//
-//                }
-//            }
-//            if (move) {
-                currGame.changePosition(-1, 0);
-                TextView playerName = findViewById(R.id.username);
-                playerName.setText("0" + currGame.getPosition()[0] + "1" + currGame.getPosition()[1]);
-                updatePlayerScreenData();
-//            }
+            currGame.changePosition(-1, 0);
+            updatePlayerScreenData();
         }
     }
 
@@ -149,12 +134,20 @@ public class GameScreenActivity extends AppCompatActivity {
      */
     public void moveUp() {
         if (currGame.getPosition()[1] > 0) {
-            int yCoord = currGame.getPosition()[1]/currGame.getBlockSize();
             currGame.changePosition(0, -1);
-            currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain);
+            int yCord = currGame.getPosition()[1]/currGame.getBlockSize();
+            int vehiclePointAdd = 0;
 
-//            TextView playerName = findViewById(R.id.username);
-//            playerName.setText(currGame.getCurrBlock().blockType.toString());
+            if ("fireball".equals(rowTypes[yCord])) {
+                vehiclePointAdd += 2;
+            } else if ("dragon".equals(rowTypes[yCord])) {
+                vehiclePointAdd += 1;
+            } else if ("minecart".equals(rowTypes[yCord])){
+                vehiclePointAdd += 3;
+            }
+
+            currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain
+                    + vehiclePointAdd);
             updatePlayerScreenData();
         }
     }
@@ -272,8 +265,8 @@ public class GameScreenActivity extends AppCompatActivity {
             LinearLayout grid = findViewById(R.id.backgroundGrid);
             if (rows[i] == 1) {
                 rivers.put(i, (LinearLayout) grid.getChildAt(i));
-                roadStart = i;
             } else if (rows[i] == 0) {
+                roadStart = roadStart == 0? i: roadStart;
                 roads.add((LinearLayout) grid.getChildAt(i));
             }
         }
@@ -289,14 +282,13 @@ public class GameScreenActivity extends AppCompatActivity {
             }
         }
 
-        System.out.println(rowTypes);
 
         //Animates rivers on screen
         for (Integer rowIndex: rivers.keySet()
              ) {
             moveRiver(rowIndex, rivers.get(rowIndex));
         }
-        movePlayer();
+//        movePlayer();
         int i = 1;
         //Animates and moves fireballs on screen
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
@@ -344,7 +336,6 @@ public class GameScreenActivity extends AppCompatActivity {
                         updatePlayerScreenData();
                     } else {
                         playerImage.setX(-currGame.getBlockSize());
-                        playerPoints.setText("YOU DIED EL FINISHO OWARI DA");
                     }
 
                 }

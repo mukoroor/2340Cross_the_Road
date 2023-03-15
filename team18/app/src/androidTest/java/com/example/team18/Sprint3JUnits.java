@@ -11,10 +11,13 @@ import androidx.test.core.app.ApplicationProvider;
 
 import org.junit.Test;
 
-public class Sprint2JUnits {
+import java.util.Random;
+
+public class Sprint3JUnits {
+    Random r = new Random();
 
     @Test
-    public void AtLeastOneFireball() {
+    public void atLeastOneFireball() {
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
                 GameScreenActivity.class);
         playIntent.putExtra("lives",5);
@@ -32,7 +35,7 @@ public class Sprint2JUnits {
     }
 
     @Test
-    public void AtLeastOneDragon() {
+    public void atLeastOneDragon() {
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
                 GameScreenActivity.class);
         playIntent.putExtra("lives",5);
@@ -53,7 +56,7 @@ public class Sprint2JUnits {
      * Checks that at least one minecart is on game screen.
      */
     @Test
-    public void AtLeastOneMineCart() {
+    public void atLeastOneMineCart() {
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
                 GameScreenActivity.class);
         playIntent.putExtra("lives",5);
@@ -212,6 +215,162 @@ public class Sprint2JUnits {
             Game game = g.getGame();
 
             assertEquals(0, game.getScore());
+        });
+    }
+
+    @Test
+    public void testNoDecrementBack() {
+
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameScreenActivity.class);
+        playIntent.putExtra("lives", 5);
+        Sprite player = new Sprite(r.nextInt(4), "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+
+            for (int i = 0; i < r.nextInt(14); i++) {
+                curr.changePosition(0, -1);
+                g.updatePlayerScreenData();
+            }
+
+            int highScore = curr.getScore();
+
+            for (int i = 0; i < r.nextInt(14); i++) {
+                curr.changePosition(0, 1);
+                g.updatePlayerScreenData();
+            }
+
+            assertEquals(highScore, curr.getScore());
+        });
+    }
+
+    public int findBlockType(GameBlockTypes g, Game curr) {
+        GameBlock[][] gameBlockArr = curr.getGameBlockArray();
+
+        int startingY = 13;
+
+        while (gameBlockArr[startingY][4].blockType != g) {
+            startingY--;
+        }
+        return startingY;
+    }
+
+    @Test
+    public void testSafeTilePointGain() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(), GameScreenActivity.class);
+        playIntent.putExtra("lives",5);
+        Sprite player = new Sprite(r.nextInt(4), "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = activity;
+            Game curr = g.getGame();
+            GameBlockTypes safe = GameBlockTypes.SAFE;
+
+            int row = findBlockType(safe, curr);
+
+            int finalPos = curr.getPosition()[1] / curr.getBlockSize();
+            finalPos -= row;
+            finalPos++;
+
+            int pointsBeforeLeavingSafe = 0;
+            while(finalPos-- > 0) {
+                if (finalPos == 1) {
+                    pointsBeforeLeavingSafe = curr.getScore();
+                }
+                curr.changePosition(0, -1);
+                g.updatePlayerScreenData();
+            }
+
+            int changeInPoints = curr.getScore() - pointsBeforeLeavingSafe;
+
+            assertEquals(safe.travelGain, changeInPoints);
+        });
+    }
+
+    @Test
+    public void testRoadTilePointGain() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(), GameScreenActivity.class);
+        playIntent.putExtra("lives",5);
+        Sprite player = new Sprite(r.nextInt(4), "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = activity;
+            Game curr = g.getGame();
+            GameBlockTypes road = GameBlockTypes.ROAD;
+
+            int row = findBlockType(road, curr);
+
+            int finalPos = curr.getPosition()[1] / curr.getBlockSize();
+            finalPos -= row;
+            finalPos++;
+
+            int pointsBeforeLeavingSafe = 0;
+            while(finalPos-- > 0) {
+                if (finalPos == 1) {
+                    pointsBeforeLeavingSafe = curr.getScore();
+                }
+                curr.changePosition(0, -1);
+                g.updatePlayerScreenData();
+            }
+
+            int changeInPoints = curr.getScore() - pointsBeforeLeavingSafe;
+
+            assertEquals(road.travelGain, changeInPoints);
+        });
+    }
+
+
+    @Test
+    public void testGoalTilePointGain() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(), GameScreenActivity.class);
+        playIntent.putExtra("lives",5);
+        Sprite player = new Sprite(r.nextInt(4), "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = activity;
+            Game curr = g.getGame();
+            GameBlockTypes goal = GameBlockTypes.GOAL;
+
+            int row = findBlockType(goal, curr);
+
+            int finalPos = curr.getPosition()[1] / curr.getBlockSize();
+            finalPos -= row;
+            finalPos++;
+
+            int pointsBeforeLeavingSafe = 0;
+            while(finalPos-- > 0) {
+                if (finalPos == 1) {
+                    pointsBeforeLeavingSafe = curr.getScore();
+                }
+                curr.changePosition(0, -1);
+                g.updatePlayerScreenData();
+            }
+
+            int changeInPoints = curr.getScore() - pointsBeforeLeavingSafe;
+
+            assertEquals(goal.travelGain, changeInPoints);
         });
     }
 }
