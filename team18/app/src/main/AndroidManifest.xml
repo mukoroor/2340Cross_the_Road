@@ -28,6 +28,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".SpriteSelector" />
         <activity android:name=".StartScreenActivity" />
+        <activity android:name=".GameOverScreenActivity" />
     </application>
 
 </manifest>
