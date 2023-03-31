@@ -1,5 +1,6 @@
 package com.example.team18;
 
+import android.graphics.Rect;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -9,11 +10,13 @@ import android.widget.LinearLayout;
 import java.util.Random;
 
 public class Vehicle {
-    LinearLayout row;
+    private LinearLayout row;
 
-    ImageView image;
+    private ImageView image;
 
-    ImageView tracks;
+    private ImageView tracks;
+
+    private ImageView playerImage;
 
     /**
      * Constructor for Vehicle Class.
@@ -22,10 +25,11 @@ public class Vehicle {
      * @param tracks track that minecart would ride on
      * @param type type of vehicle
      */
-    public Vehicle(LinearLayout row, ImageView image, ImageView tracks, int type) {
+    public Vehicle(LinearLayout row, ImageView image, ImageView tracks, int type, ImageView playerImage) {
         this.row = row;
         this.image = image;
         this.tracks = tracks;
+        this.playerImage = playerImage;
 
         this.image.setVisibility(View.INVISIBLE);
         this.tracks.setVisibility(View.INVISIBLE);
@@ -111,9 +115,8 @@ public class Vehicle {
         new CountDownTimer(screenTime + 1000, screenTime / 20) {
             public void onTick(long millisUntilFinished) {
                 image.setX(image.getX() + sections);
-
+                checkForCollision();
             }
-
             public void onFinish() {
                 image.setX(- image.getWidth());
                 fireballMotion();
@@ -186,8 +189,8 @@ public class Vehicle {
         new CountDownTimer(screenTime + 2000, screenTime / 20) {
             public void onTick(long millisUntilFinished) {
                 image.setX(image.getX() - sections);
+                checkForCollision();
             }
-
             public void onFinish() {
                 image.setX(row.getWidth());
                 dragonMotion();
@@ -232,6 +235,7 @@ public class Vehicle {
         new CountDownTimer(screenTime + 1000, screenTime / 20) {
             public void onTick(long millisUntilFinished) {
                 image.setX(image.getX() - sections);
+                checkForCollision();
             }
 
             public void onFinish() {
@@ -247,5 +251,17 @@ public class Vehicle {
                 }.start();
             }
         }.start();
+    }
+
+    public void checkForCollision() {
+        Rect rect1 = new Rect();
+        image.getGlobalVisibleRect(rect1);
+
+        Rect rect2 = new Rect();
+        playerImage.getGlobalVisibleRect(rect2);
+
+        if (Rect.intersects(rect1, rect2)) {
+           System.out.println("Game Over!!!");
+        }
     }
 }

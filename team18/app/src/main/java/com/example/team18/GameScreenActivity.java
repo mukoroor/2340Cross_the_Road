@@ -2,6 +2,7 @@ package com.example.team18;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -28,6 +29,8 @@ public class GameScreenActivity extends AppCompatActivity {
 
     protected String[] rowTypes = new String[16];
 
+    protected ArrayList<Vehicle> vehicleList = new ArrayList<>();
+
 
 
     @Override
@@ -44,6 +47,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
         //Sets player image on screen
         playerImage.setImageResource(Sprite.spriteOptions[spriteImageIndex][0]);
+
 
         //Sets player name on screen
         TextView playerName = findViewById(R.id.username);
@@ -297,12 +301,13 @@ public class GameScreenActivity extends AppCompatActivity {
             ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
             mainFrame.addView(tracks, 0);
-            Vehicle fireballObject = new Vehicle(road, vehicle, tracks, i);
+            Vehicle vehicleObject = new Vehicle(road, vehicle, tracks, i, playerImage);
             if (i == 3) {
                 i = 1;
             } else {
                 i++;
             }
+            vehicleList.add(vehicleObject);
         }
     }
 
