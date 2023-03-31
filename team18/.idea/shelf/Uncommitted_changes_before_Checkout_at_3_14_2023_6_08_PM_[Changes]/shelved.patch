@@ -1,0 +1,309 @@
+Index: app/src/main/java/com/example/team18/GameScreenActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.team18;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.os.Bundle;\r\nimport android.os.CountDownTimer;\r\nimport android.os.Handler;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.view.ViewTreeObserver;\r\nimport android.widget.Button;\r\nimport android.widget.FrameLayout;\r\nimport android.widget.ImageView;\r\nimport android.widget.LinearLayout;\r\nimport android.widget.TextView;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.HashMap;\r\nimport java.util.Random;\r\nimport java.util.Timer;\r\nimport java.util.TimerTask;\r\n\r\npublic class GameScreenActivity extends AppCompatActivity {\r\n\r\n\r\n    private Game currGame;\r\n\r\n    private Button timerButton;\r\n\r\n    private TextView playerLives;\r\n    private TextView playerPoints;\r\n\r\n    private ImageView playerImage;\r\n\r\n    private CoupledListeners movementListener = new CoupledListeners();\r\n\r\n\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_game_screen);\r\n\r\n        //Establishes player details\r\n        Sprite player = Sprite.parseString(getPlayerInfo());\r\n        playerImage = findViewById(R.id.player);\r\n        int spriteImageIndex = player.getSpriteIndex();\r\n\r\n        currGame = new Game(player);\r\n\r\n        //Sets player image on screen\r\n        playerImage.setImageResource(Sprite.spriteOptions[spriteImageIndex][0]);\r\n\r\n        //Sets player name on screen\r\n        TextView playerName = findViewById(R.id.username);\r\n        playerName.setText(player.getName().toUpperCase());\r\n\r\n        //Sets player lives on screen\r\n        playerLives = findViewById(R.id.playerLives);\r\n        playerLives.setText(String.valueOf(player.getLives()));\r\n\r\n        playerPoints = findViewById(R.id.points);\r\n        playerPoints.setText(String.valueOf(currGame.getScore()));\r\n\r\n        timerButton = new Button(this);\r\n        //navigation buttons\r\n        Button leftButton = findViewById(R.id.leftButton);\r\n        Button rightButton = findViewById(R.id.rightButton);\r\n        Button upButton = findViewById(R.id.upButton);\r\n        Button downButton = findViewById(R.id.downButton);\r\n\r\n        //moving sprite based on navigation button input\r\n        leftButton.setOnClickListener(e -> moveLeft());\r\n        rightButton.setOnClickListener(e -> moveRight());\r\n        upButton.setOnClickListener(e -> moveUp());\r\n        downButton.setOnClickListener(e -> moveDown());\r\n\r\n        //calculating block-size\r\n        View rootView = getWindow().getDecorView().getRootView();\r\n        rootView.getViewTreeObserver().addOnGlobalLayoutListener(\r\n                new ViewTreeObserver.OnGlobalLayoutListener() {\r\n                    @Override\r\n                    public void onGlobalLayout() {\r\n                        int blockSize = rootView.getWidth() / 9;\r\n                        currGame.setBlockSize(blockSize);\r\n                        currGame.setMaxHeight(blockSize * 14);\r\n                        FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(\r\n                                blockSize, blockSize);\r\n                        playerImage.setLayoutParams(p);\r\n                        updatePlayerScreenData();\r\n\r\n                        //Creates background\r\n                        createGrid(findViewById(R.id.backgroundGrid), blockSize);\r\n                        int[] rows = populateGrid();\r\n                        timerButton.setOnClickListener(movementListener);\r\n                        //Animates rows on screen\r\n                        animate(rows);\r\n                        // Remove the listener to avoid multiple calls\r\n                        rootView.getViewTreeObserver().removeOnGlobalLayoutListener(this);\r\n                    }\r\n                });\r\n        new CountDownTimer(Long.MAX_VALUE, 1200) {\r\n            public void onTick(long millisUntilFinished) {\r\n                timerButton.performClick();\r\n            }\r\n\r\n            public void onFinish() {\r\n                start();\r\n            }\r\n        }.start();\r\n\r\n    }\r\n\r\n    /**\r\n     * method for updating the player positioning, score and lives\r\n     */\r\n    public void updatePlayerScreenData() {\r\n        playerPoints.setText(String.valueOf(currGame.getScore()));\r\n        playerLives.setText(String.valueOf(currGame.getPlayer().getLives()));\r\n        playerImage.setX(currGame.getPosition()[0]);\r\n        playerImage.setY(currGame.getPosition()[1]);\r\n    }\r\n\r\n    /**\r\n     * A method for creating the functionality moving left with the left button\r\n     */\r\n    public void moveLeft() {\r\n        if (currGame.getPosition()[0] > 0) {\r\n            currGame.changePosition(-1, 0);\r\n            updatePlayerScreenData();\r\n        }\r\n    }\r\n\r\n    /**\r\n     * A method for creating the functionality moving right with the right button\r\n     */\r\n    public void moveRight() {\r\n        if (currGame.getPosition()[0] < 8 * currGame.getBlockSize()) {\r\n            currGame.changePosition(1, 0);\r\n            updatePlayerScreenData();\r\n        }\r\n    }\r\n\r\n    /**\r\n     * A method for creating the functionality moving up with the up button\r\n     */\r\n    public void moveUp() {\r\n        if (currGame.getPosition()[1] > 0) {\r\n            currGame.changePosition(0, -1);\r\n            currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain);\r\n            updatePlayerScreenData();\r\n        }\r\n    }\r\n\r\n    /**\r\n     *  A method for creating the functionality moving down with the down button\r\n     */\r\n    public void moveDown() {\r\n        if (currGame.getPosition()[1] < 14 * currGame.getBlockSize()) {\r\n            currGame.changePosition(0, 1);\r\n            updatePlayerScreenData();\r\n        }\r\n    }\r\n\r\n\r\n    /**\r\n     * Method for setting up the grid for the Game\r\n     * @param gridContainer The parent View which holds all the GameBlocks created\r\n     * @param blockSize the size of each square GameBlock\r\n     */\r\n    public void createGrid(LinearLayout gridContainer, int blockSize) {\r\n        for (int row = 0; row < 16; row++) {\r\n            LinearLayout rowBlock = new LinearLayout(this);\r\n\r\n            LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(\r\n                    ViewGroup.LayoutParams.WRAP_CONTENT, blockSize);\r\n            rowBlock.setLayoutParams(params1);\r\n\r\n            for (int column = 0; column < 9; column++) {\r\n                ImageView gridBlock = new ImageView(this, null);\r\n                GameBlock g = new GameBlock(row, column, gridBlock);\r\n\r\n                LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(\r\n                        blockSize, blockSize);\r\n                gridBlock.setLayoutParams(params2);\r\n\r\n                rowBlock.addView(gridBlock);\r\n            }\r\n            gridContainer.addView(rowBlock);\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Method for assigning row types to the created grid in the game\r\n     * @return int array mapping integers to row types\r\n     */\r\n    public int[] populateGrid() {\r\n        /*\r\n        Goal tile => 3\r\n        Safe tile => 2\r\n        River tile => 1\r\n        Road tile => 0\r\n         */\r\n        int[] rowTypes = new int[16];\r\n\r\n        Random r = new Random();\r\n\r\n        rowTypes[0] = 3;\r\n        rowTypes[1] = 3;\r\n        rowTypes[14] = 2;\r\n        rowTypes[15] = 2;\r\n        rowTypes[r.nextInt(3) + 7] = 2;\r\n\r\n        int type = r.nextInt(2);\r\n        for (int i = 2; i < 15; i++) {\r\n            if (rowTypes[i] == 0) {\r\n                rowTypes[i] = type;\r\n            } else {\r\n                if (type == 1) {\r\n                    type = 0;\r\n                } else {\r\n                    type = 1;\r\n                }\r\n            }\r\n        }\r\n\r\n        int[] imageOptions = GameBlock.imageOptions;\r\n        GameBlockTypes[] gbt = GameBlockTypes.values();\r\n        for (int i = 0; i < rowTypes.length; i++) {\r\n            GameBlock[] row = Game.getGameBlockArray()[i];\r\n            for (GameBlock g:row\r\n            ) {\r\n                g.blockType = gbt[rowTypes[i]];\r\n                g.gridBlock.setImageResource(imageOptions[rowTypes[i]]);\r\n            }\r\n        }\r\n\r\n        for (int i = 0; i < rowTypes.length; i++) {\r\n            if (rowTypes[i] == 1) {\r\n                GameBlock[] riverRow = Game.getGameBlockArray()[i];\r\n                int begin = r.nextInt(riverRow.length);\r\n                riverRow[begin].blockType = gbt[4];\r\n                riverRow[begin].gridBlock.setImageResource(imageOptions[4]);\r\n                riverRow[(begin + 1) % riverRow.length].blockType = gbt[4];\r\n                riverRow[(begin + 1) % riverRow.length].gridBlock.setImageResource(imageOptions[4]);\r\n                riverRow[(begin + 2) % riverRow.length].blockType = gbt[4];\r\n                riverRow[(begin + 2) % riverRow.length].gridBlock.setImageResource(imageOptions[4]);\r\n            }\r\n        }\r\n\r\n        return rowTypes;\r\n\r\n    }\r\n\r\n    /**\r\n     * Method for starting/calling animations of the rivers and fireball (on roads)\r\n     * @param rows array representing the types of each row in grid;\r\n     */\r\n    public void animate(int[] rows) {\r\n        //Constructs a list of rivers and roads on screen\r\n        HashMap<Integer, LinearLayout> rivers = new HashMap<>();\r\n        ArrayList<LinearLayout> roads = new ArrayList<>();\r\n        for (int i = 0; i < rows.length; i++) {\r\n            LinearLayout grid = findViewById(R.id.backgroundGrid);\r\n            if (rows[i] == 1) {\r\n                rivers.put(i, (LinearLayout) grid.getChildAt(i));\r\n            } else if (rows[i] == 0) {\r\n                roads.add((LinearLayout) grid.getChildAt(i));\r\n            }\r\n        }\r\n\r\n        //Animates rivers on screen\r\n        for (Integer rowIndex: rivers.keySet()\r\n             ) {\r\n            moveRiver(rowIndex, rivers.get(rowIndex));\r\n        }\r\n        // movesPlayer based on block it is on\r\n        movePlayer();\r\n        //Animates and moves fireballs on screen\r\n        FrameLayout mainFrame = findViewById(R.id.mainFrame);\r\n        for (LinearLayout road : roads) {\r\n            ImageView fireball = new ImageView(this);\r\n            fireball.setVisibility(View.INVISIBLE);\r\n            mainFrame.addView(fireball, 0);\r\n            animateFireball(fireball);\r\n            shootFireBall(fireball, road);\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Method for animating rivers\r\n     * @param rowIndex the position of row in the gameBlockArray\r\n     * @param row the corresponding linear layout holding all GameBlocks in that row\r\n     */\r\n    public void moveRiver(int rowIndex, LinearLayout row) {\r\n        View.OnClickListener v = new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                Game.shiftGameRow(rowIndex, -1);\r\n                ImageView oldBlock = (ImageView) row.getChildAt(0);\r\n                row.removeViewAt(0);\r\n                row.addView(oldBlock);\r\n            }\r\n        };\r\n        movementListener.addListener(v);\r\n    }\r\n\r\n    public void movePlayer() {\r\n        View.OnClickListener v = new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG) {\r\n                    moveLeft();\r\n                }\r\n            }\r\n        };\r\n        movementListener.addListener(v);\r\n    }\r\n\r\n    /**\r\n     * Method for animating fireball\r\n     * @param fireball the image view which is being animated\r\n     */\r\n    public void animateFireball(ImageView fireball) {\r\n        FrameLayout.LayoutParams fireballDims = new FrameLayout.LayoutParams(\r\n                currGame.getBlockSize(), currGame.getBlockSize());\r\n        fireball.setLayoutParams(fireballDims);\r\n        Random r = new Random();\r\n        final int[] fireBallFrames = {\r\n                R.drawable.fball_0,\r\n                R.drawable.fball_1,\r\n                R.drawable.fball_2,\r\n                R.drawable.fball_3,\r\n                R.drawable.fball_4,\r\n                R.drawable.fball_5,\r\n                R.drawable.fball_6,\r\n                R.drawable.fball_7\r\n        };\r\n        final int[] image = {r.nextInt(fireBallFrames.length)};\r\n        new CountDownTimer(fireBallFrames.length*120, 120) {\r\n            public void onTick(long millisUntilFinished) {\r\n                //Changes fireball images\r\n                fireball.setImageResource((fireBallFrames[image[0]]));\r\n                 image[0] = (image[0] + 1) % fireBallFrames.length;\r\n            }\r\n\r\n            public void onFinish() {\r\n                animateFireball(fireball);\r\n            }\r\n        }.start();\r\n    }\r\n\r\n    /**\r\n     * Method for randomly choosing the start time of fireball when game begins\r\n     * @param fireball fireball that is to be shot\r\n     * @param row road which the fireball will be moving across\r\n     */\r\n    public void shootFireBall(ImageView fireball, LinearLayout row) {\r\n        Random rand = new Random();\r\n        int waitOffset = 1 + rand.nextInt(10);\r\n        int waitTime = waitOffset * 1000;\r\n        new CountDownTimer(waitTime, 1000) {\r\n            public void onTick(long millisUntilFinished) {\r\n\r\n            }\r\n\r\n            public void onFinish() {\r\n                fireballMotion(fireball, row);\r\n            }\r\n        }.start();\r\n    }\r\n\r\n\r\n    /**\r\n     * Method for moving fireball across the screen\r\n     * @param fireball fireball that is being moved\r\n     * @param row road which the fireball will be moving across\r\n     */\r\n    public void fireballMotion(ImageView fireball, LinearLayout row) {\r\n        int rowWidth = row.getWidth();\r\n        int rowY = (int) row.getY();\r\n\r\n        fireball.setY(rowY);\r\n        fireball.setX(rowWidth);\r\n        fireball.setVisibility(View.VISIBLE);\r\n\r\n        int translation = currGame.getBlockSize();\r\n        View.OnClickListener v  = new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                int currentX = (int) fireball.getX();\r\n                fireball.setX((currentX + rowWidth) % (translation + rowWidth));\r\n            }\r\n        };\r\n        movementListener.addListener(v);\r\n    }\r\n\r\n\r\n    /**\r\n     * gets player string sent from login activity\r\n     * @return string representing user player\r\n     */\r\n\r\n    private String getPlayerInfo() {\r\n        return getIntent().getStringExtra(\"player\");\r\n    }\r\n\r\n    /**\r\n     * Returns game associated with class\r\n     * @return currGame\r\n     */\r\n    public Game getGame() {\r\n        return currGame;\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/team18/GameScreenActivity.java b/app/src/main/java/com/example/team18/GameScreenActivity.java
+--- a/app/src/main/java/com/example/team18/GameScreenActivity.java	
++++ b/app/src/main/java/com/example/team18/GameScreenActivity.java	
+@@ -1,11 +1,9 @@
+ package com.example.team18;
+ 
+-import androidx.annotation.NonNull;
+ import androidx.appcompat.app.AppCompatActivity;
+ 
+ import android.os.Bundle;
+ import android.os.CountDownTimer;
+-import android.os.Handler;
+ import android.view.View;
+ import android.view.ViewGroup;
+ import android.view.ViewTreeObserver;
+@@ -18,8 +16,6 @@
+ import java.util.ArrayList;
+ import java.util.HashMap;
+ import java.util.Random;
+-import java.util.Timer;
+-import java.util.TimerTask;
+ 
+ public class GameScreenActivity extends AppCompatActivity {
+ 
+@@ -33,7 +29,7 @@
+ 
+     private ImageView playerImage;
+ 
+-    private CoupledListeners movementListener = new CoupledListeners();
++    private final CoupledListeners movementListener = new CoupledListeners();
+ 
+ 
+ 
+@@ -294,28 +290,20 @@
+      * @param row the corresponding linear layout holding all GameBlocks in that row
+      */
+     public void moveRiver(int rowIndex, LinearLayout row) {
+-        View.OnClickListener v = new View.OnClickListener() {
+-            @Override
+-            public void onClick(View view) {
+-                Game.shiftGameRow(rowIndex, -1);
+-                ImageView oldBlock = (ImageView) row.getChildAt(0);
+-                row.removeViewAt(0);
+-                row.addView(oldBlock);
+-            }
+-        };
+-        movementListener.addListener(v);
++        movementListener.addListener(e -> {
++            Game.shiftGameRow(rowIndex, -1);
++            ImageView oldBlock = (ImageView) row.getChildAt(0);
++            row.removeViewAt(0);
++            row.addView(oldBlock);
++        });
+     }
+ 
+     public void movePlayer() {
+-        View.OnClickListener v = new View.OnClickListener() {
+-            @Override
+-            public void onClick(View view) {
+-                if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG) {
+-                    moveLeft();
+-                }
++        movementListener.addListener(e -> {
++            if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG) {
++                moveLeft();
+             }
+-        };
+-        movementListener.addListener(v);
++        });
+     }
+ 
+     /**
+@@ -386,14 +374,11 @@
+         fireball.setVisibility(View.VISIBLE);
+ 
+         int translation = currGame.getBlockSize();
+-        View.OnClickListener v  = new View.OnClickListener() {
+-            @Override
+-            public void onClick(View view) {
+-                int currentX = (int) fireball.getX();
+-                fireball.setX((currentX + rowWidth) % (translation + rowWidth));
+-            }
+-        };
+-        movementListener.addListener(v);
++
++        movementListener.addListener(e -> {
++            int currentX = (int) fireball.getX();
++            fireball.setX((currentX + rowWidth) % (translation + rowWidth));
++        });
+     }
+ 
+ 
+Index: .idea/androidTestResultsUserPreferences.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AndroidTestResultsUserPreferences\">\r\n    <option name=\"androidTestResultsTableState\">\r\n      <map>\r\n        <entry key=\"-1350789795\">\r\n\r\n          <value>\r\n            <AndroidTestResultsTableState>\r\n              <option name=\"preferredColumnWidths\">\r\n                <map>\r\n                  <entry key=\"Duration\" value=\"90\" />\r\n                  <entry key=\"Pixel_XL_API_33\" value=\"120\" />\r\n                  <entry key=\"Tests\" value=\"360\" />\r\n                </map>\r\n              </option>\r\n            </AndroidTestResultsTableState>\r\n          </value>\r\n        </entry>\r\n\r\n        <entry key=\"-809055987\">\r\n\r\n          <value>\r\n            <AndroidTestResultsTableState>\r\n              <option name=\"preferredColumnWidths\">\r\n                <map>\r\n                  <entry key=\"Duration\" value=\"90\" />\r\n                  <entry key=\"Pixel_XL_API_33\" value=\"120\" />\r\n                  <entry key=\"Tests\" value=\"360\" />\r\n                </map>\r\n              </option>\r\n            </AndroidTestResultsTableState>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"238983850\">\r\n          <value>\r\n            <AndroidTestResultsTableState>\r\n              <option name=\"preferredColumnWidths\">\r\n                <map>\r\n                  <entry key=\"Duration\" value=\"90\" />\r\n                  <entry key=\"Pixel_XL_API_33\" value=\"120\" />\r\n                  <entry key=\"Tests\" value=\"360\" />\r\n                </map>\r\n              </option>\r\n            </AndroidTestResultsTableState>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"851886536\">\r\n          <value>\r\n            <AndroidTestResultsTableState>\r\n              <option name=\"preferredColumnWidths\">\r\n                <map>\r\n                  <entry key=\"Duration\" value=\"90\" />\r\n                  <entry key=\"Pixel_XL_API_33\" value=\"120\" />\r\n                  <entry key=\"Tests\" value=\"360\" />\r\n                </map>\r\n              </option>\r\n            </AndroidTestResultsTableState>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"1115240822\">\r\n          <value>\r\n            <AndroidTestResultsTableState>\r\n              <option name=\"preferredColumnWidths\">\r\n                <map>\r\n                  <entry key=\"Duration\" value=\"90\" />\r\n                  <entry key=\"Pixel_XL_API_33\" value=\"120\" />\r\n                  <entry key=\"Tests\" value=\"360\" />\r\n                </map>\r\n              </option>\r\n            </AndroidTestResultsTableState>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"1118529190\">\r\n          <value>\r\n            <AndroidTestResultsTableState>\r\n              <option name=\"preferredColumnWidths\">\r\n                <map>\r\n                  <entry key=\"Duration\" value=\"90\" />\r\n                  <entry key=\"Pixel_XL_API_33\" value=\"120\" />\r\n                  <entry key=\"Tests\" value=\"360\" />\r\n                </map>\r\n              </option>\r\n            </AndroidTestResultsTableState>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"1681044977\">\r\n          <value>\r\n            <AndroidTestResultsTableState>\r\n              <option name=\"preferredColumnWidths\">\r\n                <map>\r\n                  <entry key=\"Duration\" value=\"90\" />\r\n                  <entry key=\"Pixel_XL_API_33\" value=\"120\" />\r\n                  <entry key=\"Tests\" value=\"360\" />\r\n                </map>\r\n              </option>\r\n            </AndroidTestResultsTableState>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/androidTestResultsUserPreferences.xml b/.idea/androidTestResultsUserPreferences.xml
+--- a/.idea/androidTestResultsUserPreferences.xml	
++++ b/.idea/androidTestResultsUserPreferences.xml	
+@@ -3,8 +3,46 @@
+   <component name="AndroidTestResultsUserPreferences">
+     <option name="androidTestResultsTableState">
+       <map>
++        <entry key="-2060177348">
++          <value>
++            <AndroidTestResultsTableState>
++              <option name="preferredColumnWidths">
++                <map>
++                  <entry key="Duration" value="90" />
++                  <entry key="Pixel_XL_API_33" value="120" />
++                  <entry key="Tests" value="360" />
++                </map>
++              </option>
++            </AndroidTestResultsTableState>
++          </value>
++        </entry>
++        <entry key="-1962245603">
++          <value>
++            <AndroidTestResultsTableState>
++              <option name="preferredColumnWidths">
++                <map>
++                  <entry key="Duration" value="90" />
++                  <entry key="Pixel_XL_API_33" value="120" />
++                  <entry key="Tests" value="360" />
++                </map>
++              </option>
++            </AndroidTestResultsTableState>
++          </value>
++        </entry>
++        <entry key="-1560946694">
++          <value>
++            <AndroidTestResultsTableState>
++              <option name="preferredColumnWidths">
++                <map>
++                  <entry key="Duration" value="90" />
++                  <entry key="Pixel_XL_API_33" value="120" />
++                  <entry key="Tests" value="360" />
++                </map>
++              </option>
++            </AndroidTestResultsTableState>
++          </value>
++        </entry>
+         <entry key="-1350789795">
+-
+           <value>
+             <AndroidTestResultsTableState>
+               <option name="preferredColumnWidths">
+@@ -17,9 +55,20 @@
+             </AndroidTestResultsTableState>
+           </value>
+         </entry>
+-
++        <entry key="-1067260215">
++          <value>
++            <AndroidTestResultsTableState>
++              <option name="preferredColumnWidths">
++                <map>
++                  <entry key="Duration" value="90" />
++                  <entry key="Pixel_XL" value="120" />
++                  <entry key="Tests" value="360" />
++                </map>
++              </option>
++            </AndroidTestResultsTableState>
++          </value>
++        </entry>
+         <entry key="-809055987">
+-
+           <value>
+             <AndroidTestResultsTableState>
+               <option name="preferredColumnWidths">
+@@ -45,7 +94,59 @@
+             </AndroidTestResultsTableState>
+           </value>
+         </entry>
++        <entry key="325641771">
++          <value>
++            <AndroidTestResultsTableState>
++              <option name="preferredColumnWidths">
++                <map>
++                  <entry key="Duration" value="90" />
++                  <entry key="Pixel_XL_API_33" value="120" />
++                  <entry key="Tests" value="360" />
++                </map>
++              </option>
++            </AndroidTestResultsTableState>
++          </value>
++        </entry>
++        <entry key="548470251">
++          <value>
++            <AndroidTestResultsTableState>
++              <option name="preferredColumnWidths">
++                <map>
++                  <entry key="Duration" value="90" />
++                  <entry key="Pixel_XL_API_33" value="120" />
++                  <entry key="Tests" value="360" />
++                </map>
++              </option>
++            </AndroidTestResultsTableState>
++          </value>
++        </entry>
++        <entry key="625967760">
++          <value>
++            <AndroidTestResultsTableState>
++              <option name="preferredColumnWidths">
++                <map>
++                  <entry key="Duration" value="90" />
++                  <entry key="Pixel_XL_API_33" value="120" />
++                  <entry key="Tests" value="360" />
++                </map>
++              </option>
++            </AndroidTestResultsTableState>
++          </value>
++        </entry>
+         <entry key="851886536">
++          <value>
++            <AndroidTestResultsTableState>
++              <option name="preferredColumnWidths">
++                <map>
++                  <entry key="Duration" value="90" />
++                  <entry key="Pixel_XL_API_33" value="120" />
++                  <entry key="Tests" value="360" />
++                </map>
++              </option>
++            </AndroidTestResultsTableState>
++          </value>
++        </entry>
++        <entry key="880679324">
+           <value>
+             <AndroidTestResultsTableState>
+               <option name="preferredColumnWidths">
+@@ -84,7 +185,46 @@
+             </AndroidTestResultsTableState>
+           </value>
+         </entry>
++        <entry key="1182939178">
++          <value>
++            <AndroidTestResultsTableState>
++              <option name="preferredColumnWidths">
++                <map>
++                  <entry key="Duration" value="90" />
++                  <entry key="Pixel_XL" value="120" />
++                  <entry key="Tests" value="360" />
++                </map>
++              </option>
++            </AndroidTestResultsTableState>
++          </value>
++        </entry>
+         <entry key="1681044977">
++          <value>
++            <AndroidTestResultsTableState>
++              <option name="preferredColumnWidths">
++                <map>
++                  <entry key="Duration" value="90" />
++                  <entry key="Pixel_XL_API_33" value="120" />
++                  <entry key="Tests" value="360" />
++                </map>
++              </option>
++            </AndroidTestResultsTableState>
++          </value>
++        </entry>
++        <entry key="1732027418">
++          <value>
++            <AndroidTestResultsTableState>
++              <option name="preferredColumnWidths">
++                <map>
++                  <entry key="Duration" value="90" />
++                  <entry key="Pixel_XL_API_33" value="120" />
++                  <entry key="Tests" value="360" />
++                </map>
++              </option>
++            </AndroidTestResultsTableState>
++          </value>
++        </entry>
++        <entry key="1847223116">
+           <value>
+             <AndroidTestResultsTableState>
+               <option name="preferredColumnWidths">
+Index: local.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>## This file must *NOT* be checked into Version Control Systems,\r\n# as it contains information specific to your local configuration.\r\n#\r\n# Location of the SDK. This is only used by Gradle.\r\n# For customization when using a Version Control System, please read the\r\n# header note.\r\n#Sun Feb 26 19:55:47 EST 2023\r\nsdk.dir=C\\:\\\\Users\\\\kelle\\\\AppData\\\\Local\\\\Android\\\\Sdk\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/local.properties b/local.properties
+--- a/local.properties	
++++ b/local.properties	
+@@ -4,5 +4,5 @@
+ # Location of the SDK. This is only used by Gradle.
+ # For customization when using a Version Control System, please read the
+ # header note.
+-#Sun Feb 26 19:55:47 EST 2023
+-sdk.dir=C\:\\Users\\kelle\\AppData\\Local\\Android\\Sdk
++#Mon Feb 27 00:10:03 EST 2023
++sdk.dir=C\:\\Users\\synov\\AppData\\Local\\Android\\Sdk
+diff --git a/.gradle/7.4/gc.properties b/.gradle/7.4/gc.properties
+deleted file mode 100644
+diff --git a/.gradle/7.4/dependencies-accessors/gc.properties b/.gradle/7.4/dependencies-accessors/gc.properties
+deleted file mode 100644
