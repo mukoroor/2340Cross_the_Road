@@ -139,7 +139,7 @@ public class Game {
     }
 
     public void reset() {
-        setScore(0);
+        setScore(getScore() / 2);
         player.setLives(player.getLives() - 1);
         currBlock[1] = 4;
         currBlock[2] = 14;

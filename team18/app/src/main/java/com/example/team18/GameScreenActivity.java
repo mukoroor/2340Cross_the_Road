@@ -140,9 +140,11 @@ public class GameScreenActivity extends AppCompatActivity {
                 }
 
                 public void onFinish() {
-//                    if (currGame.getPlayer().getLives() == 0) {
-//                        startActivity(new Intent(this, GameOverActivity.class));
-//                    }
+                    if (currGame.getPlayer().getLives() == 0) {
+                        Intent gameOver = new Intent(getApplicationContext(), GameOverScreenActivity.class);
+                        gameOver.putExtra("finalScore", currGame.getScore());
+                        startActivity(gameOver);
+                    }
                     updatePlayerScreenData();
                     playerImage.setColorFilter(null);
                     playState = true;
@@ -390,7 +392,7 @@ public class GameScreenActivity extends AppCompatActivity {
      */
 
     private String getPlayerInfo() {
-        return "Kelley|0|5";
+        return "Kelley|0|1";
         //return getIntent().getStringExtra("player");
     }
 

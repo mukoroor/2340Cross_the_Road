@@ -21,7 +21,7 @@ public class GameOverScreenActivity extends AppCompatActivity {
         RelativeLayout playButton = findViewById(R.id.restart);
 
 
-        int finalScore = getIntent().getIntExtra("final_score", 0);
+        int finalScore = getIntent().getIntExtra("finalScore", 0);
 
         float fontSize = 40;
 
