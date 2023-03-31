@@ -4,46 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CF1020"
-    tools:context=".StartScreenActivity">
+    android:background="#E41B1B"
+    tools:context=".GameOverScreenActivity">
 
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/navigation"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            style="@style/text"
-            android:lineHeight="100dp"
-            android:text="@string/title"
-            android:textColor="#080809"
-            android:alpha="0.8"
-            android:translationX="-7.5sp"
-            android:translationY="-7.5sp"
-            android:textSize="75sp" />
-
-        <TextView
-            style="@style/text"
-            android:lineHeight="100dp"
-            android:text="@string/title"
-            android:textColor="#fe802b"
-            android:translationX="7.5sp"
-            android:translationY="7.5sp"
-            android:textSize="75sp" />
-
-        <TextView
-            style="@style/text"
-            android:lineHeight="100dp"
-            android:textColor="#f4e0da"
-            android:text="@string/title"
-            android:textSize="75sp" />
-    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/navigation"
@@ -61,7 +24,7 @@
             android:layout_weight="1"/>
 
         <RelativeLayout
-            android:id="@+id/quitButton"
+            android:id="@+id/quit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button2x1"
@@ -91,7 +54,7 @@
             android:layout_weight="1"/>
 
         <RelativeLayout
-            android:id="@+id/playButton"
+            android:id="@+id/restart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button2x1"
@@ -100,7 +63,7 @@
 
             <TextView
                 style="@style/text"
-                android:text="@string/start"
+                android:text="Restart"
                 android:textColor="#000000"
                 android:textSize="21sp"
                 android:translationX="2.1sp"
@@ -109,7 +72,7 @@
             <TextView
                 style="@style/text"
                 android:layout_gravity="center"
-                android:text="@string/start"
+                android:text="Restart"
                 android:textSize="21sp" />
         </RelativeLayout>
 
@@ -119,6 +82,16 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
-
-
+    <TextView
+        android:id="@+id/finalScoreView"
+        android:layout_width="235dp"
+        android:layout_height="95dp"
+        android:text="TextView"
+        android:textColor= "#f4e0da"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.341" />
 </androidx.constraintlayout.widget.ConstraintLayout>

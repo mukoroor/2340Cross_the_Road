@@ -137,4 +137,13 @@ public class Game {
 
         gameBlockArray[row] = temp;
     }
+
+    public void reset() {
+        setScore(getScore() / 2);
+        player.setLives(player.getLives() - 1);
+        currBlock[1] = 4;
+        currBlock[2] = 14;
+        currBlock[0] = gameBlockArray[(Integer) currBlock[2]][(Integer) currBlock[1]];
+        playerPosition = new int[] {4 * blockSize, 14 * blockSize};
+    }
 }
