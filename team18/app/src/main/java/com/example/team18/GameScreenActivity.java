@@ -1,7 +1,10 @@
 package com.example.team18;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -25,6 +28,8 @@ public class GameScreenActivity extends AppCompatActivity {
 
     private ImageView playerImage;
     private int riverSpeed = 1000;
+
+    private boolean playState = true;
 
     protected String[] rowTypes = new String[16];
 
@@ -64,10 +69,22 @@ public class GameScreenActivity extends AppCompatActivity {
         Button downButton = findViewById(R.id.downButton);
 
         //moving sprite based on navigation button input
-        leftButton.setOnClickListener(e -> moveLeft());
-        rightButton.setOnClickListener(e -> moveRight());
-        upButton.setOnClickListener(e -> moveUp());
-        downButton.setOnClickListener(e -> moveDown());
+        leftButton.setOnClickListener(e -> {
+            if (playState)
+                moveLeft();
+        });
+        rightButton.setOnClickListener(e -> {
+            if (playState)
+                moveRight();
+        });
+        upButton.setOnClickListener(e -> {
+            if (playState)
+                moveUp();
+        });
+        downButton.setOnClickListener(e -> {
+            if (playState)
+                moveDown();
+        });
 
         //calculating block-size
         View rootView = getWindow().getDecorView().getRootView();
@@ -109,6 +126,30 @@ public class GameScreenActivity extends AppCompatActivity {
         playerImage.setY(currGame.getPosition()[1]);
     }
 
+    public void checkOnRiver() {
+        if (currGame.getCurrBlock().blockType == GameBlockTypes.RIVER) {
+            currGame.reset();
+            playState = false;
+            int[] color = {ContextCompat.getColor(this, R.color.tint), ContextCompat.getColor(this, R.color.none)};
+            new CountDownTimer(2000, 500) {
+                int i = 0;
+                @Override
+                public void onTick(long l) {
+                    playerImage.setColorFilter(color[i], PorterDuff.Mode.SRC_IN);
+                    i = ++i % 2;
+                }
+
+                public void onFinish() {
+//                    if (currGame.getPlayer().getLives() == 0) {
+//                        startActivity(new Intent(this, GameOverActivity.class));
+//                    }
+                    updatePlayerScreenData();
+                    playerImage.setColorFilter(null);
+                    playState = true;
+                }
+            }.start();
+        }
+    }
     /**
      * A method for creating the functionality moving left with the left button
      */
@@ -117,6 +158,7 @@ public class GameScreenActivity extends AppCompatActivity {
             currGame.changePosition(-1, 0);
             updatePlayerScreenData();
         }
+        checkOnRiver();
     }
 
     /**
@@ -127,6 +169,7 @@ public class GameScreenActivity extends AppCompatActivity {
             currGame.changePosition(1, 0);
             updatePlayerScreenData();
         }
+        checkOnRiver();
     }
 
     /**
@@ -150,6 +193,7 @@ public class GameScreenActivity extends AppCompatActivity {
                     + vehiclePointAdd);
             updatePlayerScreenData();
         }
+        checkOnRiver();
     }
 
     /**
@@ -160,6 +204,7 @@ public class GameScreenActivity extends AppCompatActivity {
             currGame.changePosition(0, 1);
             updatePlayerScreenData();
         }
+        checkOnRiver();
     }
 
 
@@ -328,22 +373,15 @@ public class GameScreenActivity extends AppCompatActivity {
     }
 
     public void movePlayer() {
-        new CountDownTimer(10000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                if (currGame.playerOnLog) {
-                    if (playerImage.getX() != 0) {
-                        currGame.changePosition(-1, 0);
-                        updatePlayerScreenData();
-                    } else {
-                        playerImage.setX(-currGame.getBlockSize());
-                    }
+        if (currGame.playerOnLog) {
+            if (playerImage.getX() != 0) {
+                currGame.changePosition(-1, 0);
+                updatePlayerScreenData();
+            } else {
+                playerImage.setX(-currGame.getBlockSize());
+            }
 
-                }
-            }
-            public  void onFinish() {
-                movePlayer();
-            }
-        }.start();
+        }
     }
 
     /**
