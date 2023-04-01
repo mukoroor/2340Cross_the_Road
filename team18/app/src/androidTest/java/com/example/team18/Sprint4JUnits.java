@@ -9,6 +9,6 @@ public class Sprint4JUnits {
 
     @Test
     public void goalHighScore() {
-        
+
     }
 }
