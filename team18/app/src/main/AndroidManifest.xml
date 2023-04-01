@@ -12,19 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Team18"
         tools:targetApi="31">
-<!--        <activity-->
-<!--            android:name=".GameOverScreenActivity"-->
-<!--            android:exported="false">-->
-<!--            <meta-data-->
-<!--                android:name="android.app.lib_name"-->
-<!--                android:value="" />-->
-<!--        </activity>-->
         <activity
-<<<<<<< Updated upstream
-            android:name=".StartScreenActivity"
-=======
-            android:name=".GameOverScreenActivity"
->>>>>>> Stashed changes
+            android:name=".GameScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,11 +27,8 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".SpriteSelector" />
-<<<<<<< Updated upstream
-=======
         <activity android:name=".StartScreenActivity" />
->>>>>>> Stashed changes
-        <activity android:name=".GameScreenActivity" />
+        <activity android:name=".GameOverScreenActivity" />
     </application>
 
 </manifest>

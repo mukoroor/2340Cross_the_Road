@@ -1,7 +1,10 @@
 package com.example.team18;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -20,12 +23,15 @@ public class GameScreenActivity extends AppCompatActivity {
 
 
     private Game currGame;
-
     private TextView playerLives;
     private TextView playerPoints;
 
     private ImageView playerImage;
     private int riverSpeed = 1000;
+
+    private boolean playState = true;
+
+    protected String[] rowTypes = new String[16];
 
 
 
@@ -63,10 +69,22 @@ public class GameScreenActivity extends AppCompatActivity {
         Button downButton = findViewById(R.id.downButton);
 
         //moving sprite based on navigation button input
-        leftButton.setOnClickListener(e -> moveLeft());
-        rightButton.setOnClickListener(e -> moveRight());
-        upButton.setOnClickListener(e -> moveUp());
-        downButton.setOnClickListener(e -> moveDown());
+        leftButton.setOnClickListener(e -> {
+            if (playState)
+                moveLeft();
+        });
+        rightButton.setOnClickListener(e -> {
+            if (playState)
+                moveRight();
+        });
+        upButton.setOnClickListener(e -> {
+            if (playState)
+                moveUp();
+        });
+        downButton.setOnClickListener(e -> {
+            if (playState)
+                moveDown();
+        });
 
         //calculating block-size
         View rootView = getWindow().getDecorView().getRootView();
@@ -75,6 +93,11 @@ public class GameScreenActivity extends AppCompatActivity {
                     @Override
                     public void onGlobalLayout() {
                         int blockSize = rootView.getWidth() / 9;
+
+                        //Creates background
+                        createGrid(findViewById(R.id.backgroundGrid), blockSize);
+                        int[] rows = populateGrid();
+
                         currGame.setBlockSize(blockSize);
 //                        playerName.setText(String.valueOf(currGame.getPosition()[1]));
 
@@ -83,10 +106,6 @@ public class GameScreenActivity extends AppCompatActivity {
                                 blockSize, blockSize);
                         playerImage.setLayoutParams(p);
                         updatePlayerScreenData();
-
-                        //Creates background
-                        createGrid(findViewById(R.id.backgroundGrid), blockSize);
-                        int[] rows = populateGrid();
 
                         //Animates rows on screen
                         animate(rows);
@@ -107,30 +126,41 @@ public class GameScreenActivity extends AppCompatActivity {
         playerImage.setY(currGame.getPosition()[1]);
     }
 
+    public void checkOnRiver() {
+        if (currGame.getCurrBlock().blockType == GameBlockTypes.RIVER) {
+            currGame.reset();
+            playState = false;
+            int[] color = {ContextCompat.getColor(this, R.color.tint), ContextCompat.getColor(this, R.color.none)};
+            new CountDownTimer(2000, 500) {
+                int i = 0;
+                @Override
+                public void onTick(long l) {
+                    playerImage.setColorFilter(color[i], PorterDuff.Mode.SRC_IN);
+                    i = ++i % 2;
+                }
+
+                public void onFinish() {
+                    if (currGame.getPlayer().getLives() == 0) {
+                        Intent gameOver = new Intent(getApplicationContext(), GameOverScreenActivity.class);
+                        gameOver.putExtra("finalScore", currGame.getScore());
+                        startActivity(gameOver);
+                    }
+                    updatePlayerScreenData();
+                    playerImage.setColorFilter(null);
+                    playState = true;
+                }
+            }.start();
+        }
+    }
     /**
      * A method for creating the functionality moving left with the left button
      */
     public void moveLeft() {
         if (currGame.getPosition()[0] > 0) {
-            int[] pos = currGame.getPosition();
-            int blksize = currGame.getBlockSize();
-            boolean move = true;
-//            if (pos[0] / blksize < 8) {
-//                GameBlock blockToLeft = currGame.getGameBlockArray()[pos[1]/blksize][(pos[0] / blksize) - 1];
-//                TextView playerName = findViewById(R.id.username);
-//                playerName.setText("left"+blockToLeft.blockType.toString());
-//                if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG || blockToLeft.blockType == GameBlockTypes.RIVER) {
-//                    move = false;
-//
-//                }
-//            }
-//            if (move) {
-                currGame.changePosition(-1, 0);
-                TextView playerName = findViewById(R.id.username);
-                playerName.setText("0" + currGame.getPosition()[0] + "1" + currGame.getPosition()[1]);
-                updatePlayerScreenData();
-//            }
+            currGame.changePosition(-1, 0);
+            updatePlayerScreenData();
         }
+        checkOnRiver();
     }
 
     /**
@@ -141,6 +171,7 @@ public class GameScreenActivity extends AppCompatActivity {
             currGame.changePosition(1, 0);
             updatePlayerScreenData();
         }
+        checkOnRiver();
     }
 
     /**
@@ -149,11 +180,22 @@ public class GameScreenActivity extends AppCompatActivity {
     public void moveUp() {
         if (currGame.getPosition()[1] > 0) {
             currGame.changePosition(0, -1);
-            currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain);
-//            TextView playerName = findViewById(R.id.username);
-//            playerName.setText(currGame.getCurrBlock().blockType.toString());
+            int yCord = currGame.getPosition()[1]/currGame.getBlockSize();
+            int vehiclePointAdd = 0;
+
+            if ("fireball".equals(rowTypes[yCord])) {
+                vehiclePointAdd += 2;
+            } else if ("dragon".equals(rowTypes[yCord])) {
+                vehiclePointAdd += 1;
+            } else if ("minecart".equals(rowTypes[yCord])){
+                vehiclePointAdd += 3;
+            }
+
+            currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain
+                    + vehiclePointAdd);
             updatePlayerScreenData();
         }
+        checkOnRiver();
     }
 
     /**
@@ -164,6 +206,7 @@ public class GameScreenActivity extends AppCompatActivity {
             currGame.changePosition(0, 1);
             updatePlayerScreenData();
         }
+        checkOnRiver();
     }
 
 
@@ -264,29 +307,49 @@ public class GameScreenActivity extends AppCompatActivity {
         //Constructs a list of rivers and roads on screen
         HashMap<Integer, LinearLayout> rivers = new HashMap<>();
         ArrayList<LinearLayout> roads = new ArrayList<>();
+        int roadStart = 0;
         for (int i = 0; i < rows.length; i++) {
             LinearLayout grid = findViewById(R.id.backgroundGrid);
             if (rows[i] == 1) {
                 rivers.put(i, (LinearLayout) grid.getChildAt(i));
             } else if (rows[i] == 0) {
+                roadStart = roadStart == 0? i: roadStart;
                 roads.add((LinearLayout) grid.getChildAt(i));
             }
         }
+
+        for (int i = 0; i < roads.size(); i++) {
+            switch (i % 2) {
+                case 0: rowTypes[roadStart + i] = "fireball";
+                break;
+                case 1: rowTypes[roadStart + i] = "dragon";
+                break;
+                case 2: rowTypes[roadStart + i] = "minecart";
+                break;
+            }
+        }
+
 
         //Animates rivers on screen
         for (Integer rowIndex: rivers.keySet()
              ) {
             moveRiver(rowIndex, rivers.get(rowIndex));
         }
-        movePlayer();
+//        movePlayer();
+        int i = 1;
         //Animates and moves fireballs on screen
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
         for (LinearLayout road : roads) {
-            ImageView fireball = new ImageView(this);
-            fireball.setVisibility(View.INVISIBLE);
-            mainFrame.addView(fireball, 0);
-            animateFireball(fireball);
-            shootFireBall(fireball, road);
+            ImageView vehicle = new ImageView(this);
+            ImageView tracks = new ImageView(this);
+            mainFrame.addView(vehicle, 0);
+            mainFrame.addView(tracks, 0);
+            Vehicle fireballObject = new Vehicle(road, vehicle, tracks, i);
+            if (i == 3) {
+                i = 1;
+            } else {
+                i++;
+            }
         }
     }
 
@@ -312,106 +375,16 @@ public class GameScreenActivity extends AppCompatActivity {
     }
 
     public void movePlayer() {
-        new CountDownTimer(10000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                if (currGame.playerOnLog) {
-                    if (playerImage.getX() != 0) {
-                        currGame.changePosition(-1, 0);
-                        updatePlayerScreenData();
-                    } else {
-                        playerImage.setX(-currGame.getBlockSize());
-                        playerPoints.setText("YOU DIED EL FINISHO OWARI DA");
-                    }
+        if (currGame.playerOnLog) {
+            if (playerImage.getX() != 0) {
+                currGame.changePosition(-1, 0);
+                updatePlayerScreenData();
+            } else {
+                playerImage.setX(-currGame.getBlockSize());
+            }
 
-                }
-            }
-            public  void onFinish() {
-                movePlayer();
-            }
-        }.start();
+        }
     }
-
-    /**
-     * Method for animating fireball
-     * @param fireball the image view which is being animated
-     */
-    public void animateFireball(ImageView fireball) {
-        FrameLayout.LayoutParams fireballDims = new FrameLayout.LayoutParams(
-                currGame.getBlockSize(), currGame.getBlockSize());
-        fireball.setLayoutParams(fireballDims);
-        Random r = new Random();
-        final int[] fireBallFrames = {
-                R.drawable.fball_0,
-                R.drawable.fball_1,
-                R.drawable.fball_2,
-                R.drawable.fball_3,
-                R.drawable.fball_4,
-                R.drawable.fball_5,
-                R.drawable.fball_6,
-                R.drawable.fball_7
-        };
-        final int[] image = {r.nextInt(fireBallFrames.length)};
-        new CountDownTimer(fireBallFrames.length*120, 120) {
-            public void onTick(long millisUntilFinished) {
-                //Changes fireball images
-                fireball.setImageResource((fireBallFrames[image[0]]));
-                 image[0] = (image[0] + 1) % fireBallFrames.length;
-            }
-
-            public void onFinish() {
-                animateFireball(fireball);
-            }
-        }.start();
-    }
-
-    /**
-     * Method for randomly choosing the start time of fireball when game begins
-     * @param fireball fireball that is to be shot
-     * @param row road which the fireball will be moving across
-     */
-    public void shootFireBall(ImageView fireball, LinearLayout row) {
-        Random rand = new Random();
-        int waitOffset = 1 + rand.nextInt(10);
-        int waitTime = waitOffset * 1000;
-        new CountDownTimer(waitTime, 1000) {
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            public void onFinish() {
-                fireballMotion(fireball, row);
-            }
-        }.start();
-    }
-
-
-    /**
-     * Method for moving fireball across the screen
-     * @param fireball fireball that is being moved
-     * @param row road which the fireball will be moving across
-     */
-    public void fireballMotion(ImageView fireball, LinearLayout row) {
-        int rowWidth = row.getWidth();
-        int rowY = (int) row.getY();
-
-        fireball.setY(rowY);
-        fireball.setX(rowWidth);
-        fireball.setVisibility(View.VISIBLE);
-
-        int translation = currGame.getBlockSize();
-        new CountDownTimer(9*1000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                //Moves fireball across screen
-                int currentX = (int) fireball.getX();
-                fireball.setX(currentX - translation);
-            }
-
-            public void onFinish() {
-                fireballMotion(fireball, row);
-            }
-        }.start();
-    }
-
 
     /**
      * gets player string sent from login activity
@@ -419,7 +392,8 @@ public class GameScreenActivity extends AppCompatActivity {
      */
 
     private String getPlayerInfo() {
-        return getIntent().getStringExtra("player");
+        return "Kelley|0|1";
+        //return getIntent().getStringExtra("player");
     }
 
     /**
