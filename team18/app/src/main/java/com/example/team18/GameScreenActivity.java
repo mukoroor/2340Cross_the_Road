@@ -33,6 +33,9 @@ public class GameScreenActivity extends AppCompatActivity {
 
     protected String[] rowTypes = new String[16];
 
+    private CoupledListeners movementListener = new CoupledListeners();
+
+    private Button timerButton;
 
 
     @Override
@@ -67,6 +70,10 @@ public class GameScreenActivity extends AppCompatActivity {
         Button rightButton = findViewById(R.id.rightButton);
         Button upButton = findViewById(R.id.upButton);
         Button downButton = findViewById(R.id.downButton);
+
+        //timer button
+        timerButton = new Button(this);
+        timerButton.setOnClickListener(movementListener);
 
         //moving sprite based on navigation button input
         leftButton.setOnClickListener(e -> {
@@ -114,6 +121,15 @@ public class GameScreenActivity extends AppCompatActivity {
                         rootView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
                 });
+
+        new CountDownTimer(Long.MAX_VALUE, 1000) {
+            public void onTick(long millisUntilFinished) {
+                timerButton.performClick();
+            }
+            public void onFinish() {
+                start();
+            }
+        }.start();
     }
 
     /**
@@ -344,7 +360,7 @@ public class GameScreenActivity extends AppCompatActivity {
             ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
             mainFrame.addView(tracks, 0);
-            Vehicle fireballObject = new Vehicle(road, vehicle, tracks, i, playerImage, currGame);
+            Vehicle fireballObject = new Vehicle(road, vehicle, tracks, i, playerImage, movementListener, currGame);
             if (i == 3) {
                 i = 1;
             } else {
