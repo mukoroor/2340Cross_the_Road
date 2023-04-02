@@ -81,6 +81,38 @@ public class OruaroJunits {
         });
     }
 
+    @Test
+    public void scoreChangesWhenRespawnedOnWater() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameScreenActivity.class);
+        playIntent.putExtra("lives",1);
+        Sprite player = new Sprite(3, "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+
+            int initialScore = curr.getPlayer().getScore();
+            int row = findBlockType(GameBlockTypes.RIVER, curr);
+
+            int finalPos = curr.getPosition()[1] / curr.getBlockSize();
+            finalPos -= row;
+            finalPos++;
+
+            while(finalPos-- > 1) {
+                g.moveUp();
+            }
+            int finalScore = curr.getPlayer().getScore();
+
+            assertEquals(initialScore, finalScore * 2);
+        });
+    }
+
     public int findBlockType(GameBlockTypes g, Game curr) {
         GameBlock[][] gameBlockArr = curr.getGameBlockArray();
 
