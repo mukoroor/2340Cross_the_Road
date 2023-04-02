@@ -9,6 +9,7 @@ public class CoupledListeners implements View.OnClickListener {
 
     public void addListener(View.OnClickListener l) {
         attached.add(l);
+        System.out.print(attached);
     }
 
     @Override

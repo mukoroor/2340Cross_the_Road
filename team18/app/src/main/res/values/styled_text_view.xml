@@ -3,24 +3,18 @@
     <style name="text" parent="android:Widget.TextView">
         <item name="android:textColor">#f4e0da</item>
         <item name="android:textFontWeight">1000</item>
-        <item name="android:shadowColor">#000000</item>
-        <item name="android:shadowDx">0</item>
-        <item name="android:shadowDy">0</item>
-        <item name="android:shadowRadius">50</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:fontFamily">@font/gomarice_no_continue</item>
+        <item name="android:fontFamily">@font/p2p</item>
     </style>
 
     <style name="button2x1" parent="text">
         <item name="android:background">@drawable/button2x1</item>
-        <item name="android:shadowRadius">10</item>
     </style>
 
     <style name="button4x1" parent="text">
         <item name="android:background">@drawable/button4x1</item>
-        <item name="android:shadowRadius">10</item>
     </style>
 
 </resources>
