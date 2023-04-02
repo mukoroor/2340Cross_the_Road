@@ -18,6 +18,8 @@ public class Vehicle {
 
     private ImageView playerImage;
 
+    private Game game;
+
     /**
      * Constructor for Vehicle Class.
      * @param row road that vehicle will cross
@@ -25,11 +27,12 @@ public class Vehicle {
      * @param tracks track that minecart would ride on
      * @param type type of vehicle
      */
-    public Vehicle(LinearLayout row, ImageView image, ImageView tracks, int type, ImageView playerImage) {
+    public Vehicle(LinearLayout row, ImageView image, ImageView tracks, int type, ImageView playerImage, Game game) {
         this.row = row;
         this.image = image;
         this.tracks = tracks;
         this.playerImage = playerImage;
+        this.game = game;
 
         this.image.setVisibility(View.INVISIBLE);
         this.tracks.setVisibility(View.INVISIBLE);
@@ -262,6 +265,7 @@ public class Vehicle {
 
         if (Rect.intersects(rect1, rect2)) {
            System.out.println("Game Over!!!");
+           game.reset();
         }
     }
 }

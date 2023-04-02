@@ -344,7 +344,7 @@ public class GameScreenActivity extends AppCompatActivity {
             ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
             mainFrame.addView(tracks, 0);
-            Vehicle fireballObject = new Vehicle(road, vehicle, tracks, i);
+            Vehicle fireballObject = new Vehicle(road, vehicle, tracks, i, playerImage, currGame);
             if (i == 3) {
                 i = 1;
             } else {
@@ -392,7 +392,7 @@ public class GameScreenActivity extends AppCompatActivity {
      */
 
     private String getPlayerInfo() {
-        return "Kelley|0|1";
+        return "Kelley|0|5";
         //return getIntent().getStringExtra("player");
     }
 
