@@ -74,20 +74,24 @@ public class GameScreenActivity extends AppCompatActivity {
 
         //moving sprite based on navigation button input
         leftButton.setOnClickListener(e -> {
-            if (playState)
+            if (playState) {
                 moveLeft();
+            }
         });
         rightButton.setOnClickListener(e -> {
-            if (playState)
+            if (playState) {
                 moveRight();
+            }
         });
         upButton.setOnClickListener(e -> {
-            if (playState)
+            if (playState) {
                 moveUp();
+            }
         });
         downButton.setOnClickListener(e -> {
-            if (playState)
+            if (playState) {
                 moveDown();
+            }
         });
 
         //calculating block-size
@@ -103,7 +107,6 @@ public class GameScreenActivity extends AppCompatActivity {
                         int[] rows = populateGrid();
 
                         currGame.setBlockSize(blockSize);
-//                        playerName.setText(String.valueOf(currGame.getPosition()[1]));
 
                         currGame.setMaxHeight(blockSize * 14);
                         FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(
@@ -122,25 +125,32 @@ public class GameScreenActivity extends AppCompatActivity {
                                     playState = false;
                                     currGame.reset();
                                     updatePlayerScreenData();
-                                    playState = true;
-                                    int[] color = {ContextCompat.getColor(getApplicationContext(), R.color.tint), ContextCompat.getColor(getApplicationContext(), R.color.none)};
+                                    int[] color = {ContextCompat.getColor(getApplicationContext(),
+                                            R.color.tint),
+                                            ContextCompat.getColor(getApplicationContext(),
+                                                    R.color.none)};
 
                                     new CountDownTimer(2000, 500) {
 
                                         int i = 0;
                                         @Override
                                         public void onTick(long l) {
-                                            playerImage.setColorFilter(color[i], PorterDuff.Mode.SRC_IN);
+                                            playerImage.setColorFilter(color[i],
+                                                    PorterDuff.Mode.SRC_IN);
                                             i = ++i % 2;
                                         }
 
                                         public void onFinish() {
                                             if (currGame.getPlayer().getLives() == 0) {
-                                                Intent gameOver = new Intent(getApplicationContext(), GameOverScreenActivity.class);
-                                                gameOver.putExtra("finalScore", currGame.getScore());
+                                                Intent gameOver = new
+                                                        Intent(getApplicationContext(),
+                                                        GameOverScreenActivity.class);
+                                                gameOver.putExtra("finalScore",
+                                                        currGame.getScore());
                                                 startActivity(gameOver);
                                             }
                                             playerImage.setColorFilter(null);
+                                            playState = true;
                                         }
                                     }.start();
 
@@ -173,9 +183,10 @@ public class GameScreenActivity extends AppCompatActivity {
         if (currGame.getCurrBlock().blockType == GameBlockTypes.RIVER) {
             currGame.reset();
             playState = false;
-            int[] color = {ContextCompat.getColor(this, R.color.tint), ContextCompat.getColor(this, R.color.none)};
+            int[] color = {ContextCompat.getColor(this, R.color.tint),
+                    ContextCompat.getColor(this, R.color.none)};
             new CountDownTimer(2000, 500) {
-                int i = 0;
+                private int i = 0;
                 @Override
                 public void onTick(long l) {
                     playerImage.setColorFilter(color[i], PorterDuff.Mode.SRC_IN);
@@ -184,7 +195,8 @@ public class GameScreenActivity extends AppCompatActivity {
 
                 public void onFinish() {
                     if (currGame.getPlayer().getLives() == 0) {
-                        Intent gameOver = new Intent(getApplicationContext(), GameOverScreenActivity.class);
+                        Intent gameOver = new Intent(getApplicationContext(),
+                                GameOverScreenActivity.class);
                         gameOver.putExtra("finalScore", currGame.getScore());
                         startActivity(gameOver);
                     }
@@ -223,14 +235,14 @@ public class GameScreenActivity extends AppCompatActivity {
     public void moveUp() {
         if (currGame.getPosition()[1] > 0) {
             currGame.changePosition(0, -1);
-            int yCord = currGame.getPosition()[1]/currGame.getBlockSize();
+            int yCord = currGame.getPosition()[1] / currGame.getBlockSize();
             int vehiclePointAdd = 0;
 
             if ("fireball".equals(rowTypes[yCord])) {
                 vehiclePointAdd += 2;
             } else if ("dragon".equals(rowTypes[yCord])) {
                 vehiclePointAdd += 1;
-            } else if ("minecart".equals(rowTypes[yCord])){
+            } else if ("minecart".equals(rowTypes[yCord])) {
                 vehiclePointAdd += 3;
             }
 
@@ -356,19 +368,20 @@ public class GameScreenActivity extends AppCompatActivity {
             if (rows[i] == 1) {
                 rivers.put(i, (LinearLayout) grid.getChildAt(i));
             } else if (rows[i] == 0) {
-                roadStart = roadStart == 0? i: roadStart;
+                roadStart = roadStart == 0 ? i : roadStart;
                 roads.add((LinearLayout) grid.getChildAt(i));
             }
         }
 
         for (int i = 0; i < roads.size(); i++) {
             switch (i % 2) {
-                case 0: rowTypes[roadStart + i] = "fireball";
+            case 0: rowTypes[roadStart + i] = "fireball";
                 break;
-                case 1: rowTypes[roadStart + i] = "dragon";
+            case 1: rowTypes[roadStart + i] = "dragon";
                 break;
-                case 2: rowTypes[roadStart + i] = "minecart";
+            case 2: rowTypes[roadStart + i] = "minecart";
                 break;
+            default:
             }
         }
 
@@ -378,7 +391,6 @@ public class GameScreenActivity extends AppCompatActivity {
              ) {
             moveRiver(rowIndex, rivers.get(rowIndex));
         }
-//        movePlayer();
         int i = 1;
         //Animates and moves fireballs on screen
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
