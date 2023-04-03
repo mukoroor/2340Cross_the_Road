@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class GameOverScreenActivity extends AppCompatActivity {
+    int finalScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class GameOverScreenActivity extends AppCompatActivity {
         RelativeLayout playButton = findViewById(R.id.restart);
 
 
-        int finalScore = getIntent().getIntExtra("finalScore", 0);
+        finalScore = getIntent().getIntExtra("finalScore", 0);
 
         float fontSize = 40;
 
@@ -39,5 +40,9 @@ public class GameOverScreenActivity extends AppCompatActivity {
             Intent player = new Intent(this, SpriteSelector.class);
             startActivity(player);
         });
+    }
+
+    public int getFinalScore() {
+        return finalScore;
     }
 }
