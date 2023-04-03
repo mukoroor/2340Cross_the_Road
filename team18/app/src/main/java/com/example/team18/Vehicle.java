@@ -1,5 +1,6 @@
 package com.example.team18;
 
+import android.graphics.Rect;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -9,11 +10,18 @@ import android.widget.LinearLayout;
 import java.util.Random;
 
 public class Vehicle {
+    protected static CoupledListeners l;
     LinearLayout row;
 
     ImageView image;
 
     ImageView tracks;
+
+    ImageView playerImage;
+
+    Game curr;
+
+    public static int time = 0;
 
     /**
      * Constructor for Vehicle Class.
@@ -22,10 +30,12 @@ public class Vehicle {
      * @param tracks track that minecart would ride on
      * @param type type of vehicle
      */
-    public Vehicle(LinearLayout row, ImageView image, ImageView tracks, int type) {
+    public Vehicle(LinearLayout row, ImageView image, ImageView tracks, int type, ImageView playerImage, Game curr) {
         this.row = row;
         this.image = image;
         this.tracks = tracks;
+        this.playerImage = playerImage;
+        this.curr = curr;
 
         this.image.setVisibility(View.INVISIBLE);
         this.tracks.setVisibility(View.INVISIBLE);
@@ -106,19 +116,20 @@ public class Vehicle {
      * Translates fireball across road.
      */
     public void fireballMotion() {
-        int sections = row.getWidth() / 20;
-        int screenTime = 2000;
-        new CountDownTimer(screenTime + 1000, screenTime / 20) {
-            public void onTick(long millisUntilFinished) {
-                image.setX(image.getX() + sections);
+        View.OnClickListener v = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkForCollision();
+                if (time % 3 == 0) {
+                    image.setX(image.getX() + 30);
+                }
 
+                if (image.getX() > row.getWidth()) {
+                    image.setX(- image.getWidth());
+                }
             }
-
-            public void onFinish() {
-                image.setX(- image.getWidth());
-                fireballMotion();
-            }
-        }.start();
+        };
+        l.addListener(v);
     }
 
     /**
@@ -181,18 +192,20 @@ public class Vehicle {
      * Translates dragon across road.
      */
     public void dragonMotion() {
-        int sections = row.getWidth() / 20;
-        int screenTime = 8000;
-        new CountDownTimer(screenTime + 2000, screenTime / 20) {
-            public void onTick(long millisUntilFinished) {
-                image.setX(image.getX() - sections);
-            }
+        View.OnClickListener v = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkForCollision();
+                if (time % 4 == 0) {
+                    image.setX(image.getX() - 30);
+                }
 
-            public void onFinish() {
-                image.setX(row.getWidth());
-                dragonMotion();
+                if (image.getX() < 0) {
+                    image.setX(row.getWidth());
+                }
             }
-        }.start();
+        };
+        l.addListener(v);
     }
 
     /**
@@ -227,25 +240,39 @@ public class Vehicle {
      * Translates minecarts across road.
      */
     public void mineCartMotion() {
-        int sections = (int) (row.getWidth() * 2) / 20;
-        int screenTime = 5000;
-        new CountDownTimer(screenTime + 1000, screenTime / 20) {
-            public void onTick(long millisUntilFinished) {
-                image.setX(image.getX() - sections);
+        View.OnClickListener v = new View.OnClickListener() {
+            final boolean[] switched = {false};
+            @Override
+            public void onClick(View view) {
+                checkForCollision();
+                if (time % 10 == 0) {
+                    switched[0] = true;
+                }
+                if (time % 2 == 0 && switched[0] == true) {
+                    image.setX(image.getX() - 30);
+                }
+                if (image.getX() < -image.getWidth()) {
+                    image.setX(row.getWidth());
+                    switched[0] = false;
+                }
             }
+        };
+        l.addListener(v);
+    }
 
-            public void onFinish() {
-                image.setX(row.getWidth());
-                //delays next train takeoff
-                new CountDownTimer(5000, 100) {
-                    public void onTick(long millisUntilFinished) {
-                    }
+    public void checkForCollision() {
+        Rect rect1 = new Rect();
+        image.getGlobalVisibleRect(rect1);
 
-                    public void onFinish() {
-                        mineCartMotion();
-                    }
-                }.start();
-            }
-        }.start();
+        Rect rect2 = new Rect();
+        playerImage.getGlobalVisibleRect(rect2);
+
+        if (Rect.intersects(rect1, rect2)) {
+            GameScreenActivity.setCollidedWithVehicle(true);
+        }
+    }
+
+    public ImageView getPlayerImage() {
+        return playerImage;
     }
 }
