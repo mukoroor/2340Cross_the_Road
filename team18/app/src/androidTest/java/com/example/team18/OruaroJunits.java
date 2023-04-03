@@ -97,7 +97,7 @@ public class OruaroJunits {
             GameScreenActivity g = (GameScreenActivity) activity;
             Game curr = g.getGame();
 
-            int initialScore = curr.getPlayer().getScore();
+            int initialScore = curr.getScore();
             int row = findBlockType(GameBlockTypes.RIVER, curr);
 
             int finalPos = curr.getPosition()[1] / curr.getBlockSize();
@@ -107,9 +107,55 @@ public class OruaroJunits {
             while(finalPos-- > 1) {
                 g.moveUp();
             }
-            int finalScore = curr.getPlayer().getScore();
+            int finalScore = curr.getScore();
 
-            assertEquals(initialScore, finalScore * 2);
+            assertEquals(initialScore / 2, finalScore);
+        });
+    }
+
+    @Test
+    public void scoreChangesWhenTouchingVehicle() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameScreenActivity.class);
+        playIntent.putExtra("lives",5);
+        Sprite player = new Sprite(3, "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+
+            int initialScore = curr.getScore();
+
+            ImageView playerImage = g.getPlayerImage();
+            Vehicle vehicle = g.getTestVehicle();
+            int vX = vehicle.getPlayerImage().getX();
+            int vY = vehicle.getPlayerImage().getY();
+
+            int changeX =   (vX / curr.getBlockSize()) - 4;
+            int changeY =   14 - (vX / curr.getBlockSize());
+
+            while (changeY-- > 0) {
+                g.moveUp();
+            }
+
+            if (changeX > 0) {
+                while (changeX-- > 0) {
+                    g.moveRight();
+                }
+            } else if (changeY < 0) {
+                while (changeX++ < 0) {
+                    g.moveLeft();
+                }
+            }
+
+            int finalScore = curr.getScore();
+
+            assertEquals(initialScore / 2, finalScore);
         });
     }
 
