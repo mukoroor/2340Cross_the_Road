@@ -1,14 +1,9 @@
 package com.example.team18;
-
-<<<<<<< HEAD
-=======
 import static org.junit.Assert.assertArrayEquals;
->>>>>>> fa3afca26024a5b680fe4e930fcd22d0df5e2bce
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import android.content.Intent;
-<<<<<<< HEAD
 import android.widget.ImageView;
 
 import androidx.test.core.app.ActivityScenario;
@@ -17,7 +12,7 @@ import androidx.test.core.app.ApplicationProvider;
 import org.junit.Test;
 
 import java.util.Random;
-=======
+
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -36,12 +31,9 @@ import org.junit.Test;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
->>>>>>> fa3afca26024a5b680fe4e930fcd22d0df5e2bce
 
 public class Sprint4JUnits {
     Random r = new Random();
-
-<<<<<<< HEAD
     @Test
     public void looseLifeWhenOnRiver() {
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
@@ -61,19 +53,14 @@ public class Sprint4JUnits {
             int initialLives = curr.getPlayer().getLives();
             int row = findBlockType(GameBlockTypes.RIVER, curr);
 
-            int finalPos = curr.getPosition()[1] / curr.getBlockSize();
-            finalPos -= row;
-            finalPos++;
+            int moveUps = 14 - row;
+            while
 
-            while(finalPos-- > 1) {
-                g.moveUp();
-            }
             int finalLives = curr.getPlayer().getLives();
 
             assertEquals(initialLives, finalLives + 1);
         });
     }
-
 
     @Test
     public void resetPositionWhenOnRiver() {
@@ -93,13 +80,9 @@ public class Sprint4JUnits {
 
             int row = findBlockType(GameBlockTypes.RIVER, curr);
 
-            int finalPos = curr.getPosition()[1] / curr.getBlockSize();
-            finalPos -= row;
-            finalPos++;
+            curr.changePosition(0, 14 - row);
+            g.updatePlayerScreenData();
 
-            while(finalPos-- > 1) {
-                g.moveUp();
-            }
             int[] finalPlayerPos = curr.getPosition();
 
             assertEquals(4, finalPlayerPos[0] / curr.getBlockSize());
@@ -107,18 +90,6 @@ public class Sprint4JUnits {
         });
     }
 
-=======
-    @Rule
-    public ActivityScenarioRule<GameOverScreenActivity> activityScenarioRule2 = new ActivityScenarioRule<>(GameOverScreenActivity.class);
-
-    @Test
-    public void gameRestart() {
-
-        Espresso.onView(ViewMatchers.withId(R.id.restart)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.spriteView)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-
-    }
->>>>>>> fa3afca26024a5b680fe4e930fcd22d0df5e2bce
     public int findBlockType(GameBlockTypes g, Game curr) {
         GameBlock[][] gameBlockArr = curr.getGameBlockArray();
 
@@ -129,8 +100,6 @@ public class Sprint4JUnits {
         }
         return startingY;
     }
-
-<<<<<<< HEAD
     @Test
     public void looseLifeWhenTouchingVehicle() {
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
@@ -285,7 +254,17 @@ public class Sprint4JUnits {
             assertEquals(initialLives, finalLives);
         });
     }
-=======
+
+    @Rule
+    public ActivityScenarioRule<GameOverScreenActivity> activityScenarioRule2 = new ActivityScenarioRule<>(GameOverScreenActivity.class);
+
+    @Test
+    public void gameRestart() {
+
+        Espresso.onView(ViewMatchers.withId(R.id.restart)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.spriteView)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+
+    }
 
     @Test
     public void goalTitleHighScore() {
@@ -317,7 +296,4 @@ public class Sprint4JUnits {
 
         });
     }
-
-
->>>>>>> fa3afca26024a5b680fe4e930fcd22d0df5e2bce
 }

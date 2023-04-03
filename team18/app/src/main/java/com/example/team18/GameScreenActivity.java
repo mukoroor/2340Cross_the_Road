@@ -436,8 +436,7 @@ public class GameScreenActivity extends AppCompatActivity {
      */
 
     private String getPlayerInfo() {
-        return "Kelley|0|100";
-        //return getIntent().getStringExtra("player");
+        return getIntent().getStringExtra("player");
     }
 
     /**
