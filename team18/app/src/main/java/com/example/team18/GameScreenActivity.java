@@ -20,22 +20,21 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class GameScreenActivity extends AppCompatActivity {
+    private Button timer;
+    private CoupledListeners gameClock = new CoupledListeners();
 
-
+    private int checkCount = 0;
     private Game currGame;
     private TextView playerLives;
     private TextView playerPoints;
-
     private ImageView playerImage;
-    private int riverSpeed = 1000;
-
     private boolean playState = true;
 
+    private static boolean collidedWithVehicle = false;
     protected String[] rowTypes = new String[16];
 
-    private CoupledListeners movementListener = new CoupledListeners();
+    private Vehicle testVehicle;
 
-    private Button timerButton;
 
 
     @Override
@@ -65,15 +64,13 @@ public class GameScreenActivity extends AppCompatActivity {
         playerPoints = findViewById(R.id.points);
         playerPoints.setText(String.valueOf(currGame.getScore()));
 
+        timer = new Button(this);
+
         //navigation buttons
         Button leftButton = findViewById(R.id.leftButton);
         Button rightButton = findViewById(R.id.rightButton);
         Button upButton = findViewById(R.id.upButton);
         Button downButton = findViewById(R.id.downButton);
-
-        //timer button
-        timerButton = new Button(this);
-        timerButton.setOnClickListener(movementListener);
 
         //moving sprite based on navigation button input
         leftButton.setOnClickListener(e -> {
@@ -115,21 +112,51 @@ public class GameScreenActivity extends AppCompatActivity {
                         updatePlayerScreenData();
 
                         //Animates rows on screen
+                        Vehicle.l = gameClock;
+                        timer.setOnClickListener(gameClock);
                         animate(rows);
+                        new CountDownTimer(Long.MAX_VALUE, 30) {
+                            public void onTick(long millisUntilFinished) {
+                                if (collidedWithVehicle) {
+                                    collidedWithVehicle = false;
+                                    playState = false;
+                                    currGame.reset();
+                                    updatePlayerScreenData();
+                                    playState = true;
+                                    int[] color = {ContextCompat.getColor(getApplicationContext(), R.color.tint), ContextCompat.getColor(getApplicationContext(), R.color.none)};
 
+                                    new CountDownTimer(2000, 500) {
+
+                                        int i = 0;
+                                        @Override
+                                        public void onTick(long l) {
+                                            playerImage.setColorFilter(color[i], PorterDuff.Mode.SRC_IN);
+                                            i = ++i % 2;
+                                        }
+
+                                        public void onFinish() {
+                                            if (currGame.getPlayer().getLives() == 0) {
+                                                Intent gameOver = new Intent(getApplicationContext(), GameOverScreenActivity.class);
+                                                gameOver.putExtra("finalScore", currGame.getScore());
+                                                startActivity(gameOver);
+                                            }
+                                            playerImage.setColorFilter(null);
+                                        }
+                                    }.start();
+
+                                }
+                                timer.performClick();
+                                Vehicle.time++;
+                            }
+                            public void onFinish() {
+                                start();
+                            }
+                        }.start();
                         // Remove the listener to avoid multiple calls
                         rootView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
                 });
 
-        new CountDownTimer(Long.MAX_VALUE, 1000) {
-            public void onTick(long millisUntilFinished) {
-                timerButton.performClick();
-            }
-            public void onFinish() {
-                start();
-            }
-        }.start();
     }
 
     /**
@@ -360,7 +387,8 @@ public class GameScreenActivity extends AppCompatActivity {
             ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
             mainFrame.addView(tracks, 0);
-            Vehicle fireballObject = new Vehicle(road, vehicle, tracks, i, playerImage, movementListener, currGame);
+            Vehicle vehicleObject = new Vehicle(road, vehicle, tracks, i, playerImage, currGame);
+            testVehicle = vehicleObject;
             if (i == 3) {
                 i = 1;
             } else {
@@ -375,19 +403,19 @@ public class GameScreenActivity extends AppCompatActivity {
      * @param row the corresponding linear layout holding all GameBlocks in that row
      */
     public void moveRiver(int rowIndex, LinearLayout row) {
-        new CountDownTimer(10000, riverSpeed) {
-                public void onTick(long millisUntilFinished) {
-                    //Moves the blocks in the river
+
+        View.OnClickListener v = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Vehicle.time % 25 == 0) {
                     ImageView oldBlock = (ImageView) row.getChildAt(0);
                     row.removeViewAt(0);
                     row.addView(oldBlock);
-
                     Game.shiftGameRow(rowIndex, -1);
                 }
-                public  void onFinish() {
-                    moveRiver(rowIndex, row);
-                }
-        }.start();
+            }
+        };
+        gameClock.addListener(v);
     }
 
     public void movePlayer() {
@@ -408,8 +436,7 @@ public class GameScreenActivity extends AppCompatActivity {
      */
 
     private String getPlayerInfo() {
-        return "Kelley|0|5";
-        //return getIntent().getStringExtra("player");
+        return getIntent().getStringExtra("player");
     }
 
     /**
@@ -420,4 +447,16 @@ public class GameScreenActivity extends AppCompatActivity {
         return currGame;
     }
 
+    public ImageView getPlayerImage() {
+        return playerImage;
+    }
+
+    public Vehicle getTestVehicle() {
+        return testVehicle;
+    }
+
+    public static void setCollidedWithVehicle(boolean newStatus) {
+        collidedWithVehicle = newStatus;
+    }
 }
+

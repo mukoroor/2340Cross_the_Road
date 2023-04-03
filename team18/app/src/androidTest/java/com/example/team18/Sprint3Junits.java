@@ -302,7 +302,10 @@ public class Sprint3Junits {
 
             changeInPoints -= rowBonus;
 
+
+
             assertEquals(safe.travelGain, changeInPoints);
+
         });
     }
 
