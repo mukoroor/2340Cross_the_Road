@@ -122,7 +122,6 @@ public class GameScreenActivity extends AppCompatActivity {
                                     playState = false;
                                     currGame.reset();
                                     updatePlayerScreenData();
-                                    playState = true;
                                     int[] color = {ContextCompat.getColor(getApplicationContext(), R.color.tint), ContextCompat.getColor(getApplicationContext(), R.color.none)};
 
                                     new CountDownTimer(2000, 500) {
@@ -141,6 +140,7 @@ public class GameScreenActivity extends AppCompatActivity {
                                                 startActivity(gameOver);
                                             }
                                             playerImage.setColorFilter(null);
+                                            playState = true;
                                         }
                                     }.start();
 
@@ -453,6 +453,10 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public Vehicle getTestVehicle() {
         return testVehicle;
+    }
+
+    public boolean getPlayState() {
+        return playState;
     }
 
     public static void setCollidedWithVehicle(boolean newStatus) {

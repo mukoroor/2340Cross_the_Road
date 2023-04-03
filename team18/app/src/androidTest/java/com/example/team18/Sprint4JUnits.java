@@ -2,6 +2,7 @@ package com.example.team18;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import android.app.Activity;
@@ -155,8 +156,6 @@ public class Sprint4JUnits {
             GameScreenActivity g = (GameScreenActivity) activity;
             Game curr = g.getGame();
 
-            int initialLives = curr.getPlayer().getLives();
-
             ImageView playerImage = g.getPlayerImage();
             Vehicle vehicle = g.getTestVehicle();
 
@@ -171,14 +170,14 @@ public class Sprint4JUnits {
     }
 
     @Test
-    public void resetPositionWhenOnRoad() {
+    public void playStateInactive() {
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
                 GameScreenActivity.class);
         playIntent.putExtra("lives",5);
         Sprite player = new Sprite(3, "TEST");
         playIntent.putExtra("player", player.toString());
 
-
+        // Launch the activity with the intent
         ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
 
         // Assert that the activity is in the resumed state
@@ -186,20 +185,15 @@ public class Sprint4JUnits {
             GameScreenActivity g = (GameScreenActivity) activity;
             Game curr = g.getGame();
 
-            int initialLives = curr.getPlayer().getLives();
-            int row = findBlockType(GameBlockTypes.ROAD, curr);
+            ImageView playerImage = g.getPlayerImage();
+            Vehicle vehicle = g.getTestVehicle();
 
-            int finalPos = curr.getPosition()[1] / curr.getBlockSize();
-            finalPos -= row;
-            finalPos++;
+            playerImage.setX(vehicle.getPlayerImage().getX());
+            playerImage.setY(vehicle.getPlayerImage().getY());
 
-            while(finalPos-- > 1) {
-                g.moveUp();
-            }
+            boolean playState = g.getPlayState();
 
-            int finalLives = curr.getPlayer().getLives();
-
-            assertEquals(initialLives, finalLives);
+            assertFalse(playState);
         });
     }
 
