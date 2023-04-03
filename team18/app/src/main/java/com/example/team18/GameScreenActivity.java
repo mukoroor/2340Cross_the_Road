@@ -33,9 +33,11 @@ public class GameScreenActivity extends AppCompatActivity {
 
     protected String[] rowTypes = new String[16];
 
+    static private int time = 0;
+
     private CoupledListeners movementListener = new CoupledListeners();
 
-    private Button timerButton;
+    private Button clockButton;
 
 
     @Override
@@ -71,10 +73,6 @@ public class GameScreenActivity extends AppCompatActivity {
         Button upButton = findViewById(R.id.upButton);
         Button downButton = findViewById(R.id.downButton);
 
-        //timer button
-        timerButton = new Button(this);
-        timerButton.setOnClickListener(movementListener);
-
         //moving sprite based on navigation button input
         leftButton.setOnClickListener(e -> {
             if (playState)
@@ -92,6 +90,9 @@ public class GameScreenActivity extends AppCompatActivity {
             if (playState)
                 moveDown();
         });
+
+        //timer button
+        clockButton = new Button(this);
 
         //calculating block-size
         View rootView = getWindow().getDecorView().getRootView();
@@ -124,7 +125,12 @@ public class GameScreenActivity extends AppCompatActivity {
 
         new CountDownTimer(Long.MAX_VALUE, 1000) {
             public void onTick(long millisUntilFinished) {
-                timerButton.performClick();
+                clockButton.performClick();
+                if (time < 60) {
+                    time++;
+                } else {
+                    time = 0;
+                }
             }
             public void onFinish() {
                 start();
@@ -360,7 +366,7 @@ public class GameScreenActivity extends AppCompatActivity {
             ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
             mainFrame.addView(tracks, 0);
-            Vehicle fireballObject = new Vehicle(road, vehicle, tracks, i, playerImage, movementListener, currGame);
+            Vehicle fireballObject = new Vehicle(road, vehicle, tracks, i, playerImage, clockButton, currGame);
             if (i == 3) {
                 i = 1;
             } else {
@@ -418,6 +424,10 @@ public class GameScreenActivity extends AppCompatActivity {
      */
     public Game getGame() {
         return currGame;
+    }
+
+    public static int getTime() {
+        return time;
     }
 
 }

@@ -2,6 +2,8 @@ package com.example.team18;
 
 import android.graphics.Rect;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,11 +21,17 @@ public class Vehicle {
 
     private CoupledListeners movementListener;
 
+    private Button clockButton;
+
     private Game game;
 
-    private int time = 0;
-
     private int frame = 0;
+
+    private boolean launch = true;
+
+    private boolean frameClock = true;
+
+    private boolean motionClock = true;
 
     /**
      * Constructor for Vehicle Class.
@@ -32,12 +40,12 @@ public class Vehicle {
      * @param tracks track that minecart would ride on
      * @param type type of vehicle
      */
-    public Vehicle(LinearLayout row, ImageView image, ImageView tracks, int type, ImageView playerImage, CoupledListeners movementListener, Game game) {
+    public Vehicle(LinearLayout row, ImageView image, ImageView tracks, int type, ImageView playerImage, Button clockButton, Game game) {
         this.row = row;
         this.image = image;
         this.tracks = tracks;
         this.playerImage = playerImage;
-        this.movementListener = movementListener;
+        this.clockButton = clockButton;
         this.game = game;
 
         this.image.setVisibility(View.INVISIBLE);
@@ -57,19 +65,6 @@ public class Vehicle {
                 animateMineCarts();
                 break;
         }
-
-        View.OnClickListener v = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (time <= 60) {
-                    time++;
-                    System.out.print(time);
-                } else {
-                    time = 0;
-                }
-            }
-        };
-        movementListener.addListener(v);
     }
 
     /**
@@ -82,14 +77,10 @@ public class Vehicle {
         image.setRotation(180);
         image.setVisibility(View.VISIBLE);
 
-        View.OnClickListener v = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fireballFrames(); //switches frames of fireball
-                fireballMotion(); //moves fireball
-            }
-        };
-        movementListener.addListener(v);
+        clockButton.setOnClickListener(e -> {
+            fireballFrames(); //switches frames of fireball
+            fireballMotion(); //moves fireball
+        });
     }
 
     /**
@@ -107,9 +98,13 @@ public class Vehicle {
                 R.drawable.fball_7
         };
 
-        if (time % 3 == 0) {
+        if (GameScreenActivity.getTime() % 3 == 0 && frameClock) {
             image.setImageResource(fireBallFrames[frame]);
+            frameClock = false;
             frame++;
+        }
+        if (GameScreenActivity.getTime() % 3 == 1) {
+            frameClock = true;
         }
         if (frame >= 8) {
             frame = 0;
@@ -121,8 +116,13 @@ public class Vehicle {
      */
     public void fireballMotion() {
         checkForCollision();
-        if (time % 4 == 0) {
+        if (GameScreenActivity.getTime() % 4 == 0 && motionClock) {
+            System.out.println(image.getX());
             image.setX(image.getX() + 30);
+            motionClock = false;
+        }
+        if (GameScreenActivity.getTime() % 4 == 1) {
+            motionClock = true;
         }
         if (image.getX() > row.getWidth()) {
             image.setX(- image.getWidth());
@@ -138,14 +138,10 @@ public class Vehicle {
         image.setLayoutParams(new FrameLayout.LayoutParams(row.getHeight() * 2, row.getHeight() + 50));
         image.setVisibility(View.VISIBLE);
 
-        View.OnClickListener v = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dragonFrames(); //switches frames of dragon
-                dragonMotion(); //moves dragon
-            }
-        };
-        movementListener.addListener(v);
+        clockButton.setOnClickListener(e -> {
+            dragonFrames(); //switches frames of dragon
+            dragonMotion(); //moves dragon
+        });
     }
 
     /**
@@ -167,9 +163,13 @@ public class Vehicle {
                 R.drawable.dragon_11
         };
 
-        if (time % 3 == 0) {
+        if (GameScreenActivity.getTime() % 3 == 0 && frameClock) {
             image.setImageResource(fireBallFrames[frame]);
+            frameClock = false;
             frame++;
+        }
+        if (GameScreenActivity.getTime() % 3 == 1) {
+            frameClock = true;
         }
         if (frame >= 12) {
             frame = 0;
@@ -181,8 +181,12 @@ public class Vehicle {
      */
     public void dragonMotion() {
         checkForCollision();
-        if (time % 5 == 0) {
+        if (GameScreenActivity.getTime() % 5 == 0 && motionClock) {
             image.setX(image.getX() - 30);
+            motionClock = false;
+        }
+        if (GameScreenActivity.getTime() % 5 == 1) {
+            frameClock = true;
         }
         if (image.getX() < -image.getWidth()) {
             image.setX(row.getWidth());
@@ -205,31 +209,30 @@ public class Vehicle {
         image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth() * 1.5), row.getHeight() - 20));
         image.setVisibility(View.VISIBLE);
 
-        mineCartMotion(); //moves train
+        clockButton.setOnClickListener(e -> {
+            mineCartMotion(); //moves train
+        });
     }
 
     /**
      * Translates minecarts across road.
      */
     public void mineCartMotion() {
-        final boolean[] switched = {false};
-        View.OnClickListener v = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkForCollision();
-                if (time % 10 == 0) {
-                    switched[0] = true;
-                }
-                if (time % 3 == 0 && switched[0] == true) {
-                    image.setX(image.getX() - 30);
-                }
-                if (image.getX() < -image.getWidth()) {
-                    image.setX(row.getWidth());
-                    switched[0] = false;
-                }
-            }
-        };
-        movementListener.addListener(v);
+        checkForCollision();
+        if (GameScreenActivity.getTime() % 10 == 0) {
+            launch = true;
+        }
+        if (GameScreenActivity.getTime() % 2 == 0 && launch && motionClock) {
+            image.setX(image.getX() - 30);
+            motionClock = false;
+        }
+        if (GameScreenActivity.getTime() % 2 == 1) {
+            motionClock = true;
+        }
+        if (image.getX() < -image.getWidth()) {
+            image.setX(row.getWidth());
+            launch = false;
+        }
     }
 
     public void checkForCollision() {
