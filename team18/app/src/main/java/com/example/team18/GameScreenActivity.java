@@ -171,6 +171,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public void checkOnRiver() {
         if (currGame.getCurrBlock().blockType == GameBlockTypes.RIVER) {
+            currGame.reset();
             playState = false;
             int[] color = {ContextCompat.getColor(this, R.color.tint), ContextCompat.getColor(this, R.color.none)};
             new CountDownTimer(2000, 500) {
@@ -187,7 +188,6 @@ public class GameScreenActivity extends AppCompatActivity {
                         gameOver.putExtra("finalScore", currGame.getScore());
                         startActivity(gameOver);
                     }
-                    currGame.reset();
                     updatePlayerScreenData();
                     playerImage.setColorFilter(null);
                     playState = true;

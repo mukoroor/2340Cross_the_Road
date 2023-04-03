@@ -54,7 +54,9 @@ public class Sprint4JUnits {
             int row = findBlockType(GameBlockTypes.RIVER, curr);
 
             int moveUps = 14 - row;
-            while
+            while (moveUps-- > 0) {
+                g.moveUp();
+            }
 
             int finalLives = curr.getPlayer().getLives();
 
@@ -80,8 +82,10 @@ public class Sprint4JUnits {
 
             int row = findBlockType(GameBlockTypes.RIVER, curr);
 
-            curr.changePosition(0, 14 - row);
-            g.updatePlayerScreenData();
+            int moveUps = 14 - row;
+            while (moveUps-- > 0) {
+                g.moveUp();
+            }
 
             int[] finalPlayerPos = curr.getPosition();
 
