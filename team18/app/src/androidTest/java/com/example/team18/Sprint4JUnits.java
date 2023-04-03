@@ -1,9 +1,13 @@
 package com.example.team18;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.widget.ImageView;
 
 import androidx.test.core.app.ActivityScenario;
@@ -298,6 +302,49 @@ public class Sprint4JUnits {
             curr.changePosition(0,-9);
             assertEquals((preSocre ), curr.getScore());
 
+        });
+    }
+
+    @Test
+    public void savesHighestScore() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameOverScreenActivity.class);
+        playIntent.putExtra("finalScore",5);
+
+        // Launch the activity with the intent
+        ActivityScenario<GameOverScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> assertEquals(5, activity.getFinalScore()));
+    }
+
+    @Test
+    public void gameOverOnNoLives() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameScreenActivity.class);
+        playIntent.putExtra("lives",1);
+        Sprite player = new Sprite(3, "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            Game currGame = activity.getGame();
+            Sprite currGamePlayer = currGame.getPlayer();
+            currGamePlayer.setLives(0);
+            Instrumentation.ActivityMonitor monitor
+                    = getInstrumentation().addMonitor((IntentFilter) null, null, false);
+            Activity nextActivity
+                    = getInstrumentation().waitForMonitorWithTimeout(monitor, 500);
+
+            if (nextActivity != null) {
+                Intent t = nextActivity.getIntent();
+                int latestScore = t.getIntExtra("score", -1);
+                assertEquals(0, latestScore);
+                assertEquals(GameOverScreenActivity.class, nextActivity.getClass());
+            }
         });
     }
 }
