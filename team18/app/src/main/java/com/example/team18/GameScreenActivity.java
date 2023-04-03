@@ -33,6 +33,8 @@ public class GameScreenActivity extends AppCompatActivity {
     private static boolean collidedWithVehicle = false;
     protected String[] rowTypes = new String[16];
 
+    private Vehicle testVehicle;
+
 
 
     @Override
@@ -385,7 +387,8 @@ public class GameScreenActivity extends AppCompatActivity {
             ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
             mainFrame.addView(tracks, 0);
-            Vehicle fireballObject = new Vehicle(road, vehicle, tracks, i, playerImage, currGame);
+            Vehicle vehicleObject = new Vehicle(road, vehicle, tracks, i, playerImage, currGame);
+            testVehicle = vehicleObject;
             if (i == 3) {
                 i = 1;
             } else {
@@ -443,6 +446,14 @@ public class GameScreenActivity extends AppCompatActivity {
      */
     public Game getGame() {
         return currGame;
+    }
+
+    public ImageView getPlayerImage() {
+        return playerImage;
+    }
+
+    public Vehicle getTestVehicle() {
+        return testVehicle;
     }
 
     public static void setCollidedWithVehicle(boolean newStatus) {

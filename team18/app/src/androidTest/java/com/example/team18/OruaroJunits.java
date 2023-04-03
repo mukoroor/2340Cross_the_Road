@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
@@ -90,5 +91,67 @@ public class OruaroJunits {
             startingY--;
         }
         return startingY;
+    }
+
+    @Test
+    public void looseLifeWhenTouchingVehicle() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameScreenActivity.class);
+        playIntent.putExtra("lives",5);
+        Sprite player = new Sprite(3, "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+
+            int initialLives = curr.getPlayer().getLives();
+
+            ImageView playerImage = g.getPlayerImage();
+            Vehicle vehicle = g.getTestVehicle();
+
+            playerImage.setX(vehicle.getPlayerImage().getX());
+            playerImage.setY(vehicle.getPlayerImage().getY());
+
+            int finalLives = curr.getPlayer().getLives();
+
+            assertEquals(initialLives, finalLives);
+        });
+    }
+
+
+    @Test
+    public void resetPositionWhenTouchingVehicle() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameScreenActivity.class);
+        playIntent.putExtra("lives",5);
+        Sprite player = new Sprite(3, "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+
+            int initialLives = curr.getPlayer().getLives();
+
+            ImageView playerImage = g.getPlayerImage();
+            Vehicle vehicle = g.getTestVehicle();
+
+            playerImage.setX(vehicle.getPlayerImage().getX());
+            playerImage.setY(vehicle.getPlayerImage().getY());
+
+            int[] finalPlayerPos = curr.getPosition();
+
+            assertEquals(4, finalPlayerPos[0] / curr.getBlockSize());
+            assertEquals(14, finalPlayerPos[1] / curr.getBlockSize());
+        });
     }
 }

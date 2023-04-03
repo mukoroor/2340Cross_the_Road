@@ -271,4 +271,8 @@ public class Vehicle {
             GameScreenActivity.setCollidedWithVehicle(true);
         }
     }
+
+    public ImageView getPlayerImage() {
+        return playerImage;
+    }
 }
