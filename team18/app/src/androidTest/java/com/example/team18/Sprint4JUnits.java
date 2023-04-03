@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import android.content.Intent;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.test.core.app.ActivityScenario;
@@ -14,7 +13,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-public class OruaroJunits {
+public class Sprint4JUnits {
     Random r = new Random();
 
     @Test
