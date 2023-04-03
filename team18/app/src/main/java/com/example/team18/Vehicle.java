@@ -29,6 +29,9 @@ public class Vehicle {
      * @param image vehicle display
      * @param tracks track that minecart would ride on
      * @param type type of vehicle
+     * @param
+     * @param
+     * @param
      */
     public Vehicle(LinearLayout row, ImageView image, ImageView tracks, int type, ImageView playerImage, Game curr) {
         this.row = row;
@@ -43,16 +46,17 @@ public class Vehicle {
         //type = 2 -> dragon
         //type = 3 -> minecarts
         image.setId(type);
-        switch(type) {
-            case 1:
-                animateFireball();
-                break;
-            case 2:
-                animateDragon();
-                break;
-            case 3:
-                animateMineCarts();
-                break;
+        switch (type) {
+        case 1:
+            animateFireball();
+            break;
+        case 2:
+            animateDragon();
+            break;
+        case 3:
+            animateMineCarts();
+            break;
+        default:
         }
     }
 
@@ -70,9 +74,10 @@ public class Vehicle {
 
             public void onFinish() {
                 image.setY(row.getY());
-                image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getHeight() * 1.5), row.getHeight()));
+                image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getHeight() * 1.5),
+                        row.getHeight()));
 
-                image.setX(- image.getWidth());
+                image.setX(-image.getWidth());
                 image.setRotation(180);
 
                 image.setVisibility(View.VISIBLE);
@@ -89,14 +94,14 @@ public class Vehicle {
     public void fireballFrames() {
         final int[] i = {0};
         final int[] fireBallFrames = {
-                R.drawable.fball_0,
-                R.drawable.fball_1,
-                R.drawable.fball_2,
-                R.drawable.fball_3,
-                R.drawable.fball_4,
-                R.drawable.fball_5,
-                R.drawable.fball_6,
-                R.drawable.fball_7
+            R.drawable.fball_0,
+            R.drawable.fball_1,
+            R.drawable.fball_2,
+            R.drawable.fball_3,
+            R.drawable.fball_4,
+            R.drawable.fball_5,
+            R.drawable.fball_6,
+            R.drawable.fball_7
         };
         int speed = 250;
         new CountDownTimer(speed * fireBallFrames.length, speed) {
@@ -125,7 +130,7 @@ public class Vehicle {
                 }
 
                 if (image.getX() > row.getWidth()) {
-                    image.setX(- image.getWidth());
+                    image.setX(-image.getWidth());
                 }
             }
         };
@@ -147,7 +152,8 @@ public class Vehicle {
             public void onFinish() {
                 image.setY(row.getY() - 50);
                 image.setX(row.getWidth());
-                image.setLayoutParams(new FrameLayout.LayoutParams(row.getHeight() * 2, row.getHeight() + 50));
+                image.setLayoutParams(new FrameLayout.LayoutParams(row.getHeight() * 2,
+                        row.getHeight() + 50));
                 image.setVisibility(View.VISIBLE);
                 dragonFrames(); //switches frames of dragon
                 dragonMotion(); //moves dragon
@@ -161,18 +167,18 @@ public class Vehicle {
     public void dragonFrames() {
         final int[] i = {0};
         final int[] fireBallFrames = {
-                R.drawable.dragon_0,
-                R.drawable.dragon_1,
-                R.drawable.dragon_2,
-                R.drawable.dragon_3,
-                R.drawable.dragon_4,
-                R.drawable.dragon_5,
-                R.drawable.dragon_6,
-                R.drawable.dragon_7,
-                R.drawable.dragon_8,
-                R.drawable.dragon_9,
-                R.drawable.dragon_10,
-                R.drawable.dragon_11
+            R.drawable.dragon_0,
+            R.drawable.dragon_1,
+            R.drawable.dragon_2,
+            R.drawable.dragon_3,
+            R.drawable.dragon_4,
+            R.drawable.dragon_5,
+            R.drawable.dragon_6,
+            R.drawable.dragon_7,
+            R.drawable.dragon_8,
+            R.drawable.dragon_9,
+            R.drawable.dragon_10,
+            R.drawable.dragon_11
         };
         int speed = 100;
         new CountDownTimer(speed * fireBallFrames.length, speed) {
@@ -221,7 +227,8 @@ public class Vehicle {
                 tracks.setY(row.getY() - 25);
                 tracks.setX(0);
                 tracks.setImageResource(R.drawable.traintracks);
-                tracks.setLayoutParams(new FrameLayout.LayoutParams(row.getWidth(), row.getHeight()));
+                tracks.setLayoutParams(new FrameLayout.LayoutParams(row.getWidth(),
+                        row.getHeight()));
                 tracks.setVisibility(View.VISIBLE);
             }
 
@@ -229,7 +236,8 @@ public class Vehicle {
                 image.setY(row.getY() - 10);
                 image.setX(row.getWidth());
                 image.setImageResource(R.drawable.minecarts);
-                image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth() * 1.5), row.getHeight() - 20));
+                image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth() * 1.5),
+                        row.getHeight() - 20));
                 image.setVisibility(View.VISIBLE);
                 mineCartMotion(); //moves train
             }
@@ -248,7 +256,7 @@ public class Vehicle {
                 if (time % 10 == 0) {
                     switched[0] = true;
                 }
-                if (time % 2 == 0 && switched[0] == true) {
+                if (time % 2 == 0 && switched[0]) {
                     image.setX(image.getX() - 30);
                 }
                 if (image.getX() < -image.getWidth()) {

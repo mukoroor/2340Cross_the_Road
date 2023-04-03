@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.CountDownTimer;
 import android.widget.ImageView;
 
 import androidx.test.core.app.ActivityScenario;
@@ -247,10 +248,6 @@ public class Sprint4JUnits {
                 }
             }
 
-
-
-
-
             int finalLives = curr.getPlayer().getLives();
 
             assertEquals(initialLives, finalLives);
@@ -339,6 +336,120 @@ public class Sprint4JUnits {
                 assertEquals(0, latestScore);
                 assertEquals(GameOverScreenActivity.class, nextActivity.getClass());
             }
+        });
+    }
+
+    @Test
+    public void scoreChangesWhenRespawnedOnWater() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameScreenActivity.class);
+        playIntent.putExtra("lives",1);
+        Sprite player = new Sprite(3, "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+
+            int row = findBlockType(GameBlockTypes.RIVER, curr);
+
+            int moveUps = 14 - row;
+            while (moveUps-- > 1) {
+                g.moveUp();
+            }
+            int mScore = curr.getScore();
+
+            g.moveUp();
+            new CountDownTimer(2000, 2000) {
+                @Override
+                public void onTick(long l) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    int finalScore = curr.getScore();
+                    assertEquals(mScore / 2, finalScore);
+                }
+            }.start();
+
+        });
+    }
+
+    @Test
+    public void scoreChangesWhenTouchingVehicle() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameScreenActivity.class);
+        playIntent.putExtra("lives",5);
+        Sprite player = new Sprite(3, "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+
+
+            ImageView playerImage = g.getPlayerImage();
+            Vehicle vehicle = g.getTestVehicle();
+            float vX = vehicle.getPlayerImage().getX();
+            float vY = vehicle.getPlayerImage().getY();
+
+            int changeX =  (int) (vX / curr.getBlockSize()) - 4;
+            int changeY =   (int) ((vX / curr.getBlockSize()) - 14);
+
+            curr.changePosition(changeX, changeY + 1);
+            g.updatePlayerScreenData();
+            g.moveUp();
+            int initialScore = curr.getScore();
+
+            new CountDownTimer(2000, 2000) {
+                @Override
+                public void onTick(long l) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    int finalScore = curr.getScore();
+                    assertEquals(initialScore / 2, finalScore);
+                }
+            }.start();
+        });
+    }
+
+    @Test
+    public void playStateInactive() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameScreenActivity.class);
+        playIntent.putExtra("lives",5);
+        Sprite player = new Sprite(3, "TEST");
+        playIntent.putExtra("player", player.toString());
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+
+            ImageView playerImage = g.getPlayerImage();
+            Vehicle vehicle = g.getTestVehicle();
+
+            playerImage.setX(vehicle.getPlayerImage().getX());
+            playerImage.setY(vehicle.getPlayerImage().getY());
+
+            boolean playState = false;
+
+            assertFalse(playState);
         });
     }
 }
