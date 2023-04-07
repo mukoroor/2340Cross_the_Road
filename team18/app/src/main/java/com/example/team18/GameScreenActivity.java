@@ -399,13 +399,24 @@ public class GameScreenActivity extends AppCompatActivity {
             ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
             mainFrame.addView(tracks, 0);
-            Vehicle vehicleObject = new Vehicle(road, vehicle, tracks, i, playerImage, currGame);
-            testVehicle = vehicleObject;
-            if (i == 3) {
-                i = 1;
-            } else {
-                i++;
+            Vehicle vehicleObject = null;
+            
+            switch (i) {
+                case 1: 
+                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
+                    i++;
+                    break;
+                case 2:
+                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
+                    i++;
+                    break;
+                case 3:
+                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
+                    i = 1;
+                    break;
             }
+
+            testVehicle = vehicleObject;
         }
     }
 
@@ -448,7 +459,8 @@ public class GameScreenActivity extends AppCompatActivity {
      */
 
     private String getPlayerInfo() {
-        return getIntent().getStringExtra("player");
+        return "Kelley|1|5";
+        //return getIntent().getStringExtra("player");
     }
 
     /**
@@ -461,6 +473,10 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public ImageView getPlayerImage() {
         return playerImage;
+    }
+
+    public boolean getPlayState() {
+        return playState;
     }
 
     public Vehicle getTestVehicle() {

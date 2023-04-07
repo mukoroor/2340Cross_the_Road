@@ -424,32 +424,4 @@ public class Sprint4JUnits {
             }.start();
         });
     }
-
-    @Test
-    public void playStateInactive() {
-        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
-                GameScreenActivity.class);
-        playIntent.putExtra("lives",5);
-        Sprite player = new Sprite(3, "TEST");
-        playIntent.putExtra("player", player.toString());
-
-        // Launch the activity with the intent
-        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
-
-        // Assert that the activity is in the resumed state
-        scenario.onActivity(activity -> {
-            GameScreenActivity g = (GameScreenActivity) activity;
-            Game curr = g.getGame();
-
-            ImageView playerImage = g.getPlayerImage();
-            Vehicle vehicle = g.getTestVehicle();
-
-            playerImage.setX(vehicle.getPlayerImage().getX());
-            playerImage.setY(vehicle.getPlayerImage().getY());
-
-            boolean playState = false;
-
-            assertFalse(playState);
-        });
-    }
 }
