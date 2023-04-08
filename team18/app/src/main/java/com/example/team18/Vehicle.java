@@ -10,13 +10,15 @@ import android.widget.LinearLayout;
 import java.util.Random;
 
 public abstract class Vehicle {
+    protected static Random r = new Random();
     protected ImageView image;
     public static int time = 0;
 
     /**
      * Constructor for Abstract Vehicle Class.
      **/
-    public Vehicle() {
+    public Vehicle(ImageView image) {
+        this.image = image;
     }
     abstract public void launch();
 

@@ -26,23 +26,23 @@ public class Fireball extends Vehicle {
     };
 
     public Fireball(LinearLayout row, ImageView image, ImageView playerImage, Game curr) {
-        super();
+        super(image);
         this.row = row;
-        this.image = image;
         this.playerImage = playerImage;
         this.curr = curr;//do we need curr
 
-        Random rand = new Random();
-        int delay = rand.nextInt(9) + 1;
+//        image.setVisibility(View.VISIBLE);
+//        image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getHeight() * 1.5),
+//                row.getHeight()));
+        frameIndex = r.nextInt(fireBallFrames.length);
     }
 
     public void launch() {
-        image.setVisibility(View.VISIBLE);
-        image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getHeight() * 1.5),
-                row.getHeight()));
         image.setY(row.getY());
-        image.setX(60);
-        System.out.println("added");
+        image.setImageResource(fireBallFrames[frameIndex]);
+        image.setX(image.getWidth());
+//        image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getHeight() * 1.5),
+//                row.getHeight()));
 //        image.setRotation(180);
     }
 
@@ -53,7 +53,7 @@ public class Fireball extends Vehicle {
             public void onClick(View view) {
                 if (time % 2 == 0) {
                     image.setImageResource(fireBallFrames[frameIndex]);
-                    frameIndex = (frameIndex + fireBallFrames.length) % fireBallFrames.length;
+                    frameIndex = (frameIndex + fireBallFrames.length + 1) % fireBallFrames.length;
                 }
             }
         };
@@ -66,6 +66,7 @@ public class Fireball extends Vehicle {
             @Override
             public void onClick(View view) {
 //                checkForCollision(playerImage);
+                image.setVisibility(View.VISIBLE);
                 if (time % 3 == 0) {
                     image.setX(image.getX() + 100);
                 }

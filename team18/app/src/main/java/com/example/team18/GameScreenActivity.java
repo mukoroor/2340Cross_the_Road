@@ -101,23 +101,23 @@ public class GameScreenActivity extends AppCompatActivity {
                     @Override
                     public void onGlobalLayout() {
                         int blockSize = rootView.getWidth() / 9;
+                        currGame.setBlockSize(blockSize);
+                        currGame.setMaxHeight(blockSize * 14);
 
                         //Creates background
                         createGrid(findViewById(R.id.backgroundGrid), blockSize);
                         int[] rows = populateGrid();
+                        animate(rows);
 
-                        currGame.setBlockSize(blockSize);
 
-                        currGame.setMaxHeight(blockSize * 14);
                         FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(
                                 blockSize, blockSize);
                         playerImage.setLayoutParams(p);
                         updatePlayerScreenData();
-
+                        float px = playerImage.getWidth();
                         //Animates rows on screen
                         timer.setOnClickListener(gameClock);
-                        animate(rows);
-                        new CountDownTimer(Long.MAX_VALUE, 30) {
+                        new CountDownTimer(Long.MAX_VALUE, 10) {
                             public void onTick(long millisUntilFinished) {
                                 if (collidedWithVehicle) {
                                     collidedWithVehicle = false;
@@ -398,6 +398,9 @@ public class GameScreenActivity extends AppCompatActivity {
             ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
             mainFrame.addView(tracks, 0);
+//            vehicle.setImageResource(R.drawable.fball_0);
+//            vehicle.setY(road.getY());
+//            vehicle.setX(60);
             Vehicle vehicleObject = null;
             
 //            switch (i) {
@@ -417,7 +420,7 @@ public class GameScreenActivity extends AppCompatActivity {
             vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
             vehicleObject.launch();
             vehicleObject.animateFrames(gameClock);
-            vehicleObject.animateMovement(gameClock);
+//            vehicleObject.animateMovement(gameClock);
             testVehicle = vehicleObject;
         }
     }
