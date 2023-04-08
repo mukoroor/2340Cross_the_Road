@@ -399,24 +399,24 @@ public class GameScreenActivity extends AppCompatActivity {
             ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
             mainFrame.addView(tracks, 0);
-            Vehicle vehicleObject = null;
+//            Vehicle vehicleObject = null;
             
-            switch (i) {
-                case 1: 
-                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
-                    i++;
-                    break;
-                case 2:
-                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
-                    i++;
-                    break;
-                case 3:
-                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
-                    i = 1;
-                    break;
-            }
-
-            testVehicle = vehicleObject;
+//            switch (i) {
+//                case 1:
+//                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame, gameClock);
+//                    i++;
+//                    break;
+//                case 2:
+//                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame, gameClock);
+//                    i++;
+//                    break;
+//                case 3:
+//                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame, gameClock);
+//                    i = 1;
+//                    break;
+//            }
+            new Fireball(road, vehicle, playerImage, currGame, gameClock);
+//            testVehicle = vehicleObject;
         }
     }
 

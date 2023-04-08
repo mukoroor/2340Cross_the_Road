@@ -11,8 +11,10 @@ import java.util.Random;
 
 public abstract class Vehicle {
 
-    protected static CoupledListeners l;
+    protected static CoupledListeners l = new CoupledListeners();
+    protected ImageView image;
     public static int time = 0;
+
 
     /**
      * Constructor for Abstract Vehicle Class.
@@ -21,9 +23,21 @@ public abstract class Vehicle {
     }
     abstract public void launch();
 
-    abstract public void animateFrames();
+    abstract public void animateFrames(CoupledListeners l);
 
-    abstract public void animateMovement();
+    abstract public void animateMovement(CoupledListeners l);
 
-    abstract public void checkForCollision();
+    public boolean checkForCollision(ImageView object) {
+        Rect rect1 = new Rect();
+        image.getGlobalVisibleRect(rect1);
+
+        Rect rect2 = new Rect();
+        object.getGlobalVisibleRect(rect2);
+
+        if (Rect.intersects(rect1, rect2)) {
+            GameScreenActivity.setCollidedWithVehicle(true);
+            return true;
+        }
+        return false;
+    }
 }

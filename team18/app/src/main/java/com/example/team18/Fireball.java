@@ -9,19 +9,12 @@ import android.widget.LinearLayout;
 import java.util.Random;
 
 public class Fireball extends Vehicle {
-
     private LinearLayout row;
-
-    private ImageView image;
-
     private ImageView playerImage;
-
     private Game curr;
 
-    private int delay = 0;
-
-    final int[] i = {0};
-    int[] fireBallFrames = {
+    private Integer frameIndex = 0;
+    final int[] fireBallFrames = {
             R.drawable.fball_0,
             R.drawable.fball_1,
             R.drawable.fball_2,
@@ -32,37 +25,38 @@ public class Fireball extends Vehicle {
             R.drawable.fball_7
     };
 
-    private boolean launched = false;
-
-    public Fireball (LinearLayout row, ImageView image, ImageView playerImage, Game curr) {
+    public Fireball(LinearLayout row, ImageView image, ImageView playerImage, Game curr, CoupledListeners l) {
         super();
         this.row = row;
         this.image = image;
         this.playerImage = playerImage;
-        this.curr = curr;
+        this.curr = curr;//do we need curr
 
         Random rand = new Random();
-        delay = rand.nextInt(9) + 1;
+        int delay = rand.nextInt(9) + 1;
 
         launch();
-        animateFrames();
-        animateMovement();
+        animateFrames(l);
+        animateMovement(l);
     }
 
     public void launch() {
-        image.setVisibility(View.INVISIBLE);
+        image.setVisibility(View.VISIBLE);
+        image.setY(row.getY());
+        image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getHeight() * 1.5),
+                row.getHeight()));
+        image.setX(-image.getWidth());
+//        image.setRotation(180);
+    }
+
+    @Override
+    public void animateFrames(CoupledListeners l) {
         View.OnClickListener v = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (time > delay && !launched) {
-                    launched = true;
-
-                    image.setY(row.getY());
-                    image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getHeight() * 1.5),
-                            row.getHeight()));
-                    image.setX(-image.getWidth());
-                    image.setRotation(180);
-                    image.setVisibility(View.VISIBLE);
+                if (time % 2 == 0) {
+                    image.setImageResource(fireBallFrames[frameIndex]);
+                    frameIndex = (frameIndex + fireBallFrames.length) % fireBallFrames.length;
                 }
             }
         };
@@ -70,56 +64,20 @@ public class Fireball extends Vehicle {
     }
 
     @Override
-    public void animateFrames() {
-        View.OnClickListener v = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (launched) {
-                    if (time % 2 == 0) {
-                        image.setImageResource(fireBallFrames[i[0]]);
-                        i[0]++;
-
-                        if (i[0] >= 8) {
-                            i[0] = 0;
-                        }
-                    }
-                }
-            }
-        };
-        l.addListener(v);
-    }
-
-    @Override
-    public void animateMovement() {
+    public void animateMovement(CoupledListeners l) {
             View.OnClickListener v = new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (launched) {
-                        image.setVisibility(View.VISIBLE);
-                        checkForCollision();
-                        if (time % 3 == 0) {
-                            image.setX(image.getX() + 30);
-                            System.out.println(image.getX());
-                        }
+                    checkForCollision(playerImage);
+                    if (time % 3 == 0) {
+                        image.setX(image.getX() + 100);
+                    }
 
-                        if (image.getX() > row.getWidth()) {
-                            image.setX(-image.getWidth());
-                        }
+                    if (image.getX() > row.getWidth()) {
+                        image.setX(-image.getWidth());
                     }
                 }
             };
             l.addListener(v);
-    }
-
-    public void checkForCollision() {
-        Rect rect1 = new Rect();
-        image.getGlobalVisibleRect(rect1);
-
-        Rect rect2 = new Rect();
-        playerImage.getGlobalVisibleRect(rect2);
-
-        if (Rect.intersects(rect1, rect2)) {
-            GameScreenActivity.setCollidedWithVehicle(true);
-        }
     }
 }
