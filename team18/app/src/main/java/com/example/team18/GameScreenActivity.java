@@ -115,7 +115,6 @@ public class GameScreenActivity extends AppCompatActivity {
                         updatePlayerScreenData();
 
                         //Animates rows on screen
-                        Vehicle.l = gameClock;
                         timer.setOnClickListener(gameClock);
                         animate(rows);
                         new CountDownTimer(Long.MAX_VALUE, 30) {
@@ -399,7 +398,7 @@ public class GameScreenActivity extends AppCompatActivity {
             ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
             mainFrame.addView(tracks, 0);
-//            Vehicle vehicleObject = null;
+            Vehicle vehicleObject = null;
             
 //            switch (i) {
 //                case 1:
@@ -415,8 +414,11 @@ public class GameScreenActivity extends AppCompatActivity {
 //                    i = 1;
 //                    break;
 //            }
-            new Fireball(road, vehicle, playerImage, currGame, gameClock);
-//            testVehicle = vehicleObject;
+            vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
+            vehicleObject.launch();
+            vehicleObject.animateFrames(gameClock);
+            vehicleObject.animateMovement(gameClock);
+            testVehicle = vehicleObject;
         }
     }
 

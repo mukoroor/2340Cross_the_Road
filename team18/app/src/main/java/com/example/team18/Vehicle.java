@@ -10,11 +10,8 @@ import android.widget.LinearLayout;
 import java.util.Random;
 
 public abstract class Vehicle {
-
-    protected static CoupledListeners l = new CoupledListeners();
     protected ImageView image;
     public static int time = 0;
-
 
     /**
      * Constructor for Abstract Vehicle Class.
@@ -39,5 +36,9 @@ public abstract class Vehicle {
             return true;
         }
         return false;
+    }
+
+    public ImageView getVehicleImage() {
+        return image;
     }
 }

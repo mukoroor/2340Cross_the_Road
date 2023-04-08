@@ -14,7 +14,7 @@ public class Fireball extends Vehicle {
     private Game curr;
 
     private Integer frameIndex = 0;
-    final int[] fireBallFrames = {
+    private static final int[] fireBallFrames = {
             R.drawable.fball_0,
             R.drawable.fball_1,
             R.drawable.fball_2,
@@ -25,7 +25,7 @@ public class Fireball extends Vehicle {
             R.drawable.fball_7
     };
 
-    public Fireball(LinearLayout row, ImageView image, ImageView playerImage, Game curr, CoupledListeners l) {
+    public Fireball(LinearLayout row, ImageView image, ImageView playerImage, Game curr) {
         super();
         this.row = row;
         this.image = image;
@@ -34,18 +34,15 @@ public class Fireball extends Vehicle {
 
         Random rand = new Random();
         int delay = rand.nextInt(9) + 1;
-
-        launch();
-        animateFrames(l);
-        animateMovement(l);
     }
 
     public void launch() {
         image.setVisibility(View.VISIBLE);
-        image.setY(row.getY());
         image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getHeight() * 1.5),
                 row.getHeight()));
-        image.setX(-image.getWidth());
+        image.setY(row.getY());
+        image.setX(60);
+        System.out.println("added");
 //        image.setRotation(180);
     }
 
@@ -65,19 +62,19 @@ public class Fireball extends Vehicle {
 
     @Override
     public void animateMovement(CoupledListeners l) {
-            View.OnClickListener v = new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    checkForCollision(playerImage);
-                    if (time % 3 == 0) {
-                        image.setX(image.getX() + 100);
-                    }
-
-                    if (image.getX() > row.getWidth()) {
-                        image.setX(-image.getWidth());
-                    }
+        View.OnClickListener v = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                checkForCollision(playerImage);
+                if (time % 3 == 0) {
+                    image.setX(image.getX() + 100);
                 }
-            };
-            l.addListener(v);
+
+                if (image.getX() > row.getWidth()) {
+                    image.setX(-image.getWidth());
+                }
+            }
+        };
+        l.addListener(v);
     }
 }
