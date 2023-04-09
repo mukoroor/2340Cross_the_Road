@@ -13,13 +13,10 @@ public class GameBlock {
 
     /**
      * Game block constructor
-     * @param row row index in gameBlockArray
-     * @param column column index in gameBlockArray
      * @param gridBlock ImageView representing GameBlock in an activity;
      */
-    public GameBlock(int row, int column, ImageView gridBlock) {
+    public GameBlock(ImageView gridBlock) {
         this.gridBlock = gridBlock;
-        setBlockPosition(row, column);
     }
 
     /**
