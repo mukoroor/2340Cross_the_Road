@@ -1,45 +1,45 @@
 package com.example.team18;
 
-import android.graphics.Rect;
-import android.os.CountDownTimer;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-
+import android.widget.ImageView;
+import android.graphics.Rect;
 import java.util.Random;
 
 public abstract class Vehicle {
     protected static Random r = new Random();
-    protected ImageView image;
+    protected static ImageView playerImage;
     public static int time = 0;
+    protected Integer frameIndex;
 
+    protected LinearLayout row;
+    protected final ImageView image;
     /**
      * Constructor for Abstract Vehicle Class.
      **/
-    public Vehicle(ImageView image) {
+    public Vehicle(LinearLayout row, ImageView image) {
+        this.row = row;
         this.image = image;
     }
-    abstract public void launch();
 
     abstract public void animateFrames(CoupledListeners l);
 
     abstract public void animateMovement(CoupledListeners l);
 
-    public boolean checkForCollision(ImageView object) {
+    public void checkForCollision() {
         Rect rect1 = new Rect();
         image.getGlobalVisibleRect(rect1);
 
         Rect rect2 = new Rect();
-        object.getGlobalVisibleRect(rect2);
+        playerImage.getGlobalVisibleRect(rect2);
 
         if (Rect.intersects(rect1, rect2)) {
             GameScreenActivity.setCollidedWithVehicle(true);
-            return true;
         }
-        return false;
     }
 
+    public static void setPlayerImage(ImageView playerImage) {
+        Vehicle.playerImage = playerImage;
+    }
     public ImageView getVehicleImage() {
         return image;
     }
