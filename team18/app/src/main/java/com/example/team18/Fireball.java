@@ -42,7 +42,7 @@ public class Fireball extends Vehicle {
         this.curr = curr;
 
         Random rand = new Random();
-        delay = rand.nextInt(9) + 1;
+        delay = rand.nextInt(150) + 1;
 
         launch();
         animateFrames();
@@ -54,7 +54,7 @@ public class Fireball extends Vehicle {
         View.OnClickListener v = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (time > delay && !launched) {
+                if (GameScreenActivity.getTime() > delay && !launched) {
                     launched = true;
 
                     image.setY(row.getY());
@@ -75,7 +75,7 @@ public class Fireball extends Vehicle {
             @Override
             public void onClick(View view) {
                 if (launched) {
-                    if (time % 2 == 0) {
+                    if (GameScreenActivity.getTime() % 5 == 0) {
                         image.setImageResource(fireBallFrames[i[0]]);
                         i[0]++;
 
@@ -97,9 +97,8 @@ public class Fireball extends Vehicle {
                     if (launched) {
                         image.setVisibility(View.VISIBLE);
                         checkForCollision();
-                        if (time % 3 == 0) {
+                        if (GameScreenActivity.getTime() % 3 == 0) {
                             image.setX(image.getX() + 30);
-                            System.out.println(image.getX());
                         }
 
                         if (image.getX() > row.getWidth()) {
