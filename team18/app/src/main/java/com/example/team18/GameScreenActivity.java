@@ -406,15 +406,15 @@ public class GameScreenActivity extends AppCompatActivity {
             
             switch (i) {
                 case 1: 
-                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
+                    vehicleObject = new Fireball(road, vehicle, playerImage);
                     i++;
                     break;
                 case 2:
-                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
+                    vehicleObject = new Dragon(road, vehicle, playerImage);
                     i++;
                     break;
                 case 3:
-                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
+                    vehicleObject = new Fireball(road, vehicle, playerImage);
                     i = 1;
                     break;
             }
