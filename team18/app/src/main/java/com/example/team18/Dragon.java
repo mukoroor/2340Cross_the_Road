@@ -69,7 +69,7 @@ public class Dragon extends Vehicle {
                     image.setY(row.getY() - 50);
                     image.setLayoutParams(new FrameLayout.LayoutParams(row.getHeight() * 2,
                             row.getHeight() + 50));
-                    image.setX(-image.getWidth());
+                    image.setX(row.getWidth());
                     image.setVisibility(View.VISIBLE);
                 }
             }
@@ -110,11 +110,11 @@ public class Dragon extends Vehicle {
             public void onClick(View view) {
                 checkForCollision();
                 if (GameScreenActivity.getTime() % 3 == 0) {
-                    image.setX(image.getX() + 30);
+                    image.setX(image.getX() - 30);
                 }
 
-                if (image.getX() > row.getWidth()) {
-                    image.setX(-image.getWidth());
+                if (image.getX() < -image.getWidth()) {
+                    image.setX(row.getWidth());
                 }
             }
         };
