@@ -399,9 +399,7 @@ public class GameScreenActivity extends AppCompatActivity {
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
         for (LinearLayout road : roads) {
             ImageView vehicle = new ImageView(this);
-            ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
-            mainFrame.addView(tracks, 0);
             Vehicle vehicleObject = null;
             
             switch (i) {
@@ -414,7 +412,9 @@ public class GameScreenActivity extends AppCompatActivity {
                     i++;
                     break;
                 case 3:
-                    vehicleObject = new Fireball(road, vehicle, playerImage);
+                    ImageView tracks = new ImageView(this);
+                    mainFrame.addView(tracks, 1);
+                    vehicleObject = new Minecart(road, vehicle, tracks, playerImage);
                     i = 1;
                     break;
             }

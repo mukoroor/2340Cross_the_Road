@@ -114,7 +114,7 @@ public class Fireball extends Vehicle {
         Rect rect2 = new Rect();
         playerImage.getGlobalVisibleRect(rect2);
 
-        if (Rect.intersects(rect1, rect2)) {
+        if (Rect.intersects(rect1, rect2) && launched) {
             GameScreenActivity.setCollidedWithVehicle(true);
         }
     }
