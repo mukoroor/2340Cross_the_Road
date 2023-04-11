@@ -58,7 +58,6 @@ public class Minecart extends Vehicle {
                     tracks.setY(row.getY());
                     tracks.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth()),
                             row.getHeight()));
-                    tracks.setVisibility(View.INVISIBLE);
                 }
                 if (GameScreenActivity.getTime() > delay && !launched) {
                     launched = true;
