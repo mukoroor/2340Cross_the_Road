@@ -8,29 +8,30 @@ import java.util.Random;
 public abstract class Vehicle {
     protected static Random r = new Random();
     protected static ImageView playerImage;
-    public static int time = 0;
-    protected Integer frameIndex;
 
     protected LinearLayout row;
     protected final ImageView image;
+
     /**
      * Constructor for Abstract Vehicle Class.
-     **/
+     * @param row
+     * @param image
+     */
     public Vehicle(LinearLayout row, ImageView image) {
         this.row = row;
         this.image = image;
     }
 
-    abstract public void animateFrames(CoupledListeners l);
+    public abstract void animateFrames(Clock c);
 
-    abstract public void animateMovement(CoupledListeners l);
+    public abstract void animateMovement(Clock c);
 
     public void checkForCollision() {
         Rect rect1 = new Rect();
-        image.getGlobalVisibleRect(rect1);
+        image.getHitRect(rect1);
 
         Rect rect2 = new Rect();
-        playerImage.getGlobalVisibleRect(rect2);
+        playerImage.getHitRect(rect2);
 
         if (Rect.intersects(rect1, rect2)) {
             GameScreenActivity.setCollidedWithVehicle(true);

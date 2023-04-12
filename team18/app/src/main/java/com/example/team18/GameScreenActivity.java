@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -20,16 +21,16 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class GameScreenActivity extends AppCompatActivity {
-    private Button timer;
-    private final CoupledListeners gameClock = new CoupledListeners();
+    private Clock gameClock;
     private Game currGame;
     private TextView playerLives;
     private TextView playerPoints;
     private ImageView playerImage;
+    private final Random r = new Random();
     private boolean playState = true;
     private static boolean collidedWithVehicle = false;
-    protected String[] rowTypes = new String[32];
-
+    protected String[] rowTypes;
+    private int newTranslation;
     private Vehicle testVehicle;
 
 
@@ -41,34 +42,26 @@ public class GameScreenActivity extends AppCompatActivity {
 
         //Establishes player details
         Sprite player = Sprite.parseString(getPlayerInfo());
+        int lives = getDifficulty();
+        //Sets player image on screen
         playerImage = findViewById(R.id.player);
         int spriteImageIndex = player.getSpriteIndex();
-
-        currGame = new Game(player);
-
-        //Sets player image on screen
         playerImage.setImageResource(Sprite.spriteOptions[spriteImageIndex][0]);
-
         //Sets player name on screen
         TextView playerName = findViewById(R.id.username);
-        playerName.setText(player.getName().toUpperCase());
-
-
+        playerName.setText(player.getName());
         //Sets player lives on screen
         playerLives = findViewById(R.id.playerLives);
-        playerLives.setText(String.valueOf(player.getLives()));
-
+        playerLives.setText(String.valueOf(lives));
+        //Sets player score
         playerPoints = findViewById(R.id.points);
-        playerPoints.setText(String.valueOf(currGame.getScore()));
-
-        timer = new Button(this);
+        playerPoints.setText("0");
 
         //navigation buttons
         Button leftButton = findViewById(R.id.leftButton);
         Button rightButton = findViewById(R.id.rightButton);
         Button upButton = findViewById(R.id.upButton);
         Button downButton = findViewById(R.id.downButton);
-
         //moving sprite based on navigation button input
         leftButton.setOnClickListener(e -> {
             if (playState) {
@@ -91,6 +84,10 @@ public class GameScreenActivity extends AppCompatActivity {
             }
         });
 
+        currGame = new Game(player, lives);
+        rowTypes = new String[Game.getGameBlockArray().length];
+        gameClock = new Clock(new Button(this), new CoupledListeners());
+
         //calculating block-size
         View rootView = getWindow().getDecorView().getRootView();
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -99,12 +96,11 @@ public class GameScreenActivity extends AppCompatActivity {
                 public void onGlobalLayout() {
                     int blockSize = rootView.getWidth() / 9;
                     currGame.setBlockSize(blockSize);
-                    currGame.setMaxHeight(blockSize * 30);
 
                     //Creates background
                     LinearLayout bG = findViewById(R.id.backgroundGrid);
-//                    LayoutParams p= bG.getLayoutParams();
-//                    bG.setTranslationY(-8 * blockSize);
+                    newTranslation = (-Game.getGameBlockArray().length + 15) * blockSize;
+                    findViewById(R.id.mainFrame).setY(newTranslation);
                     createGrid(bG, blockSize);
                     int[] rows = populateGrid();
                     animate(rows);
@@ -114,19 +110,17 @@ public class GameScreenActivity extends AppCompatActivity {
                     playerImage.setLayoutParams(p);
                     updatePlayerScreenData();
                     Vehicle.setPlayerImage(playerImage);
+                    playerImage.bringToFront();
                     //Animates rows on screen
-                    timer.setOnClickListener(gameClock);
                     new CountDownTimer(Long.MAX_VALUE, 30) {
                         public void onTick(long millisUntilFinished) {
                             if (collidedWithVehicle) {
                                 collidedWithVehicle = false;
                                 playState = false;
-                                currGame.reset();
+                                reset();
                                 updatePlayerScreenData();
-                                flicker();
                             }
-                            timer.performClick();
-                            Vehicle.time++;
+                            gameClock.dispatch();
                         }
                         public void onFinish() {
                             start();
@@ -144,7 +138,7 @@ public class GameScreenActivity extends AppCompatActivity {
      */
     public void updatePlayerScreenData() {
         playerPoints.setText(String.valueOf(currGame.getScore()));
-        playerLives.setText(String.valueOf(currGame.getPlayer().getLives()));
+        playerLives.setText(String.valueOf(currGame.getLives()));
         playerImage.setX(currGame.getPosition()[0]);
         playerImage.setY(currGame.getPosition()[1]);
     }
@@ -160,7 +154,7 @@ public class GameScreenActivity extends AppCompatActivity {
                 i = ++i % 2;
             }
             public void onFinish() {
-                if (currGame.getPlayer().getLives() == 0) {
+                if (currGame.getLives() == 0) {
                     Intent gameOver = new Intent(getApplicationContext(),
                             GameOverScreenActivity.class);
                     gameOver.putExtra("finalScore", currGame.getScore());
@@ -173,13 +167,6 @@ public class GameScreenActivity extends AppCompatActivity {
         }.start();
     }
 
-    public void checkOnRiver() {
-        if (currGame.getCurrBlock().blockType == GameBlockTypes.RIVER) {
-            currGame.reset();
-            playState = false;
-            flicker();
-        }
-    }
     /**
      * A method for creating the functionality moving left with the left button
      */
@@ -208,6 +195,7 @@ public class GameScreenActivity extends AppCompatActivity {
     public void moveUp() {
         if (currGame.getPosition()[1] > 0) {
             currGame.changePosition(0, -1);
+            newTranslation += currGame.getBlockSize();
             int yCord = currGame.getPosition()[1] / currGame.getBlockSize();
             int vehiclePointAdd = 0;
 
@@ -215,13 +203,19 @@ public class GameScreenActivity extends AppCompatActivity {
                 vehiclePointAdd += 2;
             } else if ("dragon".equals(rowTypes[yCord])) {
                 vehiclePointAdd += 1;
-            } else if ("minecart".equals(rowTypes[yCord])) {
+            } else if ("mineCart".equals(rowTypes[yCord])) {
                 vehiclePointAdd += 3;
             }
 
-            currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain
-                    + vehiclePointAdd);
+
+            currGame.setScore(currGame.getScore() +
+                    currGame.getCurrBlock().blockType.getTravelGain() + vehiclePointAdd);
             updatePlayerScreenData();
+
+            if (currGame.getCurrBlock().blockType == GameBlockTypes.SAFE) {
+                reFocus();
+                return;
+            }
         }
         checkOnRiver();
     }
@@ -230,11 +224,50 @@ public class GameScreenActivity extends AppCompatActivity {
      *  A method for creating the functionality moving down with the down button
      */
     public void moveDown() {
-        if (currGame.getPosition()[1] <  14 * currGame.getBlockSize()) {
+        if (currGame.getPosition()[1] <
+                (Game.getGameBlockArray().length - 1) * currGame.getBlockSize()) {
             currGame.changePosition(0, 1);
+            newTranslation -= currGame.getBlockSize();
             updatePlayerScreenData();
+            if (currGame.getCurrBlock().blockType == GameBlockTypes.SAFE) {
+                reFocus();
+            }
         }
         checkOnRiver();
+    }
+
+    public void checkOnRiver() {
+        if (currGame.getCurrBlock().blockType == GameBlockTypes.RIVER) {
+            playState = false;
+            reset();
+        }
+    }
+
+    public void reFocus() {
+        playState = false;
+        View mainFrame = findViewById(R.id.mainFrame);
+        if (newTranslation < 0) {
+            mainFrame.animate()
+                    .translationY(newTranslation - currGame.getBlockSize()).
+                    setDuration(2000)
+                    .setInterpolator(new AccelerateDecelerateInterpolator()).start();
+        } else {
+            mainFrame.animate()
+                    .translationY(0).
+                    setDuration(2000)
+                    .setInterpolator(new AccelerateDecelerateInterpolator()).start();
+        }
+//        new CountDownTimer(2000, 2000) {
+//            @Override
+//            public void onTick(long l) {
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                playState = true;
+//            }
+//        }.start();
+        playState = true;
     }
 
 
@@ -244,7 +277,7 @@ public class GameScreenActivity extends AppCompatActivity {
      * @param blockSize the size of each square GameBlock
      */
     public void createGrid(LinearLayout gridContainer, int blockSize) {
-        for (int row = 0; row < 16; row++) {
+        for (int row = 0; row < Game.getGameBlockArray().length; row++) {
             LinearLayout rowBlock = new LinearLayout(this);
 
             LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(
@@ -272,26 +305,33 @@ public class GameScreenActivity extends AppCompatActivity {
      */
     public int[] populateGrid() {
         /*
+        Start tile => 5
+        log tile => 4
         Goal tile => 3
         Safe tile => 2
         River tile => 1
         Road tile => 0
          */
-        int[] rowNums = new int[32];
+        int[] rowMap = new int[Game.getGameBlockArray().length];
 
-        Random r = new Random();
-
-        rowNums[0] = 3;
-        rowNums[1] = 3;
-        rowNums[14] = 2;
-        rowNums[15] = 2;
-        rowNums[r.nextInt(3) + 9] = 2;
-//        rowNums[r.nextInt(3) + 18] = 2;
+        rowMap[0] = 3;
+        rowMap[1] = 3;
+        rowMap[Game.getGameBlockArray().length - 2] = 5;
+        rowMap[Game.getGameBlockArray().length - 1] = 5;
+        rowMap[8] = 2;
+        if (currGame.getLives() > 1) {
+            rowMap[16] = 2;
+            rowMap[24] = 2;
+        }
+        if (currGame.getLives() > 3) {
+            rowMap[32] = 2;
+            rowMap[38] = 2;
+        }
 
         int type = r.nextInt(2);
-        for (int i = 2; i < 15; i++) {
-            if (rowNums[i] == 0) {
-                rowNums[i] = type;
+        for (int i = 2; i < Game.getGameBlockArray().length - 1; i++) {
+            if (rowMap[i] == 0) {
+                rowMap[i] = type;
             } else {
                 if (type == 1) {
                     type = 0;
@@ -303,31 +343,40 @@ public class GameScreenActivity extends AppCompatActivity {
 
         int[] imageOptions = GameBlock.imageOptions;
         GameBlockTypes[] gbt = GameBlockTypes.values();
-        for (int i = 0; i < rowNums.length; i++) {
+        for (int i = 0; i < rowMap.length; i++) {
             GameBlock[] row = Game.getGameBlockArray()[i];
             for (GameBlock g:row
             ) {
-                g.blockType = gbt[rowNums[i]];
-                g.gridBlock.setImageResource(imageOptions[rowNums[i]]);
+                g.blockType = gbt[rowMap[i]];
+                g.gridBlock.setImageResource(imageOptions[rowMap[i]]);
             }
         }
 
-        for (int i = 0; i < rowNums.length; i++) {
-            if (rowNums[i] == 1) {
+        int begin = r.nextInt(9);
+        for (int i = 0; i < rowMap.length; i++) {
+            int len = r.nextInt(3) + 1;
+            if (rowMap[i] == 1) {
                 GameBlock[] riverRow = Game.getGameBlockArray()[i];
-                int begin = r.nextInt(riverRow.length);
                 riverRow[begin].blockType = gbt[4];
                 riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
-                riverRow[(begin + 1) % riverRow.length].blockType = gbt[4];
-                riverRow[(begin + 1) % riverRow.length].gridBlock.setImageResource(imageOptions[4]);
-                riverRow[(begin + 2) % riverRow.length].blockType = gbt[4];
-                riverRow[(begin + 2) % riverRow.length].gridBlock.setImageResource(imageOptions[4]);
+                begin = (begin + 1) % riverRow.length;
+
+                if (len > 1) {
+                    riverRow[begin].blockType = gbt[4];
+                    riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
+                    begin = (begin + 1) % riverRow.length;
+                }
+                if (len > 2) {
+                    riverRow[begin].blockType = gbt[4];
+                    riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
+                    begin = (begin + 1) % riverRow.length;
+                }
+                begin = (begin - 1 + riverRow.length) % riverRow.length;
             }
         }
-
-        return rowNums;
-
+        return rowMap;
     }
+
 
     /**
      * Method for starting/calling animations of the rivers and fireball (on roads)
@@ -354,12 +403,11 @@ public class GameScreenActivity extends AppCompatActivity {
                 break;
             case 1: rowTypes[roadStart + i] = "dragon";
                 break;
-            case 2: rowTypes[roadStart + i] = "minecart";
+            case 2: rowTypes[roadStart + i] = "mineCart";
                 break;
             default:
             }
         }
-
 
         //Animates rivers on screen
         for (Integer rowIndex: rivers.keySet()
@@ -372,73 +420,99 @@ public class GameScreenActivity extends AppCompatActivity {
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
         for (LinearLayout road : roads) {
             ImageView vehicle = new ImageView(this);
-            mainFrame.addView(vehicle, 0);
-            Vehicle vehicleObject = null;
-
-            switch (i) {
-                case 1:
-                    vehicleObject = new Fireball(road, vehicle, gameBlockSize);
-                    i++;
-                    break;
-                case 2:
-                    vehicleObject = new Dragon(road, vehicle, gameBlockSize);
-                    i++;
-                    break;
-                case 3:
-                    ImageView tracks = new ImageView(this);
-                    mainFrame.addView(tracks, 0);
-                    vehicleObject = new MineCart(road, vehicle, tracks, gameBlockSize);
-                    i = 1;
-                    break;
+            mainFrame.addView(vehicle);
+            int delay = r.nextInt(roads.size() / 2) * 1000;
+            if (i == 1) {
+                Vehicle vehicleObject = new Fireball(road, vehicle, gameBlockSize);
+                delayVehicle(delay, vehicleObject);
+            } else if (i == 2) {
+                Vehicle vehicleObject = new Dragon(road, vehicle, gameBlockSize);
+                delayVehicle(delay, vehicleObject);
+            } else {
+                ImageView tracks = new ImageView(this);
+                mainFrame.addView(tracks);
+                Vehicle vehicleObject = new MineCart(road, vehicle, tracks, gameBlockSize);
+                delayVehicle(delay, vehicleObject);
+                i = 0;
             }
-            vehicleObject. animateFrames(gameClock);
-            vehicleObject.animateMovement(gameClock);
-            testVehicle = vehicleObject;
+            i++;
         }
     }
 
+    public void delayVehicle(int delay, Vehicle v) {
+        new CountDownTimer(delay,delay) {
+            @Override
+            public void onTick(long l) {
+
+            }
+            @Override
+            public void onFinish() {
+                v.animateFrames(gameClock);
+                v.animateMovement(gameClock);
+            }
+        }.start();
+        testVehicle = v;
+    }
     /**
      * Method for animating rivers
      * @param rowIndex the position of row in the gameBlockArray
      * @param row the corresponding linear layout holding all GameBlocks in that row
      */
     public void moveRiver(int rowIndex, LinearLayout row) {
-        Random r = new Random();
-//        int speed = (r.nextInt(3) + 1) * 5 + 10;
-        int direction = r.nextInt(2) > 0 ? 8: 0;
-        gameClock.addListener(e -> {
-            if (Vehicle.time % 30 == 0) {
+        int direction = r.nextInt(2) > 0 ? 8 : 0;
+        gameClock.addScheduledEvents(e -> {
+            if (gameClock.getTime() % 30 == 0) {
                 ImageView oldBlock = (ImageView) row.getChildAt(direction);
                 row.removeViewAt(direction);
                 row.addView(oldBlock, direction > 0 ? 0 : 8);
                 if (playerImage.getY() == row.getY()) {
-                    movePlayer();
+                    movePlayerWithLog(direction > 0 ? 1 : -1);
                 }
                 Game.shiftGameRow(rowIndex, direction > 0 ? 1 : -1);
             }
         });
     }
 
-    public void movePlayer() {
+    public void movePlayerWithLog(int direction) {
         if (currGame.getCurrBlock().blockType == GameBlockTypes.LOG) {
-            if (playerImage.getX() != 0) {
-                currGame.changePosition(-1, 0);
+            if (direction == -1) {
+                if (playerImage.getX() != 0) {
+                    currGame.changePosition(-1, 0);
+                } else {
+                    reset();
+                }
             } else {
-                currGame.reset();
-                flicker();
+                if (playerImage.getX() != 8 * currGame.getBlockSize()) {
+                    currGame.changePosition(1, 0);
+                } else {
+                    reset();
+                }
             }
+
             updatePlayerScreenData();
         }
+    }
+
+    public void reset() {
+        currGame.setScore(currGame.getScore() / 2);
+        currGame.setLives(currGame.getLives() - 1);
+        currGame.resetPosition();
+        newTranslation = (-Game.getGameBlockArray().length + 16) * currGame.getBlockSize();
+        reFocus();
+        newTranslation -= currGame.getBlockSize();
+        flicker();
     }
 
     /**
      * gets player string sent from login activity
      * @return string representing user player
      */
-
     private String getPlayerInfo() {
-        return "Kelley|1|5";
-        //return getIntent().getStringExtra("player");
+        return getIntent().getStringExtra("player");
+    }
+
+    private int getDifficulty() {
+        return getIntent().getIntExtra("lives", 5);
     }
 
     /**

@@ -4,7 +4,7 @@ import android.widget.LinearLayout;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-public class MineCart extends Vehicle{
+public class MineCart extends Vehicle {
 
     private Boolean switched = false;
 
@@ -13,29 +13,30 @@ public class MineCart extends Vehicle{
     public MineCart(LinearLayout row, ImageView image, ImageView track, int gameBlockSize) {
         super(row, image);
         this.track = track;
-        image.setLayoutParams(new FrameLayout.LayoutParams((int) (9 * gameBlockSize * 1.5),
-                gameBlockSize - 20));
+        image.setLayoutParams(new FrameLayout.LayoutParams(9 * gameBlockSize,
+                gameBlockSize));
         image.setImageResource(R.drawable.minecarts);
         image.setX(9 * gameBlockSize);
+        image.bringToFront();
         track.setLayoutParams(new FrameLayout.LayoutParams(9 * gameBlockSize, gameBlockSize));
         track.setImageResource(R.drawable.traintracks);
         track.setX(0);
     }
 
     @Override
-    public void animateFrames(CoupledListeners l) {
+    public void animateFrames(Clock c) {
     }
 
     @Override
-    public void animateMovement(CoupledListeners l) {
-        l.addListener(e -> {
+    public void animateMovement(Clock c) {
+        c.addScheduledEvents(e -> {
             checkForCollision();
             track.setY(row.getY() - 25);
-            image.setY(row.getY() - 10);
-            if (time % 10 == 0) {
+            image.setY(row.getY());
+            if (c.getTime() % 10 == 0) {
                 switched = true;
             }
-            if (time % 2 == 0 && switched) {
+            if (c.getTime() % 2 == 0 && switched) {
                 image.setX(image.getX() - 30);
             }
             if (image.getX() < -image.getWidth()) {
