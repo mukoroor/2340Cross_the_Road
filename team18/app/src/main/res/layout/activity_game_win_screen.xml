@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E41B1B"
+    tools:context=".GameWinScreenActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8"
+        >
+
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"/>
+
+        <RelativeLayout
+            android:id="@+id/toHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button2x1"
+            android:gravity="center"
+            >
+
+            <TextView
+                style="@style/text"
+                android:text="@string/quit"
+                android:textColor="#000000"
+                android:textSize="21sp"
+                android:translationX="2.1sp"
+                android:translationY="2.1sp" />
+
+            <TextView
+                style="@style/text"
+                android:layout_gravity="center"
+                android:text="@string/quit"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"/>
+
+        <RelativeLayout
+            android:id="@+id/restart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button2x1"
+            android:gravity="center"
+            >
+
+            <TextView
+                style="@style/text"
+                android:text="Restart"
+                android:textColor="#000000"
+                android:textSize="21sp"
+                android:translationX="2.1sp"
+                android:translationY="2.1sp" />
+
+            <TextView
+                style="@style/text"
+                android:layout_gravity="center"
+                android:text="Restart"
+                android:textSize="21sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <TextView
+        android:id= "@+id/youWin"
+        android:text="YOU WIN!"
+        android:layout_width="235dp"
+        android:layout_height="95dp"
+        android:textColor= "#f4e0da"
+        android:textSize="50sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/finalScoreView"
+
+    />
+
+    <TextView
+        android:id="@+id/finalScoreView"
+        android:layout_width="235dp"
+        android:layout_height="95dp"
+        android:text="TextView"
+        android:textColor= "#f4e0da"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
