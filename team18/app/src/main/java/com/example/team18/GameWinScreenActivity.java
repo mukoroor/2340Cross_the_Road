@@ -33,8 +33,8 @@ public class GameWinScreenActivity extends AppCompatActivity {
         });
 
         playButton.setOnClickListener(e -> {
-            Intent player = new Intent(this, SpriteSelector.class);
-            startActivity(player);
+            Intent reset = new Intent(this, StartScreenActivity.class);
+            startActivity(reset);
         });
     }
 
