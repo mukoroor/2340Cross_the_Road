@@ -8,34 +8,32 @@ import android.widget.LinearLayout;
 
 import java.util.Random;
 
-public class Fireball extends Vehicle {
-
+public class Minecart extends Vehicle {
     private final LinearLayout row;
 
     private final ImageView image;
+
+    private final ImageView tracks;
 
     private final ImageView playerImage;
 
     private int delay = 0;
 
     final int[] i = {0};
-    int[] fireBallFrames = {
-            R.drawable.fball_0,
-            R.drawable.fball_1,
-            R.drawable.fball_2,
-            R.drawable.fball_3,
-            R.drawable.fball_4,
-            R.drawable.fball_5,
-            R.drawable.fball_6,
-            R.drawable.fball_7
-    };
 
     private boolean launched = false;
 
-    public Fireball (LinearLayout row, ImageView image, ImageView playerImage) {
+    /**
+     * Dragon Constructor
+     * @param row row that the dragon flies across
+     * @param image image of the dragon
+     * @param playerImage image of the player
+     */
+    public Minecart(LinearLayout row, ImageView image, ImageView tracks, ImageView playerImage) {
         super();
         this.row = row;
         this.image = image;
+        this.tracks = tracks;
         this.playerImage = playerImage;
 
         Random rand = new Random();
@@ -46,19 +44,29 @@ public class Fireball extends Vehicle {
         animateMovement();
     }
 
+    /**
+     * Launches dragon at start of game.
+     */
     public void launch() {
         image.setVisibility(View.INVISIBLE);
         View.OnClickListener v = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (GameScreenActivity.getTime() < 5) {
+                    tracks.setImageResource(R.drawable.traintracks);
+                    tracks.setX(row.getX());
+                    tracks.setY(row.getY());
+                    tracks.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth()),
+                            row.getHeight()));
+                }
                 if (GameScreenActivity.getTime() > delay && !launched) {
                     launched = true;
 
                     image.setY(row.getY());
-                    image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getHeight() * 1.5),
-                            row.getHeight()));
-                    image.setX(-image.getWidth());
-                    image.setRotation(180);
+                    image.setImageResource(R.drawable.minecarts);
+                    image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth() * 1.5),
+                            row.getHeight() - 20));
+                    image.setX(row.getWidth());
                     image.setVisibility(View.VISIBLE);
                 }
             }
@@ -66,47 +74,37 @@ public class Fireball extends Vehicle {
         l.addListener(v);
     }
 
+    /**
+     * Switches the frames of the dragon image.
+     */
     @Override
     public void animateFrames() {
+    }
+
+    /**
+     * Translates dragon across road.
+     */
+    @Override
+    public void animateMovement() {
         View.OnClickListener v = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (launched) {
-                    if (GameScreenActivity.getTime() % 5 == 0) {
-                        image.setImageResource(fireBallFrames[i[0]]);
-                        i[0]++;
+                checkForCollision();
+                if (GameScreenActivity.getTime() % 2 == 0) {
+                    image.setX(image.getX() - 100);
+                }
 
-                        if (i[0] >= 8) {
-                            i[0] = 0;
-                        }
-                    }
+                if (image.getX() < -image.getWidth()) {
+                    image.setX(2 * row.getWidth());
                 }
             }
         };
         l.addListener(v);
     }
 
-    @Override
-    public void animateMovement() {
-            View.OnClickListener v = new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (launched) {
-                        image.setVisibility(View.VISIBLE);
-                        checkForCollision();
-                        if (GameScreenActivity.getTime() % 2 == 0) {
-                            image.setX(image.getX() + 50);
-                        }
-
-                        if (image.getX() > row.getWidth()) {
-                            image.setX(-image.getWidth());
-                        }
-                    }
-                }
-            };
-            l.addListener(v);
-    }
-
+    /**
+     * Consistently checks for collisions.
+     */
     public void checkForCollision() {
         Rect rect1 = new Rect();
         image.getGlobalVisibleRect(rect1);
