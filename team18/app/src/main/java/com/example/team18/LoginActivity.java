@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     private Spinner spinner;
 
     private final String[] dif = {"EASY", "MEDIUM", "HARD"};
-    private final int[] lives = {5, 3, 1};
+    private final int[] lives = {10, 5, 3};
     private String selectedDiff;
 
 
