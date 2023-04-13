@@ -13,39 +13,35 @@ public class Dragon extends Vehicle {
 
     private final ImageView image;
 
-    private final ImageView playerImage;
-
     private int delay = 0;
 
-    final int[] i = {0};
-    int[] dragonFrames = {
-            R.drawable.dragon_0,
-            R.drawable.dragon_1,
-            R.drawable.dragon_2,
-            R.drawable.dragon_3,
-            R.drawable.dragon_4,
-            R.drawable.dragon_5,
-            R.drawable.dragon_6,
-            R.drawable.dragon_7,
-            R.drawable.dragon_8,
-            R.drawable.dragon_9,
-            R.drawable.dragon_10,
-            R.drawable.dragon_11
+    private final int[] i = {0};
+    private final int[] dragonFrames = {
+        R.drawable.dragon_0,
+        R.drawable.dragon_1,
+        R.drawable.dragon_2,
+        R.drawable.dragon_3,
+        R.drawable.dragon_4,
+        R.drawable.dragon_5,
+        R.drawable.dragon_6,
+        R.drawable.dragon_7,
+        R.drawable.dragon_8,
+        R.drawable.dragon_9,
+        R.drawable.dragon_10,
+        R.drawable.dragon_11
     };
 
     private boolean launched = false;
 
     /**
      * Dragon Constructor
-     * @param row row that the dragon flies across
-     * @param image image of the dragon
-     * @param playerImage image of the player
+     * @param row row dragon flies across
+     * @param image image of dragon
      */
-    public Dragon(LinearLayout row, ImageView image, ImageView playerImage) {
+    public Dragon(LinearLayout row, ImageView image) {
         super();
         this.row = row;
         this.image = image;
-        this.playerImage = playerImage;
 
         Random rand = new Random();
         delay = rand.nextInt(150) + 1;
@@ -56,7 +52,7 @@ public class Dragon extends Vehicle {
     }
 
     /**
-     * Launches dragon at start of game.
+     * Launches dragon.
      */
     public void launch() {
         image.setVisibility(View.INVISIBLE);
@@ -78,7 +74,7 @@ public class Dragon extends Vehicle {
     }
 
     /**
-     * Switches the frames of the dragon image.
+     * Animates frames of dragon.
      */
     @Override
     public void animateFrames() {
@@ -101,7 +97,7 @@ public class Dragon extends Vehicle {
     }
 
     /**
-     * Translates dragon across road.
+     * Animates movement of dragon.
      */
     @Override
     public void animateMovement() {
@@ -122,14 +118,14 @@ public class Dragon extends Vehicle {
     }
 
     /**
-     * Consistently checks for collisions.
+     * Checks for collision.
      */
     public void checkForCollision() {
         Rect rect1 = new Rect();
         image.getGlobalVisibleRect(rect1);
 
         Rect rect2 = new Rect();
-        playerImage.getGlobalVisibleRect(rect2);
+        GameScreenActivity.getPlayerImage().getGlobalVisibleRect(rect2);
 
         if (Rect.intersects(rect1, rect2) && launched) {
             GameScreenActivity.setCollidedWithVehicle(true);

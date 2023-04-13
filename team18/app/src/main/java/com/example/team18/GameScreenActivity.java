@@ -27,7 +27,7 @@ public class GameScreenActivity extends AppCompatActivity {
     private Game currGame;
     private TextView playerLives;
     private TextView playerPoints;
-    private ImageView playerImage;
+    private static ImageView playerImage;
     private boolean playState = true;
 
     private static boolean collidedWithVehicle = false;
@@ -36,8 +36,6 @@ public class GameScreenActivity extends AppCompatActivity {
     private Vehicle testVehicle;
 
     private static int time = 0;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +132,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
                                     new CountDownTimer(2000, 500) {
 
-                                        int i = 0;
+                                        private int i = 0;
                                         @Override
                                         public void onTick(long l) {
                                             playerImage.setColorFilter(color[i],
@@ -407,20 +405,21 @@ public class GameScreenActivity extends AppCompatActivity {
             Vehicle vehicleObject = null;
             
             switch (i) {
-                case 1: 
-                    vehicleObject = new Fireball(road, vehicle, playerImage);
-                    i++;
-                    break;
-                case 2:
-                    vehicleObject = new Dragon(road, vehicle, playerImage);
-                    i++;
-                    break;
-                case 3:
-                    ImageView tracks = new ImageView(this);
-                    mainFrame.addView(tracks, 1);
-                    vehicleObject = new Minecart(road, vehicle, tracks, playerImage);
-                    i = 1;
-                    break;
+            case 1:
+                vehicleObject = new Fireball(road, vehicle);
+                i++;
+                break;
+            case 2:
+                vehicleObject = new Dragon(road, vehicle);
+                i++;
+                break;
+            case 3:
+                ImageView tracks = new ImageView(this);
+                mainFrame.addView(tracks, 1);
+                vehicleObject = new Minecart(road, vehicle, tracks);
+                i = 1;
+                break;
+            default:
             }
 
             testVehicle = vehicleObject;
@@ -478,7 +477,7 @@ public class GameScreenActivity extends AppCompatActivity {
         return currGame;
     }
 
-    public ImageView getPlayerImage() {
+    public static ImageView getPlayerImage() {
         return playerImage;
     }
 

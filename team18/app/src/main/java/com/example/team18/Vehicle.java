@@ -1,14 +1,5 @@
 package com.example.team18;
 
-import android.graphics.Rect;
-import android.os.CountDownTimer;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-
-import java.util.Random;
-
 public abstract class Vehicle {
 
     protected static CoupledListeners l;
@@ -18,11 +9,11 @@ public abstract class Vehicle {
      **/
     public Vehicle() {
     }
-    abstract public void launch();
+    public abstract void launch();
 
-    abstract public void animateFrames();
+    public abstract void animateFrames();
 
-    abstract public void animateMovement();
+    public abstract void animateMovement();
 
-    abstract public void checkForCollision();
+    public abstract void checkForCollision();
 }

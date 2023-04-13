@@ -15,26 +15,23 @@ public class Minecart extends Vehicle {
 
     private final ImageView tracks;
 
-    private final ImageView playerImage;
-
     private int delay = 0;
 
-    final int[] i = {0};
+    private final int[] i = {0};
 
     private boolean launched = false;
 
     /**
-     * Dragon Constructor
-     * @param row row that the dragon flies across
-     * @param image image of the dragon
-     * @param playerImage image of the player
+     * Minecart Constructor.
+     * @param row row minecart rides across
+     * @param image image of minecart
+     * @param tracks image of train tracks
      */
-    public Minecart(LinearLayout row, ImageView image, ImageView tracks, ImageView playerImage) {
+    public Minecart(LinearLayout row, ImageView image, ImageView tracks) {
         super();
         this.row = row;
         this.image = image;
         this.tracks = tracks;
-        this.playerImage = playerImage;
 
         Random rand = new Random();
         delay = rand.nextInt(150) + 1;
@@ -45,7 +42,7 @@ public class Minecart extends Vehicle {
     }
 
     /**
-     * Launches dragon at start of game.
+     * Launches minecart.
      */
     public void launch() {
         image.setVisibility(View.INVISIBLE);
@@ -75,14 +72,14 @@ public class Minecart extends Vehicle {
     }
 
     /**
-     * Switches the frames of the dragon image.
+     * Animates frames of minecart.
      */
     @Override
     public void animateFrames() {
     }
 
     /**
-     * Translates dragon across road.
+     * Animates movement of minecart.
      */
     @Override
     public void animateMovement() {
@@ -103,14 +100,14 @@ public class Minecart extends Vehicle {
     }
 
     /**
-     * Consistently checks for collisions.
+     * Checks for collisions.
      */
     public void checkForCollision() {
         Rect rect1 = new Rect();
         image.getGlobalVisibleRect(rect1);
 
         Rect rect2 = new Rect();
-        playerImage.getGlobalVisibleRect(rect2);
+        GameScreenActivity.getPlayerImage().getGlobalVisibleRect(rect2);
 
         if (Rect.intersects(rect1, rect2) && launched) {
             GameScreenActivity.setCollidedWithVehicle(true);
