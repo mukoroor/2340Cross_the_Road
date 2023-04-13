@@ -31,7 +31,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-public class Sprint1JUnits {
+public class Sprint2JUnits {
     @Test
     public void testUpButton() {
         Random r = new Random();

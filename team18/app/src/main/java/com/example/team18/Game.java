@@ -7,13 +7,10 @@ package com.example.team18;
 public class Game {
     private final Sprite player;
 
-    protected boolean playerOnLog = false;
-
-    private Object[] currBlock;
-
+    private int lives;
     private int[] playerPosition;
 
-    private static final GameBlock[][] gameBlockArray = new GameBlock[16][9];
+    private static GameBlock[][] gameBlockArray;
     private int blockSize;
     private int maxHeight;
     private int score;
@@ -21,10 +18,13 @@ public class Game {
     /**
      * Constructor for new Game object.
      * @param player The Sprite the player has chosen.
+     * @param lives
      */
-    public Game(Sprite player) {
+    public Game(Sprite player, int lives) {
+        gameBlockArray = new GameBlock[16 * (lives + 1) / 2][9];
         this.player = player;
-        this.maxHeight = 0;
+        this.lives = lives;
+        this.maxHeight = gameBlockArray.length - 1;
         this.score = 0;
     }
 
@@ -38,25 +38,38 @@ public class Game {
     public void changePosition(int deltaX, int deltaY) {
         playerPosition[0] += deltaX * blockSize;
         playerPosition[1] += deltaY * blockSize;
-        currBlock[1] = (Integer) currBlock[1] + deltaX;
-        currBlock[2] = (Integer) currBlock[2] + deltaY;
-        currBlock[0] = gameBlockArray[(Integer) currBlock[2]][(Integer) currBlock[1]];
-        playerOnLog = ((GameBlock) currBlock[0]).blockType == GameBlockTypes.LOG;
     }
-
 
     public int[] getPosition() {
         return playerPosition;
     }
 
+    public void resetPosition() {
+        playerPosition = new int[] {4 * blockSize, (gameBlockArray.length - 1) * blockSize};
+    }
+    /**
+     * Method for changing the lives of a Sprite.
+     * @param newLives the new amount of lives the Sprite has.
+     */
+    public void setLives(int newLives) {
+        lives = newLives;
+    }
+
+    /**
+     * Method for getting the number of lives a Sprite has.
+     * @return The number of Sprite lives.
+     */
+    public int getLives() {
+        return lives;
+    }
     /**
      * Method for changing current game score.
      * @param newScore the newScore the player has.
      */
     public void setScore(int newScore) {
-        if (playerPosition[1] < maxHeight) {
+        if (playerPosition[1] / blockSize < maxHeight) {
             score = newScore;
-            maxHeight = playerPosition[1];
+            maxHeight = playerPosition[1] / blockSize;
         }
     }
 
@@ -90,8 +103,7 @@ public class Game {
      */
     public void setBlockSize(int newBlockSize) {
         blockSize = newBlockSize;
-        playerPosition = new int[] {4 * blockSize, 14 * blockSize};
-        currBlock = new Object[] {gameBlockArray[14][4], 4, 14};
+        playerPosition = new int[] {4 * blockSize, (gameBlockArray.length - 1) * blockSize};
     }
 
     public void setMaxHeight(int newMaxHeight) {
@@ -111,7 +123,6 @@ public class Game {
      * @return the block which maps to the players position
      */
     public GameBlock getCurrBlock() {
-//        System.out.println("here");
         return gameBlockArray[playerPosition[1] / blockSize][playerPosition[0] / blockSize];
     }
     /**
@@ -122,28 +133,20 @@ public class Game {
     public static void shiftGameRow(int row, int deltaX) {
         int colLength = gameBlockArray[0].length;
 
-        deltaX = (((deltaX % colLength) + colLength) % colLength);
-        GameBlock[] temp = new GameBlock[colLength];
-        int count = 0;
+        GameBlock temp;
 
-        for (int i = deltaX; i < colLength; i++) {
-            temp[i] = gameBlockArray[row][count];
-            count++;
+        if (deltaX > 0) {
+            temp = gameBlockArray[row][colLength - 1];
+            for (int i = colLength - 1; i > 0; i--) {
+                gameBlockArray[row][i] = gameBlockArray[row][i - 1];
+            }
+            gameBlockArray[row][0] = temp;
+        } else if (deltaX < 0) {
+            temp = gameBlockArray[row][0];
+            for (int i = 0; i < colLength - 1; i++) {
+                gameBlockArray[row][i] = gameBlockArray[row][i + 1];
+            }
+            gameBlockArray[row][colLength - 1] = temp;
         }
-
-        for (int i = 0; i < deltaX; i++) {
-            temp[i] = gameBlockArray[row][9 - deltaX + i];
-        }
-
-        gameBlockArray[row] = temp;
-    }
-
-    public void reset() {
-        setScore(getScore() / 2);
-        player.setLives(player.getLives() - 1);
-        currBlock[1] = 4;
-        currBlock[2] = 14;
-        currBlock[0] = gameBlockArray[(Integer) currBlock[2]][(Integer) currBlock[1]];
-        playerPosition = new int[] {4 * blockSize, 14 * blockSize};
     }
 }

@@ -6,13 +6,14 @@
     <copyLibs>true</copyLibs>
     <option name="thirdPartyClasspath" />
     <option name="activeLocationIds">
-      <option value="4457c4dd-89bc-4d27-b8bb-5322350616e9" />
+      <option value="8635c3dc-3381-41fc-9262-00ea5d2bb820" />
     </option>
     <option name="locations">
       <list>
         <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="4457c4dd-89bc-4d27-b8bb-5322350616e9" type="LOCAL_FILE" scope="All" description="2340">$USER_HOME$/Desktop/coding/2340.xml</ConfigurationLocation>
+        <ConfigurationLocation id="8635c3dc-3381-41fc-9262-00ea5d2bb820" type="LOCAL_FILE" scope="All" description="2340CHECK">$PROJECT_DIR$/../../cs2340_checks.xml</ConfigurationLocation>
       </list>
     </option>
   </component>
