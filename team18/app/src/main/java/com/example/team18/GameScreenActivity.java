@@ -244,6 +244,10 @@ public class GameScreenActivity extends AppCompatActivity {
                 vehiclePointAdd += 1;
             } else if ("minecart".equals(rowTypes[yCord])) {
                 vehiclePointAdd += 3;
+            } else if (currGame.getCurrBlock().blockType == GameBlockTypes.GOAL) {
+                Intent winScreen = new Intent(this, GameWinScreenActivity.class);
+                winScreen.putExtra("finalScore", currGame.getScore());
+                startActivity(winScreen);
             }
 
             currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain
