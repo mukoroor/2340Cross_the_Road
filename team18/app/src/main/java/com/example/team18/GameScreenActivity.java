@@ -35,8 +35,6 @@ public class GameScreenActivity extends AppCompatActivity {
 
     private Vehicle testVehicle;
 
-    private static int time = 0;
-
 
 
     @Override
@@ -158,8 +156,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
                                 }
                                 timer.performClick();
-                                //System.out.println(Vehicle.time);
-                                time++;
+                                Vehicle.time++;
                             }
                             public void onFinish() {
                                 start();
@@ -399,22 +396,22 @@ public class GameScreenActivity extends AppCompatActivity {
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
         for (LinearLayout road : roads) {
             ImageView vehicle = new ImageView(this);
+            ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
+            mainFrame.addView(tracks, 0);
             Vehicle vehicleObject = null;
             
             switch (i) {
                 case 1: 
-                    vehicleObject = new Fireball(road, vehicle, playerImage);
+                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
                     i++;
                     break;
                 case 2:
-                    vehicleObject = new Dragon(road, vehicle, playerImage);
+                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
                     i++;
                     break;
                 case 3:
-                    ImageView tracks = new ImageView(this);
-                    mainFrame.addView(tracks, 1);
-                    vehicleObject = new Minecart(road, vehicle, tracks, playerImage);
+                    vehicleObject = new Fireball(road, vehicle, playerImage, currGame);
                     i = 1;
                     break;
             }
@@ -433,7 +430,7 @@ public class GameScreenActivity extends AppCompatActivity {
         View.OnClickListener v = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (time % 25 == 0) {
+                if (Vehicle.time % 25 == 0) {
                     ImageView oldBlock = (ImageView) row.getChildAt(0);
                     row.removeViewAt(0);
                     row.addView(oldBlock);
@@ -484,10 +481,6 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public Vehicle getTestVehicle() {
         return testVehicle;
-    }
-
-    public static int getTime() {
-        return time;
     }
 
     public static void setCollidedWithVehicle(boolean newStatus) {

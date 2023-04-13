@@ -10,11 +10,13 @@ import java.util.Random;
 
 public class Fireball extends Vehicle {
 
-    private final LinearLayout row;
+    private LinearLayout row;
 
-    private final ImageView image;
+    private ImageView image;
 
-    private final ImageView playerImage;
+    private ImageView playerImage;
+
+    private Game curr;
 
     private int delay = 0;
 
@@ -32,14 +34,15 @@ public class Fireball extends Vehicle {
 
     private boolean launched = false;
 
-    public Fireball (LinearLayout row, ImageView image, ImageView playerImage) {
+    public Fireball (LinearLayout row, ImageView image, ImageView playerImage, Game curr) {
         super();
         this.row = row;
         this.image = image;
         this.playerImage = playerImage;
+        this.curr = curr;
 
         Random rand = new Random();
-        delay = rand.nextInt(150) + 1;
+        delay = rand.nextInt(9) + 1;
 
         launch();
         animateFrames();
@@ -51,7 +54,7 @@ public class Fireball extends Vehicle {
         View.OnClickListener v = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (GameScreenActivity.getTime() > delay && !launched) {
+                if (time > delay && !launched) {
                     launched = true;
 
                     image.setY(row.getY());
@@ -72,7 +75,7 @@ public class Fireball extends Vehicle {
             @Override
             public void onClick(View view) {
                 if (launched) {
-                    if (GameScreenActivity.getTime() % 5 == 0) {
+                    if (time % 2 == 0) {
                         image.setImageResource(fireBallFrames[i[0]]);
                         i[0]++;
 
@@ -94,8 +97,9 @@ public class Fireball extends Vehicle {
                     if (launched) {
                         image.setVisibility(View.VISIBLE);
                         checkForCollision();
-                        if (GameScreenActivity.getTime() % 2 == 0) {
-                            image.setX(image.getX() + 50);
+                        if (time % 3 == 0) {
+                            image.setX(image.getX() + 30);
+                            System.out.println(image.getX());
                         }
 
                         if (image.getX() > row.getWidth()) {
@@ -114,7 +118,7 @@ public class Fireball extends Vehicle {
         Rect rect2 = new Rect();
         playerImage.getGlobalVisibleRect(rect2);
 
-        if (Rect.intersects(rect1, rect2) && launched) {
+        if (Rect.intersects(rect1, rect2)) {
             GameScreenActivity.setCollidedWithVehicle(true);
         }
     }

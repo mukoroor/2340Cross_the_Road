@@ -12,6 +12,7 @@ import java.util.Random;
 public abstract class Vehicle {
 
     protected static CoupledListeners l;
+    public static int time = 0;
 
     /**
      * Constructor for Abstract Vehicle Class.
