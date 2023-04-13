@@ -38,11 +38,12 @@ public class GameWinScreenActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Uses the intent to get the final game score
+     * @return the final game score
+     */
     private int retrieveFinalScore() {
         return getIntent().getIntExtra("finalScore", 0);
     }
 
-    public int getScore() {
-        return score;
-    }
 }
