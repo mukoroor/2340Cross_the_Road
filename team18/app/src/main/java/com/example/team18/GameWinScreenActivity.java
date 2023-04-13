@@ -18,7 +18,7 @@ public class GameWinScreenActivity extends AppCompatActivity {
         score = retrieveFinalScore();
 
         TextView scoreTextView = findViewById(R.id.finalScoreView);
-        RelativeLayout homeButton = findViewById(R.id.toHome);
+        RelativeLayout quitButton = findViewById(R.id.quit);
         RelativeLayout playButton = findViewById(R.id.restart);
 
         float fontSize = 40;
@@ -27,9 +27,9 @@ public class GameWinScreenActivity extends AppCompatActivity {
 //        scoreTextView.setTextAlignment("center");
         scoreTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
 
-        homeButton.setOnClickListener(e -> {
-            Intent startIntent = new Intent(this, StartScreenActivity.class);
-            startActivity(startIntent);
+        quitButton.setOnClickListener(e -> {
+            finish();
+            System.exit(0);
         });
 
         playButton.setOnClickListener(e -> {
