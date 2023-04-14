@@ -508,7 +508,8 @@ public class GameScreenActivity extends AppCompatActivity {
      * @return string representing user player
      */
     private String getPlayerInfo() {
-        return getIntent().getStringExtra("player");
+        return "1|KELLEY";
+        //return getIntent().getStringExtra("player");
     }
 
     private int getDifficulty() {
