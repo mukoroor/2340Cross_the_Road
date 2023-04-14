@@ -27,6 +27,7 @@ public class GameScreenActivity extends AppCompatActivity {
     private TextView playerPoints;
     private ImageView playerImage;
     private final Random r = new Random();
+    private static ImageView playerImage;
     private boolean playState = true;
     private static boolean collidedWithVehicle = false;
     protected String[] rowTypes;
@@ -205,6 +206,10 @@ public class GameScreenActivity extends AppCompatActivity {
                 vehiclePointAdd += 1;
             } else if ("mineCart".equals(rowTypes[yCord])) {
                 vehiclePointAdd += 3;
+            } else if (currGame.getCurrBlock().blockType == GameBlockTypes.GOAL) {
+                Intent winScreen = new Intent(this, GameWinScreenActivity.class);
+                winScreen.putExtra("finalScore", currGame.getScore());
+                startActivity(winScreen);
             }
 
 
@@ -420,38 +425,29 @@ public class GameScreenActivity extends AppCompatActivity {
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
         for (LinearLayout road : roads) {
             ImageView vehicle = new ImageView(this);
-            mainFrame.addView(vehicle);
-            int delay = r.nextInt(roads.size() / 2) * 1000;
-            if (i == 1) {
-                Vehicle vehicleObject = new Fireball(road, vehicle, gameBlockSize);
-                delayVehicle(delay, vehicleObject);
-            } else if (i == 2) {
-                Vehicle vehicleObject = new Dragon(road, vehicle, gameBlockSize);
-                delayVehicle(delay, vehicleObject);
-            } else {
+            mainFrame.addView(vehicle, 0);
+            Vehicle vehicleObject = null;
+
+            switch (i) {
+            case 1:
+                vehicleObject = new Fireball(road, vehicle);
+                i++;
+                break;
+            case 2:
+                vehicleObject = new Dragon(road, vehicle);
+                i++;
+                break;
+            case 3:
                 ImageView tracks = new ImageView(this);
-                mainFrame.addView(tracks);
-                Vehicle vehicleObject = new MineCart(road, vehicle, tracks, gameBlockSize);
-                delayVehicle(delay, vehicleObject);
-                i = 0;
+                mainFrame.addView(tracks, 1);
+                vehicleObject = new Minecart(road, vehicle, tracks);
+                i = 1;
+                break;
+            default:
             }
-            i++;
+
+            testVehicle = vehicleObject;
         }
-    }
-
-    public void delayVehicle(int delay, Vehicle v) {
-        new CountDownTimer(delay,delay) {
-            @Override
-            public void onTick(long l) {
-
-            }
-            @Override
-            public void onFinish() {
-                v.animateFrames(gameClock);
-                v.animateMovement(gameClock);
-            }
-        }.start();
-        testVehicle = v;
     }
     /**
      * Method for animating rivers
@@ -524,7 +520,7 @@ public class GameScreenActivity extends AppCompatActivity {
         return currGame;
     }
 
-    public ImageView getPlayerImage() {
+    public static ImageView getPlayerImage() {
         return playerImage;
     }
 
@@ -534,6 +530,10 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public Vehicle getTestVehicle() {
         return testVehicle;
+    }
+
+    public static int getTime() {
+        return time;
     }
 
     public static void setCollidedWithVehicle(boolean newStatus) {

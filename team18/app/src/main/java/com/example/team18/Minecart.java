@@ -8,40 +8,30 @@ import android.widget.LinearLayout;
 
 import java.util.Random;
 
-public class Dragon extends Vehicle {
+public class Minecart extends Vehicle {
     private final LinearLayout row;
 
     private final ImageView image;
 
+    private final ImageView tracks;
+
     private int delay = 0;
 
     private final int[] i = {0};
-    private final int[] dragonFrames = {
-        R.drawable.dragon_0,
-        R.drawable.dragon_1,
-        R.drawable.dragon_2,
-        R.drawable.dragon_3,
-        R.drawable.dragon_4,
-        R.drawable.dragon_5,
-        R.drawable.dragon_6,
-        R.drawable.dragon_7,
-        R.drawable.dragon_8,
-        R.drawable.dragon_9,
-        R.drawable.dragon_10,
-        R.drawable.dragon_11
-    };
 
     private boolean launched = false;
 
     /**
-     * Dragon Constructor
-     * @param row row dragon flies across
-     * @param image image of dragon
+     * Minecart Constructor.
+     * @param row row minecart rides across
+     * @param image image of minecart
+     * @param tracks image of train tracks
      */
-    public Dragon(LinearLayout row, ImageView image) {
+    public Minecart(LinearLayout row, ImageView image, ImageView tracks) {
         super();
         this.row = row;
         this.image = image;
+        this.tracks = tracks;
 
         Random rand = new Random();
         delay = rand.nextInt(150) + 1;
@@ -52,19 +42,27 @@ public class Dragon extends Vehicle {
     }
 
     /**
-     * Launches dragon.
+     * Launches minecart.
      */
     public void launch() {
         image.setVisibility(View.INVISIBLE);
         View.OnClickListener v = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (GameScreenActivity.getTime() < 5) {
+                    tracks.setImageResource(R.drawable.traintracks);
+                    tracks.setX(row.getX());
+                    tracks.setY(row.getY());
+                    tracks.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth()),
+                            row.getHeight()));
+                }
                 if (GameScreenActivity.getTime() > delay && !launched) {
                     launched = true;
 
-                    image.setY(row.getY() - 50);
-                    image.setLayoutParams(new FrameLayout.LayoutParams(row.getHeight() * 2,
-                            row.getHeight() + 50));
+                    image.setY(row.getY());
+                    image.setImageResource(R.drawable.minecarts);
+                    image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth() * 1.5),
+                            row.getHeight() - 20));
                     image.setX(row.getWidth());
                     image.setVisibility(View.VISIBLE);
                 }
@@ -74,30 +72,14 @@ public class Dragon extends Vehicle {
     }
 
     /**
-     * Animates frames of dragon.
+     * Animates frames of minecart.
      */
     @Override
     public void animateFrames() {
-        View.OnClickListener v = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (launched) {
-                    if (GameScreenActivity.getTime() % 2 == 0) {
-                        image.setImageResource(dragonFrames[i[0]]);
-                        i[0]++;
-
-                        if (i[0] >= 12) {
-                            i[0] = 0;
-                        }
-                    }
-                }
-            }
-        };
-        l.addListener(v);
     }
 
     /**
-     * Animates movement of dragon.
+     * Animates movement of minecart.
      */
     @Override
     public void animateMovement() {
@@ -105,12 +87,12 @@ public class Dragon extends Vehicle {
             @Override
             public void onClick(View view) {
                 checkForCollision();
-                if (GameScreenActivity.getTime() % 3 == 0) {
-                    image.setX(image.getX() - 30);
+                if (GameScreenActivity.getTime() % 2 == 0) {
+                    image.setX(image.getX() - 100);
                 }
 
                 if (image.getX() < -image.getWidth()) {
-                    image.setX(row.getWidth());
+                    image.setX(2 * row.getWidth());
                 }
             }
         };
@@ -118,7 +100,7 @@ public class Dragon extends Vehicle {
     }
 
     /**
-     * Checks for collision.
+     * Checks for collisions.
      */
     public void checkForCollision() {
         Rect rect1 = new Rect();
