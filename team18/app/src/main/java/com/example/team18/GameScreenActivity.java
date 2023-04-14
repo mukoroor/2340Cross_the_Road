@@ -357,7 +357,7 @@ public class GameScreenActivity extends AppCompatActivity {
             case 3:
                 ImageView tracks = new ImageView(this);
                 mainFrame.addView(tracks, 1);
-                vehicleObject = new Minecart(road, vehicle, tracks);
+                vehicleObject = new MineCart(road, vehicle, tracks);
                 i = 1;
                 break;
             default:

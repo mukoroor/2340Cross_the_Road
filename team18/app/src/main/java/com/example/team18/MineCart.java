@@ -1,48 +1,118 @@
 package com.example.team18;
 
-import android.widget.LinearLayout;
+import android.graphics.Rect;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import java.util.Random;
 
 public class MineCart extends Vehicle {
+    private final LinearLayout row;
 
-    private Boolean switched = false;
+    private final ImageView image;
 
-    private final ImageView track;
+    private final ImageView tracks;
 
-    public MineCart(LinearLayout row, ImageView image, ImageView track, int gameBlockSize) {
-        super(row, image);
-        this.track = track;
-        image.setLayoutParams(new FrameLayout.LayoutParams(9 * gameBlockSize,
-                gameBlockSize));
-        image.setImageResource(R.drawable.minecarts);
-        image.setX(9 * gameBlockSize);
+    private int delay = 0;
+
+    private final int[] i = {0};
+
+    private boolean launched = false;
+
+    /**
+     * MineCart Constructor.
+     * @param row row mine cart rides across
+     * @param image image of mine cart
+     * @param tracks image of train tracks
+     */
+    public MineCart(LinearLayout row, ImageView image, ImageView tracks) {
+        super();
+        this.row = row;
+        this.image = image;
+        this.tracks = tracks;
+
+        Random rand = new Random();
+        delay = rand.nextInt(150) + 1;
         image.bringToFront();
-        track.setLayoutParams(new FrameLayout.LayoutParams(9 * gameBlockSize, gameBlockSize));
-        track.setImageResource(R.drawable.traintracks);
-        track.setX(0);
+        tracks.bringToFront();
+
+        launch();
+        animateFrames();
+        animateMovement();
     }
 
-    @Override
-    public void animateFrames(Clock c) {
+    /**
+     * Launches mine cart.
+     */
+    public void launch() {
+        image.setVisibility(View.INVISIBLE);
+        View.OnClickListener v = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Clock.getTime() < 5) {
+                    tracks.setImageResource(R.drawable.traintracks);
+                    tracks.setX(row.getX());
+                    tracks.setY(row.getY());
+                    tracks.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth()),
+                            row.getHeight()));
+                }
+                if (Clock.getTime() > delay && !launched) {
+                    launched = true;
+
+                    image.setY(row.getY());
+                    image.setImageResource(R.drawable.minecarts);
+                    image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth() * 1.5),
+                            row.getHeight() - 30));
+                    image.setX(row.getWidth());
+                    image.setVisibility(View.VISIBLE);
+                }
+            }
+        };
+        l.addListener(v);
     }
 
+    /**
+     * Animates frames of mine cart.
+     */
     @Override
-    public void animateMovement(Clock c) {
-        c.addScheduledEvents(e -> {
-            checkForCollision();
-            track.setY(row.getY() - 25);
-            image.setY(row.getY());
-            if (c.getTime() % 10 == 0) {
-                switched = true;
+    public void animateFrames() {
+    }
+
+    /**
+     * Animates movement of mine cart.
+     */
+    @Override
+    public void animateMovement() {
+        View.OnClickListener v = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkForCollision();
+                if (Clock.getTime() % 2 == 0) {
+                    image.setX(image.getX() - 100);
+                }
+
+                if (image.getX() < -image.getWidth()) {
+                    image.setX(4 * row.getWidth());
+                }
             }
-            if (c.getTime() % 2 == 0 && switched) {
-                image.setX(image.getX() - 30);
-            }
-            if (image.getX() < -image.getWidth()) {
-                image.setX(row.getWidth());
-                switched = false;
-            }
-        });
+        };
+        l.addListener(v);
+    }
+
+    /**
+     * Checks for collisions.
+     */
+    public void checkForCollision() {
+        Rect rect1 = new Rect();
+        image.getGlobalVisibleRect(rect1);
+
+        Rect rect2 = new Rect();
+        GameScreenActivity.getPlayerImage().getGlobalVisibleRect(rect2);
+
+        if (Rect.intersects(rect1, rect2) && launched) {
+            GameScreenActivity.setCollidedWithVehicle(true);
+        }
     }
 }
