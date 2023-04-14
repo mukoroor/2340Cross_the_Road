@@ -16,16 +16,7 @@ public class GameBlock {
      * @param gridBlock ImageView representing GameBlock in an activity;
      */
     public GameBlock(ImageView gridBlock) {
-        this.gridBlock = gridBlock;
-    }
-
-    /**
-     * sets GameBlock position in 2D array gameBlockArray
-     * @param row row index in gameBlockArray
-     * @param column column index in gameBlockArray
-     */
-    public void setBlockPosition(int row, int column) {
-        Game.getGameBlockArray()[row][column] = this;
+     this.gridBlock = gridBlock;
     }
 
 }
