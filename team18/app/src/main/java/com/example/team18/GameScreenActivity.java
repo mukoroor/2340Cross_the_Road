@@ -101,8 +101,9 @@ public class GameScreenActivity extends AppCompatActivity {
                     LinearLayout bG = findViewById(R.id.backgroundGrid);
                     newTranslation = (-Game.getGameBlockArray().length + 15) * blockSize;
                     findViewById(R.id.mainFrame).setY(newTranslation);
-                    createGrid(bG, blockSize);
-                    int[] rows = populateGrid();
+                    currGame.createGrid(getApplicationContext());
+                    createUIGrid(bG, blockSize);
+                    int[] rows = currGame.populateGrid();
                     animate(rows);
 
                     FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(
@@ -279,7 +280,7 @@ public class GameScreenActivity extends AppCompatActivity {
      * @param gridContainer The parent View which holds all the GameBlocks created
      * @param blockSize the size of each square GameBlock
      */
-    public void createGrid(LinearLayout gridContainer, int blockSize) {
+    public void createUIGrid(LinearLayout gridContainer, int blockSize) {
         for (int row = 0; row < Game.getGameBlockArray().length; row++) {
             LinearLayout rowBlock = new LinearLayout(this);
 
@@ -288,98 +289,15 @@ public class GameScreenActivity extends AppCompatActivity {
             rowBlock.setLayoutParams(params1);
 
             for (int column = 0; column < 9; column++) {
-                ImageView gridBlock = new ImageView(this, null);
-                GameBlock g = new GameBlock(gridBlock);
-                g.setBlockPosition(row, column);
-
+                ImageView gridBlock = Game.getGameBlockArray()[row][column].gridBlock;
                 LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
                         blockSize, blockSize);
                 gridBlock.setLayoutParams(params2);
-
                 rowBlock.addView(gridBlock);
             }
             gridContainer.addView(rowBlock);
         }
     }
-
-    /**
-     * Method for assigning row types to the created grid in the game
-     * @return int array mapping integers to row types
-     */
-    public int[] populateGrid() {
-        /*
-        Start tile => 5
-        log tile => 4
-        Goal tile => 3
-        Safe tile => 2
-        River tile => 1
-        Road tile => 0
-         */
-        int[] rowMap = new int[Game.getGameBlockArray().length];
-
-        rowMap[0] = 3;
-        rowMap[1] = 3;
-        rowMap[Game.getGameBlockArray().length - 2] = 5;
-        rowMap[Game.getGameBlockArray().length - 1] = 5;
-        rowMap[8] = 2;
-        if (currGame.getLives() > 1) {
-            rowMap[16] = 2;
-            rowMap[24] = 2;
-        }
-        if (currGame.getLives() > 3) {
-            rowMap[32] = 2;
-            rowMap[38] = 2;
-        }
-
-        int type = r.nextInt(2);
-        for (int i = 2; i < Game.getGameBlockArray().length - 1; i++) {
-            if (rowMap[i] == 0) {
-                rowMap[i] = type;
-            } else {
-                if (type == 1) {
-                    type = 0;
-                } else {
-                    type = 1;
-                }
-            }
-        }
-
-        int[] imageOptions = GameBlock.imageOptions;
-        GameBlockTypes[] gbt = GameBlockTypes.values();
-        for (int i = 0; i < rowMap.length; i++) {
-            GameBlock[] row = Game.getGameBlockArray()[i];
-            for (GameBlock g:row
-            ) {
-                g.blockType = gbt[rowMap[i]];
-                g.gridBlock.setImageResource(imageOptions[rowMap[i]]);
-            }
-        }
-
-        int begin = r.nextInt(9);
-        for (int i = 0; i < rowMap.length; i++) {
-            int len = r.nextInt(3) + 1;
-            if (rowMap[i] == 1) {
-                GameBlock[] riverRow = Game.getGameBlockArray()[i];
-                riverRow[begin].blockType = gbt[4];
-                riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
-                begin = (begin + 1) % riverRow.length;
-
-                if (len > 1) {
-                    riverRow[begin].blockType = gbt[4];
-                    riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
-                    begin = (begin + 1) % riverRow.length;
-                }
-                if (len > 2) {
-                    riverRow[begin].blockType = gbt[4];
-                    riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
-                    begin = (begin + 1) % riverRow.length;
-                }
-                begin = (begin - 1 + riverRow.length) % riverRow.length;
-            }
-        }
-        return rowMap;
-    }
-
 
     /**
      * Method for starting/calling animations of the rivers and fireball (on roads)

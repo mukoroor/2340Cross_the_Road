@@ -1,5 +1,10 @@
 package com.example.team18;
 
+import android.content.Context;
+import android.widget.ImageView;
+
+import java.util.Random;
+
 /**
  * Structural Class.
  * Stores Global variables for game.
@@ -9,7 +14,7 @@ public class Game {
 
     private int lives;
     private int[] playerPosition;
-
+    private Random r = new Random();
     private static GameBlock[][] gameBlockArray;
     private int blockSize;
     private int maxHeight;
@@ -148,5 +153,91 @@ public class Game {
             }
             gameBlockArray[row][colLength - 1] = temp;
         }
+    }
+
+    public void createGrid(Context c) {
+        for (int i = 0; i < gameBlockArray.length; i++) {
+            for (int k = 0; k < gameBlockArray[i].length; k++) {
+                gameBlockArray[i][k] = new GameBlock(new ImageView(c));
+            }
+        }
+    }
+
+    /**
+     * Method for assigning row types to the created grid in the game
+     * @return int array mapping integers to row types
+     */
+    public int[] populateGrid() {
+        /*
+        Start tile => 5
+        log tile => 4
+        Goal tile => 3
+        Safe tile => 2
+        River tile => 1
+        Road tile => 0
+         */
+        int[] rowMap = new int[gameBlockArray.length];
+
+        rowMap[0] = 3;
+        rowMap[1] = 3;
+        rowMap[gameBlockArray.length - 2] = 5;
+        rowMap[gameBlockArray.length - 1] = 5;
+        rowMap[8] = 2;
+        if (lives > 1) {
+            rowMap[16] = 2;
+            rowMap[24] = 2;
+        }
+        if (lives > 3) {
+            rowMap[32] = 2;
+            rowMap[38] = 2;
+        }
+
+        int type = r.nextInt(2);
+        for (int i = 2; i < gameBlockArray.length - 1; i++) {
+            if (rowMap[i] == 0) {
+                rowMap[i] = type;
+            } else {
+                if (type == 1) {
+                    type = 0;
+                } else {
+                    type = 1;
+                }
+            }
+        }
+
+        int[] imageOptions = GameBlock.imageOptions;
+        GameBlockTypes[] gbt = GameBlockTypes.values();
+        for (int i = 0; i < rowMap.length; i++) {
+            GameBlock[] row = gameBlockArray[i];
+            for (GameBlock g:row
+            ) {
+                g.blockType = gbt[rowMap[i]];
+                g.gridBlock.setImageResource(imageOptions[rowMap[i]]);
+            }
+        }
+
+        int begin = r.nextInt(9);
+        for (int i = 0; i < rowMap.length; i++) {
+            int len = r.nextInt(3) + 1;
+            if (rowMap[i] == 1) {
+                GameBlock[] riverRow = gameBlockArray[i];
+                riverRow[begin].blockType = gbt[4];
+                riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
+                begin = (begin + 1) % riverRow.length;
+
+                if (len > 1) {
+                    riverRow[begin].blockType = gbt[4];
+                    riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
+                    begin = (begin + 1) % riverRow.length;
+                }
+                if (len > 2) {
+                    riverRow[begin].blockType = gbt[4];
+                    riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
+                    begin = (begin + 1) % riverRow.length;
+                }
+                begin = (begin - 1 + riverRow.length) % riverRow.length;
+            }
+        }
+        return rowMap;
     }
 }
