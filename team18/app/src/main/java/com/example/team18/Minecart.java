@@ -49,14 +49,14 @@ public class Minecart extends Vehicle {
         View.OnClickListener v = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (GameScreenActivity.getTime() < 5) {
+                if (Clock.getTime() < 5) {
                     tracks.setImageResource(R.drawable.traintracks);
                     tracks.setX(row.getX());
                     tracks.setY(row.getY());
                     tracks.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth()),
                             row.getHeight()));
                 }
-                if (GameScreenActivity.getTime() > delay && !launched) {
+                if (Clock.getTime() > delay && !launched) {
                     launched = true;
 
                     image.setY(row.getY());
@@ -87,7 +87,7 @@ public class Minecart extends Vehicle {
             @Override
             public void onClick(View view) {
                 checkForCollision();
-                if (GameScreenActivity.getTime() % 2 == 0) {
+                if (Clock.getTime() % 2 == 0) {
                     image.setX(image.getX() - 100);
                 }
 

@@ -4,13 +4,12 @@ import android.view.View;
 import android.widget.Button;
 
 public class Clock {
-    private int time;
+    private static int time = 0;
     private final Button button;
 
     private final CoupledListeners listener;
 
     public Clock(Button button, CoupledListeners listener) {
-        this.time = 0;
         this.button = button;
         this.listener = listener;
         this.button.setOnClickListener(listener);
@@ -25,7 +24,7 @@ public class Clock {
         setTime(time + 1);
     }
 
-    public int getTime() {
+    public static int getTime() {
         return time;
     }
 

@@ -25,7 +25,6 @@ public class GameScreenActivity extends AppCompatActivity {
     private Game currGame;
     private TextView playerLives;
     private TextView playerPoints;
-    private ImageView playerImage;
     private final Random r = new Random();
     private static ImageView playerImage;
     private boolean playState = true;
@@ -110,7 +109,6 @@ public class GameScreenActivity extends AppCompatActivity {
                             blockSize, blockSize);
                     playerImage.setLayoutParams(p);
                     updatePlayerScreenData();
-                    Vehicle.setPlayerImage(playerImage);
                     playerImage.bringToFront();
                     //Animates rows on screen
                     new CountDownTimer(Long.MAX_VALUE, 30) {
@@ -530,10 +528,6 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public Vehicle getTestVehicle() {
         return testVehicle;
-    }
-
-    public static int getTime() {
-        return time;
     }
 
     public static void setCollidedWithVehicle(boolean newStatus) {
