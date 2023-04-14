@@ -45,6 +45,7 @@ public class Dragon extends Vehicle {
 
         Random rand = new Random();
         delay = rand.nextInt(150) + 1;
+        image.bringToFront();
 
         launch();
         animateFrames();

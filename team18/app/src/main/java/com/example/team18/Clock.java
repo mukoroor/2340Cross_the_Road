@@ -28,6 +28,10 @@ public class Clock {
         return time;
     }
 
+    public CoupledListeners getListener() {
+        return listener;
+    }
+
     public void setTime(int newTime) {
         if (newTime == Integer.MAX_VALUE) {
             time = 0;

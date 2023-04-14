@@ -87,6 +87,7 @@ public class GameScreenActivity extends AppCompatActivity {
         currGame = new Game(player, lives);
         rowTypes = new String[Game.getGameBlockArray().length];
         gameClock = new Clock(new Button(this), new CoupledListeners());
+        Vehicle.l = gameClock.getListener();
 
         //calculating block-size
         View rootView = getWindow().getDecorView().getRootView();

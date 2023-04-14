@@ -35,6 +35,8 @@ public class Minecart extends Vehicle {
 
         Random rand = new Random();
         delay = rand.nextInt(150) + 1;
+        image.bringToFront();
+        tracks.bringToFront();
 
         launch();
         animateFrames();
@@ -62,7 +64,7 @@ public class Minecart extends Vehicle {
                     image.setY(row.getY());
                     image.setImageResource(R.drawable.minecarts);
                     image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth() * 1.5),
-                            row.getHeight() - 20));
+                            row.getHeight() - 30));
                     image.setX(row.getWidth());
                     image.setVisibility(View.VISIBLE);
                 }
@@ -92,7 +94,7 @@ public class Minecart extends Vehicle {
                 }
 
                 if (image.getX() < -image.getWidth()) {
-                    image.setX(2 * row.getWidth());
+                    image.setX(4 * row.getWidth());
                 }
             }
         };
