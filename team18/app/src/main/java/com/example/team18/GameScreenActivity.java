@@ -27,7 +27,7 @@ public class GameScreenActivity extends AppCompatActivity {
     private Game currGame;
     private TextView playerLives;
     private TextView playerPoints;
-    private ImageView playerImage;
+    private static ImageView playerImage;
     private boolean playState = true;
 
     private static boolean collidedWithVehicle = false;
@@ -35,7 +35,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
     private Vehicle testVehicle;
 
-
+    private static int time = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +132,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
                                     new CountDownTimer(2000, 500) {
 
-                                        int i = 0;
+                                        private int i = 0;
                                         @Override
                                         public void onTick(long l) {
                                             playerImage.setColorFilter(color[i],
@@ -156,7 +156,8 @@ public class GameScreenActivity extends AppCompatActivity {
 
                                 }
                                 timer.performClick();
-                                Vehicle.time++;
+                                //System.out.println(Vehicle.time);
+                                time++;
                             }
                             public void onFinish() {
                                 start();
@@ -244,6 +245,10 @@ public class GameScreenActivity extends AppCompatActivity {
                 vehiclePointAdd += 1;
             } else if ("minecart".equals(rowTypes[yCord])) {
                 vehiclePointAdd += 3;
+            } else if (currGame.getCurrBlock().blockType == GameBlockTypes.GOAL) {
+                Intent winScreen = new Intent(this, GameWinScreenActivity.class);
+                winScreen.putExtra("finalScore", currGame.getScore());
+                startActivity(winScreen);
             }
 
             currGame.setScore(currGame.getScore() + currGame.getCurrBlock().blockType.travelGain
@@ -396,16 +401,28 @@ public class GameScreenActivity extends AppCompatActivity {
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
         for (LinearLayout road : roads) {
             ImageView vehicle = new ImageView(this);
-            ImageView tracks = new ImageView(this);
             mainFrame.addView(vehicle, 0);
-            mainFrame.addView(tracks, 0);
-            Vehicle vehicleObject = new Vehicle(road, vehicle, tracks, i, playerImage, currGame);
-            testVehicle = vehicleObject;
-            if (i == 3) {
-                i = 1;
-            } else {
+            Vehicle vehicleObject = null;
+            
+            switch (i) {
+            case 1:
+                vehicleObject = new Fireball(road, vehicle);
                 i++;
+                break;
+            case 2:
+                vehicleObject = new Dragon(road, vehicle);
+                i++;
+                break;
+            case 3:
+                ImageView tracks = new ImageView(this);
+                mainFrame.addView(tracks, 1);
+                vehicleObject = new Minecart(road, vehicle, tracks);
+                i = 1;
+                break;
+            default:
             }
+
+            testVehicle = vehicleObject;
         }
     }
 
@@ -419,7 +436,7 @@ public class GameScreenActivity extends AppCompatActivity {
         View.OnClickListener v = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Vehicle.time % 25 == 0) {
+                if (time % 25 == 0) {
                     ImageView oldBlock = (ImageView) row.getChildAt(0);
                     row.removeViewAt(0);
                     row.addView(oldBlock);
@@ -448,7 +465,7 @@ public class GameScreenActivity extends AppCompatActivity {
      */
 
     private String getPlayerInfo() {
-        return "Kelley|0|100";
+        return "Kelley|1|5";
         //return getIntent().getStringExtra("player");
     }
 
@@ -460,12 +477,20 @@ public class GameScreenActivity extends AppCompatActivity {
         return currGame;
     }
 
-    public ImageView getPlayerImage() {
+    public static ImageView getPlayerImage() {
         return playerImage;
+    }
+
+    public boolean getPlayState() {
+        return playState;
     }
 
     public Vehicle getTestVehicle() {
         return testVehicle;
+    }
+
+    public static int getTime() {
+        return time;
     }
 
     public static void setCollidedWithVehicle(boolean newStatus) {
