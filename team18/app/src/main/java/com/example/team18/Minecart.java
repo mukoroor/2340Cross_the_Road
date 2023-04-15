@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 import java.util.Random;
 
-public class MineCart extends Vehicle {
+public class Minecart extends Vehicle {
     private final LinearLayout row;
 
     private final ImageView image;
@@ -22,12 +22,12 @@ public class MineCart extends Vehicle {
     private boolean launched = false;
 
     /**
-     * MineCart Constructor.
-     * @param row row mine cart rides across
-     * @param image image of mine cart
+     * Minecart Constructor.
+     * @param row row minecart rides across
+     * @param image image of minecart
      * @param tracks image of train tracks
      */
-    public MineCart(LinearLayout row, ImageView image, ImageView tracks) {
+    public Minecart(LinearLayout row, ImageView image, ImageView tracks) {
         super();
         this.row = row;
         this.image = image;
@@ -35,8 +35,6 @@ public class MineCart extends Vehicle {
 
         Random rand = new Random();
         delay = rand.nextInt(150) + 1;
-        image.bringToFront();
-        tracks.bringToFront();
 
         launch();
         animateFrames();
@@ -44,27 +42,27 @@ public class MineCart extends Vehicle {
     }
 
     /**
-     * Launches mine cart.
+     * Launches minecart.
      */
     public void launch() {
         image.setVisibility(View.INVISIBLE);
         View.OnClickListener v = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Clock.getTime() < 5) {
+                if (GameScreenActivity.getTime() < 5) {
                     tracks.setImageResource(R.drawable.traintracks);
                     tracks.setX(row.getX());
                     tracks.setY(row.getY());
                     tracks.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth()),
                             row.getHeight()));
                 }
-                if (Clock.getTime() > delay && !launched) {
+                if (GameScreenActivity.getTime() > delay && !launched) {
                     launched = true;
 
                     image.setY(row.getY());
                     image.setImageResource(R.drawable.minecarts);
                     image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth() * 1.5),
-                            row.getHeight() - 30));
+                            row.getHeight() - 20));
                     image.setX(row.getWidth());
                     image.setVisibility(View.VISIBLE);
                 }
@@ -74,14 +72,14 @@ public class MineCart extends Vehicle {
     }
 
     /**
-     * Animates frames of mine cart.
+     * Animates frames of minecart.
      */
     @Override
     public void animateFrames() {
     }
 
     /**
-     * Animates movement of mine cart.
+     * Animates movement of minecart.
      */
     @Override
     public void animateMovement() {
@@ -89,12 +87,12 @@ public class MineCart extends Vehicle {
             @Override
             public void onClick(View view) {
                 checkForCollision();
-                if (Clock.getTime() % 2 == 0) {
+                if (GameScreenActivity.getTime() % 2 == 0) {
                     image.setX(image.getX() - 100);
                 }
 
                 if (image.getX() < -image.getWidth()) {
-                    image.setX(4 * row.getWidth());
+                    image.setX(2 * row.getWidth());
                 }
             }
         };

@@ -71,7 +71,9 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             if (isValid) {
                 Sprite player = new Sprite(spriteInd, username);
 
-                toGame(player, lives[spinner.getSelectedItemPosition()]);
+                player.setLives(lives[spinner.getSelectedItemPosition()]);
+                toGame(player,lives[spinner.getSelectedItemPosition()]);
+
             }
 
         });
@@ -128,11 +130,10 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     /**
      * A method that creates a new intent and passes information to next activity
      * @param player The player to be passed into the game activity
-     * @param lives
      */
     private void toGame(Sprite player, int lives) {
         Intent playIntent = new Intent(this, GameScreenActivity.class);
-        playIntent.putExtra("lives", lives);
+        playIntent.putExtra("lives",lives);
         playIntent.putExtra("player", player.toString());
         startActivity(playIntent);
     }
