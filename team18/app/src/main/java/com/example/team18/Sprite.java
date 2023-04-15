@@ -4,8 +4,9 @@ package com.example.team18;
  * Class which describes a sprite.
  */
 public class Sprite {
-    private final String name;
-    private final int spriteIndex;
+    private String name;
+    private int spriteIndex;
+    private int lives = 5;
 
     protected static int[][] spriteOptions = new int[][]
         {{R.drawable.man1}, {R.drawable.man2}, {R.drawable.mermaid}, {R.drawable.charmeleon}};
@@ -24,9 +25,25 @@ public class Sprite {
         this.name = playerName;
     }
 
+    /**
+     * Method for changing the lives of a Sprite.
+     * @param newLives the new amount of lives the Sprite has.
+     */
+    public void setLives(int newLives) {
+        lives = newLives;
+    }
+
+    /**
+     * Method for getting the number of lives a Sprite has.
+     * @return The number of Sprite lives.
+     */
+    public int getLives() {
+        return lives;
+    }
+
     @Override
     public String toString() {
-        return spriteIndex + "|" + name;
+        return name + "|" + spriteIndex + "|" + lives;
     }
 
     /**
@@ -36,9 +53,13 @@ public class Sprite {
     */
     public static Sprite parseString(String object) {
         String[] tokens = object.split("[|]");
-        int ind = Integer.parseInt(tokens[0]);
-        String name = tokens[1];
-        return new Sprite(ind, name);
+        String name = tokens[0];
+        int ind = Integer.parseInt(tokens[1]);
+        int lives = Integer.parseInt(tokens[2]);
+        Sprite parsed = new Sprite(ind, name);
+        parsed.setLives(lives);
+
+        return parsed;
     }
 
     /**
