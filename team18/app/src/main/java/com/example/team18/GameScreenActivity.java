@@ -87,8 +87,7 @@ public class GameScreenActivity extends AppCompatActivity {
         currGame = new Game(player, lives);
         rowTypes = new String[Game.getGameBlockArray().length];
         gameClock = new Clock(new Button(this), new CoupledListeners());
-        Vehicle.l = gameClock.getListener();
-
+        Vehicle.c = gameClock;
         //calculating block-size
         View rootView = getWindow().getDecorView().getRootView();
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -102,9 +101,9 @@ public class GameScreenActivity extends AppCompatActivity {
                     LinearLayout bG = findViewById(R.id.backgroundGrid);
                     newTranslation = (-Game.getGameBlockArray().length + 15) * blockSize;
                     findViewById(R.id.mainFrame).setY(newTranslation);
-                    currGame.createGrid(getApplicationContext());
-                    createUIGrid(bG, blockSize);
+                    currGame.createGrid();
                     int[] rows = currGame.populateGrid();
+                    createUIGrid(bG, blockSize);
                     animate(rows);
 
                     FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(
@@ -222,7 +221,7 @@ public class GameScreenActivity extends AppCompatActivity {
                 return;
             }
         }
-        checkOnRiver();
+//        checkOnRiver();
     }
 
     /**
@@ -290,7 +289,10 @@ public class GameScreenActivity extends AppCompatActivity {
             rowBlock.setLayoutParams(params1);
 
             for (int column = 0; column < 9; column++) {
-                ImageView gridBlock = Game.getGameBlockArray()[row][column].gridBlock;
+                ImageView gridBlock = new ImageView(this);
+                int index = Game.getGameBlockArray()[row][column].imageIndex;
+                gridBlock.setImageResource(GameBlock.imageOptions[index]);
+                Game.getGameBlockArray()[row][column].gridBlock = gridBlock;
                 LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
                         blockSize, blockSize);
                 gridBlock.setLayoutParams(params2);
@@ -338,7 +340,6 @@ public class GameScreenActivity extends AppCompatActivity {
         }
         int i = 1;
         //Animates and moves fireballs on screen
-        int gameBlockSize = currGame.getBlockSize();
         FrameLayout mainFrame = findViewById(R.id.mainFrame);
         for (LinearLayout road : roads) {
             ImageView vehicle = new ImageView(this);

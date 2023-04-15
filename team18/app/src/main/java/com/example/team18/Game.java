@@ -14,7 +14,7 @@ public class Game {
 
     private int lives;
     private int[] playerPosition;
-    private Random r = new Random();
+    private final Random r = new Random();
     private static GameBlock[][] gameBlockArray;
     private int blockSize;
     private int maxHeight;
@@ -155,10 +155,10 @@ public class Game {
         }
     }
 
-    public void createGrid(Context c) {
+    public void createGrid() {
         for (int i = 0; i < gameBlockArray.length; i++) {
             for (int k = 0; k < gameBlockArray[i].length; k++) {
-                gameBlockArray[i][k] = new GameBlock(new ImageView(c));
+                gameBlockArray[i][k] = new GameBlock();
             }
         }
     }
@@ -205,14 +205,15 @@ public class Game {
             }
         }
 
-        int[] imageOptions = GameBlock.imageOptions;
+//        int[] imageOptions = GameBlock.imageOptions;
         GameBlockTypes[] gbt = GameBlockTypes.values();
         for (int i = 0; i < rowMap.length; i++) {
             GameBlock[] row = gameBlockArray[i];
             for (GameBlock g:row
             ) {
                 g.blockType = gbt[rowMap[i]];
-                g.gridBlock.setImageResource(imageOptions[rowMap[i]]);
+                g.imageIndex = rowMap[i];
+//                g.gridBlock.setImageResource(imageOptions[rowMap[i]]);
             }
         }
 
@@ -222,17 +223,20 @@ public class Game {
             if (rowMap[i] == 1) {
                 GameBlock[] riverRow = gameBlockArray[i];
                 riverRow[begin].blockType = gbt[4];
-                riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
+                riverRow[begin].imageIndex = 4;
+//                riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
                 begin = (begin + 1) % riverRow.length;
 
                 if (len > 1) {
                     riverRow[begin].blockType = gbt[4];
-                    riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
+                    riverRow[begin].imageIndex = 4;
+//                    riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
                     begin = (begin + 1) % riverRow.length;
                 }
                 if (len > 2) {
                     riverRow[begin].blockType = gbt[4];
-                    riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
+                    riverRow[begin].imageIndex = 4;
+//                    riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
                     begin = (begin + 1) % riverRow.length;
                 }
                 begin = (begin - 1 + riverRow.length) % riverRow.length;
