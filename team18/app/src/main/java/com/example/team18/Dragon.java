@@ -45,6 +45,7 @@ public class Dragon extends Vehicle {
 
         Random rand = new Random();
         delay = rand.nextInt(150) + 1;
+        image.bringToFront();
 
         launch();
         animateFrames();
@@ -59,7 +60,7 @@ public class Dragon extends Vehicle {
         View.OnClickListener v = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (GameScreenActivity.getTime() > delay && !launched) {
+                if (Clock.getTime() > delay && !launched) {
                     launched = true;
 
                     image.setY(row.getY() - 50);
@@ -82,7 +83,7 @@ public class Dragon extends Vehicle {
             @Override
             public void onClick(View view) {
                 if (launched) {
-                    if (GameScreenActivity.getTime() % 2 == 0) {
+                    if (Clock.getTime() % 2 == 0) {
                         image.setImageResource(dragonFrames[i[0]]);
                         i[0]++;
 
@@ -105,7 +106,7 @@ public class Dragon extends Vehicle {
             @Override
             public void onClick(View view) {
                 checkForCollision();
-                if (GameScreenActivity.getTime() % 3 == 0) {
+                if (Clock.getTime() % 3 == 0) {
                     image.setX(image.getX() - 30);
                 }
 
