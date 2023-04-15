@@ -7,16 +7,7 @@ public class GameBlock {
         {R.drawable.road0, R.drawable.lava_block, R.drawable.rock_block,
             R.drawable.road1, R.drawable.log_block, R.drawable.start};
 
+    protected int imageIndex;
     protected ImageView gridBlock;
-
     protected GameBlockTypes blockType;
-
-    /**
-     * Game block constructor
-     * @param gridBlock ImageView representing GameBlock in an activity;
-     */
-    public GameBlock(ImageView gridBlock) {
-     this.gridBlock = gridBlock;
-    }
-
 }
