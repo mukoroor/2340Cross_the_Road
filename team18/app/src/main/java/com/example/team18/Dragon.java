@@ -13,7 +13,7 @@ public class Dragon extends Vehicle {
 
     private final ImageView image;
 
-    private int delay = 0;
+    private final int delay;
 
     private final int[] i = {0};
     private final int[] dragonFrames = {
@@ -57,21 +57,17 @@ public class Dragon extends Vehicle {
      */
     public void launch() {
         image.setVisibility(View.INVISIBLE);
-        View.OnClickListener v = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Clock.getTime() > delay && !launched) {
-                    launched = true;
+        c.addScheduledEvents(e -> {
+            if (c.getTime() > delay && !launched) {
+                launched = true;
 
-                    image.setY(row.getY() - 50);
-                    image.setLayoutParams(new FrameLayout.LayoutParams(row.getHeight() * 2,
-                            row.getHeight() + 50));
-                    image.setX(row.getWidth());
-                    image.setVisibility(View.VISIBLE);
-                }
+                image.setY(row.getY());
+                image.setLayoutParams(new FrameLayout.LayoutParams(row.getHeight(),
+                        row.getHeight()));
+                image.setX(row.getWidth());
+                image.setVisibility(View.VISIBLE);
             }
-        };
-        l.addListener(v);
+        });
     }
 
     /**
@@ -79,22 +75,18 @@ public class Dragon extends Vehicle {
      */
     @Override
     public void animateFrames() {
-        View.OnClickListener v = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (launched) {
-                    if (Clock.getTime() % 2 == 0) {
-                        image.setImageResource(dragonFrames[i[0]]);
-                        i[0]++;
+        c.addScheduledEvents(e -> {
+            if (launched) {
+                if (c.getTime() % 2 == 0) {
+                    image.setImageResource(dragonFrames[i[0]]);
+                    i[0]++;
 
-                        if (i[0] >= 12) {
-                            i[0] = 0;
-                        }
+                    if (i[0] >= 12) {
+                        i[0] = 0;
                     }
                 }
             }
-        };
-        l.addListener(v);
+        });
     }
 
     /**
@@ -102,20 +94,16 @@ public class Dragon extends Vehicle {
      */
     @Override
     public void animateMovement() {
-        View.OnClickListener v = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkForCollision();
-                if (Clock.getTime() % 3 == 0) {
-                    image.setX(image.getX() - 30);
-                }
-
-                if (image.getX() < -image.getWidth()) {
-                    image.setX(row.getWidth());
-                }
+        c.addScheduledEvents(e -> {
+            checkForCollision();
+            if (c.getTime() % 3 == 0) {
+                image.setX(image.getX() - 15);
             }
-        };
-        l.addListener(v);
+
+            if (image.getX() < -image.getWidth()) {
+                image.setX(row.getWidth());
+            }
+        });
     }
 
     /**
@@ -123,10 +111,10 @@ public class Dragon extends Vehicle {
      */
     public void checkForCollision() {
         Rect rect1 = new Rect();
-        image.getGlobalVisibleRect(rect1);
+        image.getHitRect(rect1);
 
         Rect rect2 = new Rect();
-        GameScreenActivity.getPlayerImage().getGlobalVisibleRect(rect2);
+        GameScreenActivity.getPlayerImage().getHitRect(rect2);
 
         if (Rect.intersects(rect1, rect2) && launched) {
             GameScreenActivity.setCollidedWithVehicle(true);

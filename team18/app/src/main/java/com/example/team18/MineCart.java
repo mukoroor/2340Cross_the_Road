@@ -15,10 +15,7 @@ public class MineCart extends Vehicle {
 
     private final ImageView tracks;
 
-    private int delay = 0;
-
-    private final int[] i = {0};
-
+    private final int delay;
     private boolean launched = false;
 
     /**
@@ -35,8 +32,8 @@ public class MineCart extends Vehicle {
 
         Random rand = new Random();
         delay = rand.nextInt(150) + 1;
-        image.bringToFront();
         tracks.bringToFront();
+        image.bringToFront();
 
         launch();
         animateFrames();
@@ -48,29 +45,25 @@ public class MineCart extends Vehicle {
      */
     public void launch() {
         image.setVisibility(View.INVISIBLE);
-        View.OnClickListener v = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Clock.getTime() < 5) {
-                    tracks.setImageResource(R.drawable.traintracks);
-                    tracks.setX(row.getX());
-                    tracks.setY(row.getY());
-                    tracks.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth()),
-                            row.getHeight()));
-                }
-                if (Clock.getTime() > delay && !launched) {
-                    launched = true;
-
-                    image.setY(row.getY());
-                    image.setImageResource(R.drawable.minecarts);
-                    image.setLayoutParams(new FrameLayout.LayoutParams((int) (row.getWidth() * 1.5),
-                            row.getHeight() - 30));
-                    image.setX(row.getWidth());
-                    image.setVisibility(View.VISIBLE);
-                }
+        c.addScheduledEvents(e -> {
+            if (c.getTime() < 5) {
+                tracks.setImageResource(R.drawable.traintracks);
+                tracks.setX(row.getX());
+                tracks.setY(row.getY());
+                tracks.setLayoutParams(new FrameLayout.LayoutParams(row.getWidth(),
+                        row.getHeight()));
             }
-        };
-        l.addListener(v);
+            if (c.getTime() > delay && !launched) {
+                launched = true;
+
+                image.setY(row.getY());
+                image.setImageResource(R.drawable.minecarts);
+                image.setLayoutParams(new FrameLayout.LayoutParams(row.getWidth(),
+                        row.getHeight()));
+                image.setX(row.getWidth());
+                image.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     /**
@@ -85,20 +78,16 @@ public class MineCart extends Vehicle {
      */
     @Override
     public void animateMovement() {
-        View.OnClickListener v = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkForCollision();
-                if (Clock.getTime() % 2 == 0) {
-                    image.setX(image.getX() - 100);
-                }
-
-                if (image.getX() < -image.getWidth()) {
-                    image.setX(4 * row.getWidth());
-                }
+        c.addScheduledEvents(e -> {
+            checkForCollision();
+            if (c.getTime() % 2 == 0) {
+                image.setX(image.getX() - 50);
             }
-        };
-        l.addListener(v);
+
+            if (image.getX() < -image.getWidth()) {
+                image.setX(3 * row.getWidth());
+            }
+        });
     }
 
     /**
@@ -106,10 +95,10 @@ public class MineCart extends Vehicle {
      */
     public void checkForCollision() {
         Rect rect1 = new Rect();
-        image.getGlobalVisibleRect(rect1);
+        image.getHitRect(rect1);
 
         Rect rect2 = new Rect();
-        GameScreenActivity.getPlayerImage().getGlobalVisibleRect(rect2);
+        GameScreenActivity.getPlayerImage().getHitRect(rect2);
 
         if (Rect.intersects(rect1, rect2) && launched) {
             GameScreenActivity.setCollidedWithVehicle(true);
