@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class Clock {
-    private static int time = 0;
+    private int time = 0;
     private final Button button;
 
     private final CoupledListeners listener;
@@ -24,7 +24,7 @@ public class Clock {
         setTime(time + 1);
     }
 
-    public static int getTime() {
+    public int getTime() {
         return time;
     }
 
