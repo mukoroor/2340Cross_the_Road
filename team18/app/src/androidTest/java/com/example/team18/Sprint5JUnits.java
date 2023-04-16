@@ -79,6 +79,7 @@ public class Sprint5JUnits {
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
                 GameScreenActivity.class);
 
+
         // Launch the activity with the intent
         ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
 
@@ -98,4 +99,7 @@ public class Sprint5JUnits {
     }
 
 
+
+        });
+    }
 }
