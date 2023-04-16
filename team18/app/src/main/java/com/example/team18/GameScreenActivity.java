@@ -187,10 +187,10 @@ public class GameScreenActivity extends AppCompatActivity {
         if(currGame.getCurrBlock().blockType == GameBlockTypes.GOAL) {
             int temp = currGame.getScore();
             currGame.setScore(temp + 50);
-            Intent gameOver = new Intent(getApplicationContext(),
-                    GameOverScreenActivity.class);
-            gameOver.putExtra("finalScore", currGame.getScore());
-            startActivity(gameOver);
+            Intent gameWin = new Intent(getApplicationContext(),
+                    GameWinScreenActivity.class);
+            gameWin.putExtra("finalScore", currGame.getScore());
+            startActivity(gameWin);
             //should be congratulate screen.
         }
     }
