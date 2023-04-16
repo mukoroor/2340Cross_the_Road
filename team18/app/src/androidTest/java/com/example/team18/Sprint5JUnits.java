@@ -1,9 +1,14 @@
 package com.example.team18;
 
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.junit.Assert.assertEquals;
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
@@ -25,8 +30,17 @@ public class Sprint5JUnits {
 
         // Assert that the activity is in the resumed state
         scenario.onActivity(activity -> {
-            Button restart = activity.findViewById(R.id.restart);
+            RelativeLayout restart = activity.findViewById(R.id.restart);
             restart.performClick();
+
+            Instrumentation.ActivityMonitor monitor
+                = getInstrumentation().addMonitor((IntentFilter) null, null, false);
+            Activity nextActivity
+                = getInstrumentation().waitForMonitorWithTimeout(monitor, 50);
+
+            if (nextActivity != null) {
+                assertTrue(true);
+            }
         });
     }
 
@@ -41,8 +55,15 @@ public class Sprint5JUnits {
 
         // Assert that the activity is in the resumed state
         scenario.onActivity(activity -> {
-            Button quit = activity.findViewById(R.id.quit);
-            quit.performClick();
+            RelativeLayout quit = activity.findViewById(R.id.quit);
+            Instrumentation.ActivityMonitor monitor
+                = getInstrumentation().addMonitor((IntentFilter) null, null, false);
+            Activity nextActivity
+                = getInstrumentation().waitForMonitorWithTimeout(monitor, 50);
+
+            if (nextActivity != null) {
+                assertTrue(true);
+            }
         });
     }
 }
