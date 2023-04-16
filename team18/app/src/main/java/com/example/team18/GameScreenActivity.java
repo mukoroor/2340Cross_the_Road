@@ -37,6 +37,8 @@ public class GameScreenActivity extends AppCompatActivity {
 
     private static int time = 0;
 
+    private ArrayList<Vehicle> vehicleList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,10 +195,25 @@ public class GameScreenActivity extends AppCompatActivity {
      * method for updating the player positioning, score and lives
      */
     public void updatePlayerScreenData() {
+        checkReachGoalTile();
         playerPoints.setText(String.valueOf(currGame.getScore()));
         playerLives.setText(String.valueOf(currGame.getPlayer().getLives()));
         playerImage.setX(currGame.getPosition()[0]);
         playerImage.setY(currGame.getPosition()[1]);
+    }
+
+
+    
+    public void checkReachGoalTile() {
+        if(currGame.getCurrBlock().blockType == GameBlockTypes.GOAL) {
+            int temp = currGame.getScore();
+            currGame.setScore(temp + 50);
+            Intent gameWin = new Intent(getApplicationContext(),
+                    GameWinScreenActivity.class);
+            gameWin.putExtra("finalScore", currGame.getScore());
+            startActivity(gameWin);
+            //should be congratulate screen.
+        }
     }
 
     /**
@@ -444,6 +461,8 @@ public class GameScreenActivity extends AppCompatActivity {
             default:
             }
 
+            vehicleList.add(vehicleObject);
+
             testVehicle = vehicleObject;
         }
     }
@@ -487,8 +506,10 @@ public class GameScreenActivity extends AppCompatActivity {
      */
 
     private String getPlayerInfo() {
-        return "Kelley|1|5";
-        //return getIntent().getStringExtra("player");
+        if (getIntent().getStringExtra("player") == null) {
+            return "Kelley|1|5";
+        }
+        return getIntent().getStringExtra("player");
     }
 
     /**
@@ -509,6 +530,10 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public Vehicle getTestVehicle() {
         return testVehicle;
+    }
+
+    public ArrayList<Vehicle> getVehicleList() {
+        return vehicleList;
     }
 
     public static int getTime() {
