@@ -75,10 +75,10 @@ public class Sprint5JUnits {
     }
 
     @Test
-    public void checkForDragonObject() {
+    public void checkFinalScoreForGoalTile() {
         Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
                 GameScreenActivity.class);
-        playIntent.putExtra("finalScore",5);
+
 
         // Launch the activity with the intent
         ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
@@ -86,17 +86,20 @@ public class Sprint5JUnits {
         // Assert that the activity is in the resumed state
         scenario.onActivity(activity -> {
             GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+            curr.setBlockSize(160);
+            GameBlock[][] block = curr.getGameBlockArray();
 
-            ArrayList<Vehicle> vehicles = g.getVehicleList();
-            boolean found = false;
+            int initial = curr.getScore();
+            curr.changePosition(0, -14);
+            g.moveLeft();
+            int after = curr.getScore();
+            assertEquals(50,after-initial);
+        });
+    }
 
-            for (Vehicle vehicle : vehicles) {
-                if (vehicle instanceof Dragon) {
-                    found = true;
-                }
-            }
 
-            assertTrue(found);
+
         });
     }
 }
