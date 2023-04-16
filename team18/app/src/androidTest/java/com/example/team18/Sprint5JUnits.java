@@ -74,5 +74,28 @@ public class Sprint5JUnits {
         });
     }
 
+    @Test
+    public void checkFinalScoreForGoalTile() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameScreenActivity.class);
+
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+            Game curr = g.getGame();
+            curr.setBlockSize(160);
+            GameBlock[][] block = curr.getGameBlockArray();
+
+            int initial = curr.getScore();
+            curr.changePosition(0, -14);
+            g.moveLeft();
+            int after = curr.getScore();
+            assertEquals(50,after-initial);
+        });
+    }
+
 
 }
