@@ -131,8 +131,8 @@ public class Sprint4JUnits {
             ImageView playerImage = g.getPlayerImage();
             Vehicle vehicle = g.getTestVehicle();
 
-            playerImage.setX(vehicle.getPlayerImage().getX());
-            playerImage.setY(vehicle.getPlayerImage().getY());
+            playerImage.setX(GameScreenActivity.getPlayerImage().getX());
+            playerImage.setY(GameScreenActivity.getPlayerImage().getY());
 
             int finalLives = curr.getPlayer().getLives();
 
@@ -160,8 +160,8 @@ public class Sprint4JUnits {
             ImageView playerImage = g.getPlayerImage();
             Vehicle vehicle = g.getTestVehicle();
 
-            playerImage.setX(vehicle.getPlayerImage().getX());
-            playerImage.setY(vehicle.getPlayerImage().getY());
+            playerImage.setX(GameScreenActivity.getPlayerImage().getX());
+            playerImage.setY(GameScreenActivity.getPlayerImage().getY());
 
             int[] finalPlayerPos = curr.getPosition();
 
@@ -189,8 +189,8 @@ public class Sprint4JUnits {
             ImageView playerImage = g.getPlayerImage();
             Vehicle vehicle = g.getTestVehicle();
 
-            playerImage.setX(vehicle.getPlayerImage().getX());
-            playerImage.setY(vehicle.getPlayerImage().getY());
+            playerImage.setX(GameScreenActivity.getPlayerImage().getX());
+            playerImage.setY(GameScreenActivity.getPlayerImage().getY());
 
             boolean playState = g.getPlayState();
 
@@ -399,8 +399,8 @@ public class Sprint4JUnits {
 
             ImageView playerImage = g.getPlayerImage();
             Vehicle vehicle = g.getTestVehicle();
-            float vX = vehicle.getPlayerImage().getX();
-            float vY = vehicle.getPlayerImage().getY();
+            float vX = GameScreenActivity.getPlayerImage().getX();
+            float vY = GameScreenActivity.getPlayerImage().getY();
 
             int changeX =  (int) (vX / curr.getBlockSize()) - 4;
             int changeY =   (int) ((vX / curr.getBlockSize()) - 14);
