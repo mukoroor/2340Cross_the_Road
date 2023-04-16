@@ -74,5 +74,29 @@ public class Sprint5JUnits {
         });
     }
 
+    @Test
+    public void checkForDragonObject() {
+        Intent playIntent = new Intent(ApplicationProvider.getApplicationContext(),
+                GameScreenActivity.class);
+        playIntent.putExtra("finalScore",5);
 
+        // Launch the activity with the intent
+        ActivityScenario<GameScreenActivity> scenario = ActivityScenario.launch(playIntent);
+
+        // Assert that the activity is in the resumed state
+        scenario.onActivity(activity -> {
+            GameScreenActivity g = (GameScreenActivity) activity;
+
+            ArrayList<Vehicle> vehicles = g.getVehicleList();
+            boolean found = false;
+
+            for (Vehicle vehicle : vehicles) {
+                if (vehicle instanceof Dragon) {
+                    found = true;
+                }
+            }
+
+            assertTrue(found);
+        });
+    }
 }
