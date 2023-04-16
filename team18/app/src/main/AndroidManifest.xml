@@ -13,7 +13,10 @@
         android:theme="@style/Theme.Team18"
         tools:targetApi="31">
         <activity
-            android:name=".StartScreenActivity"
+            android:name=".GameWinScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GameScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +30,8 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".SpriteSelector" />
-        <activity android:name=".GameScreenActivity" />
+        <activity android:name=".StartScreenActivity" />
+        <activity android:name=".GameOverScreenActivity" />
     </application>
 
 </manifest>
