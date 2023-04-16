@@ -176,10 +176,23 @@ public class GameScreenActivity extends AppCompatActivity {
      * method for updating the player positioning, score and lives
      */
     public void updatePlayerScreenData() {
+        checkReachGoalTile();
         playerPoints.setText(String.valueOf(currGame.getScore()));
         playerLives.setText(String.valueOf(currGame.getPlayer().getLives()));
         playerImage.setX(currGame.getPosition()[0]);
         playerImage.setY(currGame.getPosition()[1]);
+    }
+
+    public void checkReachGoalTile() {
+        if(currGame.getCurrBlock().blockType == GameBlockTypes.GOAL) {
+            int temp = currGame.getScore();
+            currGame.setScore(temp + 50);
+            Intent gameOver = new Intent(getApplicationContext(),
+                    GameOverScreenActivity.class);
+            gameOver.putExtra("finalScore", currGame.getScore());
+            startActivity(gameOver);
+            //should be congratulate screen.
+        }
     }
 
     public void checkOnRiver() {
