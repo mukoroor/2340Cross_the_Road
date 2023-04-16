@@ -119,6 +119,21 @@ public class Sprint5JUnits {
         });
     }
 
+    @Test
+    public void checkDisplayingCorrectFinalScore() {
+        int expectedValue = 42; // Set an example value
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), GameWinScreenActivity.class);
+        intent.putExtra("finalScore", expectedValue);
+
+
+        try (ActivityScenario<GameWinScreenActivity> scenario = ActivityScenario.launch(intent)) {
+            scenario.onActivity(activity -> {
+                int actualValue = activity.getIntent().getIntExtra("finalScore", 0);
+                assertEquals("GameWinScreenActivity did not receive the correct value", expectedValue, actualValue);
+            });
+        }
+    }
+
 
 
         });
