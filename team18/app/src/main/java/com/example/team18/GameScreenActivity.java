@@ -48,51 +48,8 @@ public class GameScreenActivity extends AppCompatActivity {
         int spriteImageIndex = player.getSpriteIndex();
 
         currGame = new Game(player);
-
-        //Sets player image on screen
-        playerImage.setImageResource(Sprite.spriteOptions[spriteImageIndex][0]);
-
-        //Sets player name on screen
-        TextView playerName = findViewById(R.id.username);
-        playerName.setText(player.getName().toUpperCase());
-
-
-        //Sets player lives on screen
-        playerLives = findViewById(R.id.playerLives);
-        playerLives.setText(String.valueOf(player.getLives()));
-
-        playerPoints = findViewById(R.id.points);
-        playerPoints.setText(String.valueOf(currGame.getScore()));
-
-        timer = new Button(this);
-
-        //navigation buttons
-        Button leftButton = findViewById(R.id.leftButton);
-        Button rightButton = findViewById(R.id.rightButton);
-        Button upButton = findViewById(R.id.upButton);
-        Button downButton = findViewById(R.id.downButton);
-
-        //moving sprite based on navigation button input
-        leftButton.setOnClickListener(e -> {
-            if (playState) {
-                moveLeft();
-            }
-        });
-        rightButton.setOnClickListener(e -> {
-            if (playState) {
-                moveRight();
-            }
-        });
-        upButton.setOnClickListener(e -> {
-            if (playState) {
-                moveUp();
-            }
-        });
-        downButton.setOnClickListener(e -> {
-            if (playState) {
-                moveDown();
-            }
-        });
+        initializePlayerScreenData(player, spriteImageIndex);
+        initializeButtons();
 
         //calculating block-size
         View rootView = getWindow().getDecorView().getRootView();
@@ -121,42 +78,9 @@ public class GameScreenActivity extends AppCompatActivity {
                         new CountDownTimer(Long.MAX_VALUE, 30) {
                             public void onTick(long millisUntilFinished) {
                                 if (collidedWithVehicle) {
-                                    collidedWithVehicle = false;
-                                    playState = false;
-                                    currGame.reset();
-                                    updatePlayerScreenData();
-                                    int[] color = {ContextCompat.getColor(getApplicationContext(),
-                                            R.color.tint),
-                                            ContextCompat.getColor(getApplicationContext(),
-                                                    R.color.none)};
-
-                                    new CountDownTimer(2000, 500) {
-
-                                        private int i = 0;
-                                        @Override
-                                        public void onTick(long l) {
-                                            playerImage.setColorFilter(color[i],
-                                                    PorterDuff.Mode.SRC_IN);
-                                            i = ++i % 2;
-                                        }
-
-                                        public void onFinish() {
-                                            if (currGame.getPlayer().getLives() == 0) {
-                                                Intent gameOver = new
-                                                        Intent(getApplicationContext(),
-                                                        GameOverScreenActivity.class);
-                                                gameOver.putExtra("finalScore",
-                                                        currGame.getScore());
-                                                startActivity(gameOver);
-                                            }
-                                            playerImage.setColorFilter(null);
-                                            playState = true;
-                                        }
-                                    }.start();
-
+                                    onCollision();
                                 }
                                 timer.performClick();
-                                //System.out.println(Vehicle.time);
                                 time++;
                             }
                             public void onFinish() {
@@ -168,6 +92,87 @@ public class GameScreenActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    public void onCollision() {
+        collidedWithVehicle = false;
+        playState = false;
+        currGame.reset();
+        updatePlayerScreenData();
+        int[] color = {ContextCompat.getColor(getApplicationContext(), R.color.tint),
+            ContextCompat.getColor(getApplicationContext(), R.color.none)};
+
+        new CountDownTimer(2000, 500) {
+            private int i = 0;
+            @Override
+            public void onTick(long l) {
+                playerImage.setColorFilter(color[i], PorterDuff.Mode.SRC_IN);
+                i = ++i % 2;
+            }
+
+            public void onFinish() {
+                checkGameOver();
+                playerImage.setColorFilter(null);
+                playState = true;
+            }
+        }.start();
+    }
+
+    public void checkGameOver() {
+        if (currGame.getPlayer().getLives() == 0) {
+            Intent gameOver = new Intent(getApplicationContext(), GameOverScreenActivity.class);
+            gameOver.putExtra("finalScore", currGame.getScore());
+            startActivity(gameOver);
+        }
+    }
+
+    public void initializePlayerScreenData(Sprite player, int spriteImageIndex){
+        //Sets player image on screen
+        playerImage.setImageResource(Sprite.spriteOptions[spriteImageIndex][0]);
+
+        //Sets player name on screen
+        TextView playerName = findViewById(R.id.username);
+        playerName.setText(player.getName().toUpperCase());
+
+
+        //Sets player lives on screen
+        playerLives = findViewById(R.id.playerLives);
+        playerLives.setText(String.valueOf(player.getLives()));
+
+        playerPoints = findViewById(R.id.points);
+        playerPoints.setText(String.valueOf(currGame.getScore()));
+
+        timer = new Button(this);
+    }
+
+    public void initializeButtons() {
+        //navigation buttons
+        Button leftButton = findViewById(R.id.leftButton);
+        Button rightButton = findViewById(R.id.rightButton);
+        Button upButton = findViewById(R.id.upButton);
+        Button downButton = findViewById(R.id.downButton);
+
+        //moving sprite based on navigation button input
+        leftButton.setOnClickListener(e -> {
+            if (playState) {
+                moveLeft();
+            }
+        });
+        rightButton.setOnClickListener(e -> {
+            if (playState) {
+                moveRight();
+            }
+        });
+        upButton.setOnClickListener(e -> {
+            if (playState) {
+                moveUp();
+            }
+        });
+        downButton.setOnClickListener(e -> {
+            if (playState) {
+                moveDown();
+            }
+        });
     }
 
     /**
