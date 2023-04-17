@@ -1,8 +1,5 @@
 package com.example.team18;
 
-import android.content.Context;
-import android.widget.ImageView;
-
 import java.util.Random;
 
 /**
@@ -23,7 +20,7 @@ public class Game {
     /**
      * Constructor for new Game object.
      * @param player The Sprite the player has chosen.
-     * @param lives
+     * @param lives the lives the player has for this game.
      */
     public Game(Sprite player, int lives) {
         gameBlockArray = new GameBlock[16 * (lives + 1) / 2][9];
@@ -205,7 +202,6 @@ public class Game {
             }
         }
 
-//        int[] imageOptions = GameBlock.imageOptions;
         GameBlockTypes[] gbt = GameBlockTypes.values();
         for (int i = 0; i < rowMap.length; i++) {
             GameBlock[] row = gameBlockArray[i];
@@ -213,7 +209,6 @@ public class Game {
             ) {
                 g.blockType = gbt[rowMap[i]];
                 g.imageIndex = rowMap[i];
-//                g.gridBlock.setImageResource(imageOptions[rowMap[i]]);
             }
         }
 
@@ -224,19 +219,16 @@ public class Game {
                 GameBlock[] riverRow = gameBlockArray[i];
                 riverRow[begin].blockType = gbt[4];
                 riverRow[begin].imageIndex = 4;
-//                riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
                 begin = (begin + 1) % riverRow.length;
 
                 if (len > 1) {
                     riverRow[begin].blockType = gbt[4];
                     riverRow[begin].imageIndex = 4;
-//                    riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
                     begin = (begin + 1) % riverRow.length;
                 }
                 if (len > 2) {
                     riverRow[begin].blockType = gbt[4];
                     riverRow[begin].imageIndex = 4;
-//                    riverRow[begin].gridBlock.setImageResource(imageOptions[4]);
                     begin = (begin + 1) % riverRow.length;
                 }
                 begin = (begin - 1 + riverRow.length) % riverRow.length;
