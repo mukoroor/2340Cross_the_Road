@@ -1,9 +1,7 @@
 package com.example.team18;
 
 public abstract class Vehicle {
-
-    protected static CoupledListeners l;
-
+    protected static Clock c;
     /**
      * Constructor for Abstract Vehicle Class.
      **/
