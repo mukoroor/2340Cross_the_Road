@@ -226,8 +226,8 @@ public class GameScreenActivity extends AppCompatActivity {
             }
 
 
-            currGame.setScore(currGame.getScore() +
-                    currGame.getCurrBlock().blockType.getTravelGain() + vehiclePointAdd);
+            currGame.setScore(currGame.getScore()
+                    + currGame.getCurrBlock().blockType.getTravelGain() + vehiclePointAdd);
             updatePlayerScreenData();
 
             if (currGame.getCurrBlock().blockType == GameBlockTypes.SAFE) {
@@ -242,8 +242,8 @@ public class GameScreenActivity extends AppCompatActivity {
      *  A method for creating the functionality moving down with the down button
      */
     public void moveDown() {
-        if (currGame.getPosition()[1] <
-                (Game.getGameBlockArray().length - 1) * currGame.getBlockSize()) {
+        if (currGame.getPosition()[1]
+                < (Game.getGameBlockArray().length - 1) * currGame.getBlockSize()) {
             currGame.changePosition(0, 1);
             newTranslation -= currGame.getBlockSize();
             updatePlayerScreenData();
@@ -275,16 +275,6 @@ public class GameScreenActivity extends AppCompatActivity {
                     setDuration(2000)
                     .setInterpolator(new AccelerateDecelerateInterpolator()).start();
         }
-//        new CountDownTimer(2000, 2000) {
-//            @Override
-//            public void onTick(long l) {
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                playState = true;
-//            }
-//        }.start();
         playState = true;
     }
 
@@ -440,7 +430,7 @@ public class GameScreenActivity extends AppCompatActivity {
      */
     private String getPlayerInfo() {
         if (getIntent().getStringExtra("player") == null) {
-            return "KELLEY|1";
+            return "1|KELLEY";
         }
         return getIntent().getStringExtra("player");
     }

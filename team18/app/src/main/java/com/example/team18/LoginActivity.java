@@ -88,32 +88,26 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String content = parent.getItemAtPosition(position).toString();
         switch (parent.getId()) {
-            case R.id.spinner:
-                Toast.makeText(LoginActivity.this, "selected difficulties is " + content,
-                        Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                break;
+        case R.id.spinner:
+            Toast.makeText(LoginActivity.this, "selected difficulties is " + content,
+                    Toast.LENGTH_SHORT).show();
+            break;
+        default:
         }
         switch (position) {
-            case 0:
-
-                selectedDiff = dif[0];
-                System.out.println("selected Difficulty is " + selectedDiff);
-                break;
-            case 1:
-
-                selectedDiff = dif[1];
-                System.out.println("selected Difficulty is " + selectedDiff);
-                break;
-            case 2:
-
-
-                selectedDiff = dif[2];
-                System.out.println("selected Difficulty is " + selectedDiff);
-                break;
-            default:
-                break;
+        case 0:
+            selectedDiff = dif[0];
+            System.out.println("selected Difficulty is " + selectedDiff);
+            break;
+        case 1:
+            selectedDiff = dif[1];
+            System.out.println("selected Difficulty is " + selectedDiff);
+            break;
+        case 2:
+            selectedDiff = dif[2];
+            System.out.println("selected Difficulty is " + selectedDiff);
+            break;
+        default:
         }
     }
 
@@ -128,7 +122,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     /**
      * A method that creates a new intent and passes information to next activity
      * @param player The player to be passed into the game activity
-     * @param lives
+     * @param lives the lives to be passed into the game activity
      */
     private void toGame(Sprite player, int lives) {
         Intent playIntent = new Intent(this, GameScreenActivity.class);

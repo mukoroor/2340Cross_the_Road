@@ -24,7 +24,6 @@ public class GameWinScreenActivity extends AppCompatActivity {
         float fontSize = 40;
 
         scoreTextView.setText("Final Score:\n" + score);
-//        scoreTextView.setTextAlignment("center");
         scoreTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
 
         quitButton.setOnClickListener(e -> {

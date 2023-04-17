@@ -5,12 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class GameOverScreenActivity extends AppCompatActivity {
-    int finalScore;
+    private int finalScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,6 @@ public class GameOverScreenActivity extends AppCompatActivity {
         float fontSize = 40;
 
         scoreTextView.setText("Final Score:\n" + finalScore);
-//        scoreTextView.setTextAlignment("center");
         scoreTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
 
         quitButton.setOnClickListener(e -> {
