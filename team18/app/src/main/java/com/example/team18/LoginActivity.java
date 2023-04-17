@@ -64,16 +64,14 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             String username = edUsername.getText().toString().trim();
             if (username.length() == 0 || username.length() > 10) {
                 Toast.makeText(getApplicationContext(),
-                    "The username should be 1-10 characters long",
+                        "The username should be 1-10 characters long",
                         Toast.LENGTH_SHORT).show();
                 isValid = false;
             }
             if (isValid) {
                 Sprite player = new Sprite(spriteInd, username);
 
-                player.setLives(lives[spinner.getSelectedItemPosition()]);
-                toGame(player,lives[spinner.getSelectedItemPosition()]);
-
+                toGame(player, lives[spinner.getSelectedItemPosition()]);
             }
 
         });
@@ -90,32 +88,32 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String content = parent.getItemAtPosition(position).toString();
         switch (parent.getId()) {
-        case R.id.spinner:
-            Toast.makeText(LoginActivity.this, "selected difficulties is " + content,
-                Toast.LENGTH_SHORT).show();
-            break;
-        default:
-            break;
+            case R.id.spinner:
+                Toast.makeText(LoginActivity.this, "selected difficulties is " + content,
+                        Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
         }
         switch (position) {
-        case 0:
+            case 0:
 
-            selectedDiff = dif[0];
-            System.out.println("selected Difficulty is " + selectedDiff);
-            break;
-        case 1:
+                selectedDiff = dif[0];
+                System.out.println("selected Difficulty is " + selectedDiff);
+                break;
+            case 1:
 
-            selectedDiff = dif[1];
-            System.out.println("selected Difficulty is " + selectedDiff);
-            break;
-        case 2:
+                selectedDiff = dif[1];
+                System.out.println("selected Difficulty is " + selectedDiff);
+                break;
+            case 2:
 
 
-            selectedDiff = dif[2];
-            System.out.println("selected Difficulty is " + selectedDiff);
-            break;
-        default:
-            break;
+                selectedDiff = dif[2];
+                System.out.println("selected Difficulty is " + selectedDiff);
+                break;
+            default:
+                break;
         }
     }
 
@@ -130,10 +128,11 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     /**
      * A method that creates a new intent and passes information to next activity
      * @param player The player to be passed into the game activity
+     * @param lives
      */
     private void toGame(Sprite player, int lives) {
         Intent playIntent = new Intent(this, GameScreenActivity.class);
-        playIntent.putExtra("lives",lives);
+        playIntent.putExtra("lives", lives);
         playIntent.putExtra("player", player.toString());
         startActivity(playIntent);
     }

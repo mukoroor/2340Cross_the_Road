@@ -5,11 +5,16 @@ public enum GameBlockTypes {
     RIVER(0),
     SAFE(0),
     GOAL(4),
-    LOG(3);
+    LOG(3),
+    START(0);
 
-    final int travelGain;
+    private final int travelGain;
 
     GameBlockTypes(int travelGain) {
         this.travelGain = travelGain;
+    }
+
+    public int getTravelGain() {
+        return travelGain;
     }
 }
