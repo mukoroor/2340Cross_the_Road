@@ -96,6 +96,9 @@ public class GameScreenActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Handles collisions with vehicles
+     */
     public void onCollision() {
         collidedWithVehicle = false;
         playState = false;
@@ -120,6 +123,9 @@ public class GameScreenActivity extends AppCompatActivity {
         }.start();
     }
 
+    /**
+     * Checks if the game is over and goes to Game Over Screen
+     */
     public void checkGameOver() {
         if (currGame.getPlayer().getLives() == 0) {
             Intent gameOver = new Intent(getApplicationContext(), GameOverScreenActivity.class);
@@ -128,6 +134,11 @@ public class GameScreenActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method for initialzing player image, name, points, and lives
+     * @param player The player Sprite
+     * @param spriteImageIndex the image index selected on the Sprite Selector screen
+     */
     public void initializePlayerScreenData(Sprite player, int spriteImageIndex){
         //Sets player image on screen
         playerImage.setImageResource(Sprite.spriteOptions[spriteImageIndex][0]);
@@ -147,6 +158,9 @@ public class GameScreenActivity extends AppCompatActivity {
         timer = new Button(this);
     }
 
+    /**
+     * method for initializing button functionality
+     */
     public void initializeButtons() {
         //navigation buttons
         Button leftButton = findViewById(R.id.leftButton);
@@ -188,6 +202,8 @@ public class GameScreenActivity extends AppCompatActivity {
         playerImage.setY(currGame.getPosition()[1]);
     }
 
+
+    
     public void checkReachGoalTile() {
         if(currGame.getCurrBlock().blockType == GameBlockTypes.GOAL) {
             int temp = currGame.getScore();
@@ -200,6 +216,9 @@ public class GameScreenActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method for checking if the player is in the river
+     */
     public void checkOnRiver() {
         if (currGame.getCurrBlock().blockType == GameBlockTypes.RIVER) {
             currGame.reset();
