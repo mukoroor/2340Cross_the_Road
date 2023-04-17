@@ -20,24 +20,31 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class GameScreenActivity extends AppCompatActivity {
+    private static ImageView playerImage;
+    private static boolean collidedWithVehicle = false;
+    private static int time = 0;
+    protected String[] rowTypes = new String[16];
     private Button timer;
-    private CoupledListeners gameClock = new CoupledListeners();
-
-    private int checkCount = 0;
+    private final CoupledListeners gameClock = new CoupledListeners();
+    private final int checkCount = 0;
     private Game currGame;
     private TextView playerLives;
     private TextView playerPoints;
-    private static ImageView playerImage;
     private boolean playState = true;
-
-    private static boolean collidedWithVehicle = false;
-    protected String[] rowTypes = new String[16];
-
     private Vehicle testVehicle;
+    private final ArrayList<Vehicle> vehicleList = new ArrayList<>();
 
-    private static int time = 0;
+    public static ImageView getPlayerImage() {
+        return playerImage;
+    }
 
-    private ArrayList<Vehicle> vehicleList = new ArrayList<>();
+    public static int getTime() {
+        return time;
+    }
+
+    public static void setCollidedWithVehicle(boolean newStatus) {
+        collidedWithVehicle = newStatus;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +92,7 @@ public class GameScreenActivity extends AppCompatActivity {
                                 timer.performClick();
                                 time++;
                             }
+
                             public void onFinish() {
                                 start();
                             }
@@ -105,10 +113,11 @@ public class GameScreenActivity extends AppCompatActivity {
         currGame.reset();
         updatePlayerScreenData();
         int[] color = {ContextCompat.getColor(getApplicationContext(), R.color.tint),
-            ContextCompat.getColor(getApplicationContext(), R.color.none)};
+                ContextCompat.getColor(getApplicationContext(), R.color.none)};
 
         new CountDownTimer(2000, 500) {
             private int i = 0;
+
             @Override
             public void onTick(long l) {
                 playerImage.setColorFilter(color[i], PorterDuff.Mode.SRC_IN);
@@ -136,10 +145,11 @@ public class GameScreenActivity extends AppCompatActivity {
 
     /**
      * Method for initialzing player image, name, points, and lives
-     * @param player The player Sprite
+     *
+     * @param player           The player Sprite
      * @param spriteImageIndex the image index selected on the Sprite Selector screen
      */
-    public void initializePlayerScreenData(Sprite player, int spriteImageIndex){
+    public void initializePlayerScreenData(Sprite player, int spriteImageIndex) {
         //Sets player image on screen
         playerImage.setImageResource(Sprite.spriteOptions[spriteImageIndex][0]);
 
@@ -202,10 +212,8 @@ public class GameScreenActivity extends AppCompatActivity {
         playerImage.setY(currGame.getPosition()[1]);
     }
 
-
-    
     public void checkReachGoalTile() {
-        if(currGame.getCurrBlock().blockType == GameBlockTypes.GOAL) {
+        if (currGame.getCurrBlock().blockType == GameBlockTypes.GOAL) {
             int temp = currGame.getScore();
             currGame.setScore(temp + 50);
             Intent gameWin = new Intent(getApplicationContext(),
@@ -227,6 +235,7 @@ public class GameScreenActivity extends AppCompatActivity {
                     ContextCompat.getColor(this, R.color.none)};
             new CountDownTimer(2000, 500) {
                 private int i = 0;
+
                 @Override
                 public void onTick(long l) {
                     playerImage.setColorFilter(color[i], PorterDuff.Mode.SRC_IN);
@@ -247,6 +256,7 @@ public class GameScreenActivity extends AppCompatActivity {
             }.start();
         }
     }
+
     /**
      * A method for creating the functionality moving left with the left button
      */
@@ -298,7 +308,7 @@ public class GameScreenActivity extends AppCompatActivity {
     }
 
     /**
-     *  A method for creating the functionality moving down with the down button
+     * A method for creating the functionality moving down with the down button
      */
     public void moveDown() {
         if (currGame.getPosition()[1] < 14 * currGame.getBlockSize()) {
@@ -308,11 +318,11 @@ public class GameScreenActivity extends AppCompatActivity {
         checkOnRiver();
     }
 
-
     /**
      * Method for setting up the grid for the Game
+     *
      * @param gridContainer The parent View which holds all the GameBlocks created
-     * @param blockSize the size of each square GameBlock
+     * @param blockSize     the size of each square GameBlock
      */
     public void createGrid(LinearLayout gridContainer, int blockSize) {
         for (int row = 0; row < 16; row++) {
@@ -338,6 +348,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
     /**
      * Method for assigning row types to the created grid in the game
+     *
      * @return int array mapping integers to row types
      */
     public int[] populateGrid() {
@@ -374,7 +385,7 @@ public class GameScreenActivity extends AppCompatActivity {
         GameBlockTypes[] gbt = GameBlockTypes.values();
         for (int i = 0; i < rowTypes.length; i++) {
             GameBlock[] row = Game.getGameBlockArray()[i];
-            for (GameBlock g:row
+            for (GameBlock g : row
             ) {
                 g.blockType = gbt[rowTypes[i]];
                 g.gridBlock.setImageResource(imageOptions[rowTypes[i]]);
@@ -400,6 +411,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
     /**
      * Method for starting/calling animations of the rivers and fireball (on roads)
+     *
      * @param rows array representing the types of each row in grid;
      */
     public void animate(int[] rows) {
@@ -419,11 +431,14 @@ public class GameScreenActivity extends AppCompatActivity {
 
         for (int i = 0; i < roads.size(); i++) {
             switch (i % 2) {
-            case 0: rowTypes[roadStart + i] = "fireball";
+            case 0:
+                rowTypes[roadStart + i] = "fireball";
                 break;
-            case 1: rowTypes[roadStart + i] = "dragon";
+            case 1:
+                rowTypes[roadStart + i] = "dragon";
                 break;
-            case 2: rowTypes[roadStart + i] = "minecart";
+            case 2:
+                rowTypes[roadStart + i] = "minecart";
                 break;
             default:
             }
@@ -431,8 +446,8 @@ public class GameScreenActivity extends AppCompatActivity {
 
 
         //Animates rivers on screen
-        for (Integer rowIndex: rivers.keySet()
-             ) {
+        for (Integer rowIndex : rivers.keySet()
+        ) {
             moveRiver(rowIndex, rivers.get(rowIndex));
         }
         int i = 1;
@@ -442,7 +457,7 @@ public class GameScreenActivity extends AppCompatActivity {
             ImageView vehicle = new ImageView(this);
             mainFrame.addView(vehicle, 0);
             Vehicle vehicleObject = null;
-            
+
             switch (i) {
             case 1:
                 vehicleObject = new Fireball(road, vehicle);
@@ -469,8 +484,9 @@ public class GameScreenActivity extends AppCompatActivity {
 
     /**
      * Method for animating rivers
+     *
      * @param rowIndex the position of row in the gameBlockArray
-     * @param row the corresponding linear layout holding all GameBlocks in that row
+     * @param row      the corresponding linear layout holding all GameBlocks in that row
      */
     public void moveRiver(int rowIndex, LinearLayout row) {
 
@@ -502,6 +518,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
     /**
      * gets player string sent from login activity
+     *
      * @return string representing user player
      */
 
@@ -514,14 +531,11 @@ public class GameScreenActivity extends AppCompatActivity {
 
     /**
      * Returns game associated with class
+     *
      * @return currGame
      */
     public Game getGame() {
         return currGame;
-    }
-
-    public static ImageView getPlayerImage() {
-        return playerImage;
     }
 
     public boolean getPlayState() {
@@ -534,14 +548,6 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public ArrayList<Vehicle> getVehicleList() {
         return vehicleList;
-    }
-
-    public static int getTime() {
-        return time;
-    }
-
-    public static void setCollidedWithVehicle(boolean newStatus) {
-        collidedWithVehicle = newStatus;
     }
 }
 

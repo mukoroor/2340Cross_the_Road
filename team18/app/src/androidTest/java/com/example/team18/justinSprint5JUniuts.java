@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class JustinSprint5JUniuts {
+public class justinSprint5JUniuts {
 
 
     @Test

@@ -9,7 +9,7 @@ public enum GameBlockTypes {
 
     final int travelGain;
 
-    GameBlockTypes (int travelGain) {
+    GameBlockTypes(int travelGain) {
         this.travelGain = travelGain;
     }
 }
