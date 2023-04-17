@@ -113,4 +113,28 @@ public class Minecart extends Vehicle {
             GameScreenActivity.setCollidedWithVehicle(true);
         }
     }
+
+    public LinearLayout getRow() {
+        return row;
+    }
+
+    public ImageView getImage() {
+        return image;
+    }
+
+    public ImageView getTracks() {
+        return tracks;
+    }
+
+    public int getDelay() {
+        return delay;
+    }
+
+    public int[] getI() {
+        return i;
+    }
+
+    public boolean isLaunched() {
+        return launched;
+    }
 }
