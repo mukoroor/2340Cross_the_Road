@@ -8,23 +8,26 @@ import android.widget.LinearLayout;
 
 import java.util.Random;
 
-public class MineCart extends Vehicle {
+public class Minecart extends Vehicle {
     private final LinearLayout row;
 
     private final ImageView image;
 
     private final ImageView tracks;
 
-    private final int delay;
+    private int delay = 0;
+
+    private final int[] i = {0};
+
     private boolean launched = false;
 
     /**
-     * MineCart Constructor.
-     * @param row row mine cart rides across
-     * @param image image of mine cart
+     * Minecart Constructor.
+     * @param row row minecart rides across
+     * @param image image of minecart
      * @param tracks image of train tracks
      */
-    public MineCart(LinearLayout row, ImageView image, ImageView tracks) {
+    public Minecart(LinearLayout row, ImageView image, ImageView tracks) {
         super();
         this.row = row;
         this.image = image;
@@ -41,18 +44,20 @@ public class MineCart extends Vehicle {
     }
 
     /**
-     * Launches mine cart.
+     * Launches minecart.
      */
     public void launch() {
         image.setVisibility(View.INVISIBLE);
         c.addScheduledEvents(e -> {
-            if (c.getTime() < 5) {
-                tracks.setImageResource(R.drawable.traintracks);
-                tracks.setX(row.getX());
+            if (c.getTime() < 10) {
                 tracks.setY(row.getY());
+                tracks.setImageResource(R.drawable.traintracks);
                 tracks.setLayoutParams(new FrameLayout.LayoutParams(row.getWidth(),
                         row.getHeight()));
+                tracks.setX(0);
+                tracks.setVisibility(View.VISIBLE);
             }
+
             if (c.getTime() > delay && !launched) {
                 launched = true;
 
@@ -67,14 +72,14 @@ public class MineCart extends Vehicle {
     }
 
     /**
-     * Animates frames of mine cart.
+     * Animates frames of minecart.
      */
     @Override
     public void animateFrames() {
     }
 
     /**
-     * Animates movement of mine cart.
+     * Animates movement of minecart.
      */
     @Override
     public void animateMovement() {
@@ -83,7 +88,6 @@ public class MineCart extends Vehicle {
             if (c.getTime() % 2 == 0) {
                 image.setX(image.getX() - 50);
             }
-
             if (image.getX() < -image.getWidth()) {
                 image.setX(3 * row.getWidth());
             }

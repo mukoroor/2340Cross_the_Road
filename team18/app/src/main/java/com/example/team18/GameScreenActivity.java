@@ -34,6 +34,7 @@ public class GameScreenActivity extends AppCompatActivity {
     private Vehicle testVehicle;
 
 
+    private ArrayList<Vehicle> vehicleList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,10 +138,23 @@ public class GameScreenActivity extends AppCompatActivity {
      * method for updating the player positioning, score and lives
      */
     public void updatePlayerScreenData() {
+        checkReachGoalTile();
         playerPoints.setText(String.valueOf(currGame.getScore()));
         playerLives.setText(String.valueOf(currGame.getLives()));
         playerImage.setX(currGame.getPosition()[0]);
         playerImage.setY(currGame.getPosition()[1]);
+    }
+
+    public void checkReachGoalTile() {
+        if (currGame.getCurrBlock().blockType == GameBlockTypes.GOAL) {
+            int temp = currGame.getScore();
+            currGame.setScore(temp + 50);
+            Intent gameWin = new Intent(getApplicationContext(),
+                    GameWinScreenActivity.class);
+            gameWin.putExtra("finalScore", currGame.getScore());
+            startActivity(gameWin);
+            //should be congratulate screen.
+        }
     }
 
     public void flicker() {
@@ -203,7 +217,7 @@ public class GameScreenActivity extends AppCompatActivity {
                 vehiclePointAdd += 2;
             } else if ("dragon".equals(rowTypes[yCord])) {
                 vehiclePointAdd += 1;
-            } else if ("mineCart".equals(rowTypes[yCord])) {
+            } else if ("minecart".equals(rowTypes[yCord])) {
                 vehiclePointAdd += 3;
             } else if (currGame.getCurrBlock().blockType == GameBlockTypes.GOAL) {
                 Intent winScreen = new Intent(this, GameWinScreenActivity.class);
@@ -221,7 +235,7 @@ public class GameScreenActivity extends AppCompatActivity {
                 return;
             }
         }
-//        checkOnRiver();
+        checkOnRiver();
     }
 
     /**
@@ -327,7 +341,7 @@ public class GameScreenActivity extends AppCompatActivity {
                 break;
             case 1: rowTypes[roadStart + i] = "dragon";
                 break;
-            case 2: rowTypes[roadStart + i] = "mineCart";
+            case 2: rowTypes[roadStart + i] = "minecart";
                 break;
             default:
             }
@@ -358,15 +372,18 @@ public class GameScreenActivity extends AppCompatActivity {
             case 3:
                 ImageView tracks = new ImageView(this);
                 mainFrame.addView(tracks, 1);
-                vehicleObject = new MineCart(road, vehicle, tracks);
+                vehicleObject = new Minecart(road, vehicle, tracks);
                 i = 1;
                 break;
             default:
             }
 
+            vehicleList.add(vehicleObject);
+
             testVehicle = vehicleObject;
         }
     }
+
     /**
      * Method for animating rivers
      * @param rowIndex the position of row in the gameBlockArray
@@ -422,8 +439,10 @@ public class GameScreenActivity extends AppCompatActivity {
      * @return string representing user player
      */
     private String getPlayerInfo() {
-        return "1|KELLEY";
-        //return getIntent().getStringExtra("player");
+        if (getIntent().getStringExtra("player") == null) {
+            return "KELLEY|1";
+        }
+        return getIntent().getStringExtra("player");
     }
 
     private int getDifficulty() {
@@ -448,6 +467,10 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public Vehicle getTestVehicle() {
         return testVehicle;
+    }
+
+    public ArrayList<Vehicle> getVehicleList() {
+        return vehicleList;
     }
 
     public static void setCollidedWithVehicle(boolean newStatus) {
